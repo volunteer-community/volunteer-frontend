@@ -65,10 +65,10 @@ const InputLabel = forwardRef(
         break;
     }
     return (
-      <S.InputLabelWrap color={isValid}>
+      <S.InputLabelWrap>
         <label>{labelText}</label>
         {InputComponent}
-        <Paragraph paragraphText={validateText} color={isValid} />
+        <Paragraph paragraphText={validateText} $isValid={isValid} />
       </S.InputLabelWrap>
     );
   }

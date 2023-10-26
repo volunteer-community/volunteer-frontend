@@ -22,7 +22,7 @@ const useValidation = () => {
     location: true,
     file: true,
   });
-  
+
   const communityFormRef = (name: string, ref: ChangeEventType | null) => {
     if (ref) {
       inputRefs.current[name] = ref;
@@ -35,58 +35,69 @@ const useValidation = () => {
   };
 
   const validateTitle = () => {
-    const titleRefValue = inputRefs.current['title'].value;
+    const titleInput = inputRefs.current['title'];
+    const titleRefValue = titleInput.value;
     const isEmptyTitle = titleRefValue.trim() === '';
     if (isEmptyTitle) {
       validationMessage('title', isEmptyTitle, '커뮤니티 이름을 입력해주세요.');
+      titleInput.style.border = '2px solid #fb304b';
     } else {
       validationMessage('title', isEmptyTitle);
     }
   };
 
   const validateContent = () => {
-    const contentRefValue = inputRefs.current['content'].value;
+    const contentTextarea = inputRefs.current['content'];
+    const contentRefValue = contentTextarea.value;
     const isEmptyContent = contentRefValue.trim() === '';
     if (isEmptyContent) {
       validationMessage('content', isEmptyContent, '커뮤니티 소개를 작성해주세요.');
+      contentTextarea.style.border = '2px solid #fb304b';
     } else {
       validationMessage('content', isEmptyContent);
     }
   };
 
   const validateCategoryType = () => {
-    const categoryTypeRefValue = inputRefs.current['categoryType'].value;
+    const categorySelect = inputRefs.current['categoryType'];
+    const categoryTypeRefValue = categorySelect.value;
     const isEmptyCategoryType = categoryTypeRefValue.trim() === '';
     if (isEmptyCategoryType) {
       validationMessage('categoryType', isEmptyCategoryType, '카테고리를 선택해주세요.');
+      categorySelect.style.border = '2px solid #fb304b';
     } else {
       validationMessage('categoryType', isEmptyCategoryType);
     }
   };
 
   const validateMaxParticipant = () => {
-    const maxParticipantRefValue = inputRefs.current['maxParticipant'].value;
+    const maxParticipantInput = inputRefs.current['maxParticipant'];
+    const maxParticipantRefValue = maxParticipantInput.value;
     const isEmptyMaxParticipant = Number(maxParticipantRefValue) < 10;
     const isMultipleOfTen = Number(maxParticipantRefValue) % 10 !== 0;
 
     if (isEmptyMaxParticipant) {
       validationMessage('maxParticipant', isEmptyMaxParticipant, '최소 인원은 10명 이상이여야합니다.');
+      maxParticipantInput.style.border = '2px solid #fb304b';
     } else {
       validationMessage('maxParticipant', isEmptyMaxParticipant);
     }
 
     if (isMultipleOfTen) {
       validationMessage('maxParticipant', isMultipleOfTen, '10명 단위로 작성해주세요.');
+      maxParticipantInput.style.border = '2px solid #fb304b';
     } else {
       validationMessage('maxParticipant', isMultipleOfTen);
     }
   };
 
   const validateLocation = () => {
-    const locationRefValue = inputRefs.current['location'].value;
+    const locationInput = inputRefs.current['location'];
+    const locationRefValue = locationInput.value;
     const isEmptyLocation = locationRefValue.trim() === '';
     if (isEmptyLocation) {
       validationMessage('location', isEmptyLocation, '활동장소를 입력해주세요.');
+      locationInput.style.border = '2px solid #fb304b';
     } else {
       validationMessage('location', isEmptyLocation);
     }
