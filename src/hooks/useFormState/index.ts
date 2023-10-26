@@ -3,19 +3,17 @@ import { useState, ChangeEvent, FormEvent } from 'react';
 type ChangeEventType = HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement;
 
 export interface useFormStateProps {
-  initialData: {
-    title: string;
-    content: string;
-    categoryType: string;
-    maxParticipant: number;
-    location: string;
-    file: string;
-  };
+  title: string;
+  content: string;
+  categoryType: string;
+  maxParticipant: number;
+  location: string;
+  file: string;
 }
 
-const useFormState = ({ initialData }: useFormStateProps) => {
+const useFormState = (initialData: useFormStateProps) => {
   const [communityFormData, setCommunityFormData] = useState(initialData);
-  
+
   const handleCommunityChange = (event: ChangeEvent<ChangeEventType>) => {
     const { name, value } = event.target;
     console.log(value);
@@ -52,7 +50,7 @@ const useFormState = ({ initialData }: useFormStateProps) => {
       console.log(`${key}: ${value}`);
     }
   };
-  return { communityFormData, handleCommunityChange, handleCommunitySubmit } ;
+  return { communityFormData, handleCommunityChange, handleCommunitySubmit };
 };
 
 export default useFormState;
