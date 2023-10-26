@@ -1,18 +1,34 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 
 const Nav = () => {
+  const [activeIndex, setActiveIndex] = useState<number>(-1);
+
+  const handleMenuClick = (index: number) => {
+    setActiveIndex(index);
+  };
+
   return (
     <NavList>
-      <List>전체보기</List>
+      <List className={activeIndex === 0 ? 'active' : ''} onClick={() => handleMenuClick(0)}>
+        전체보기
+      </List>
 
-      <List>오프라인 캠페인</List>
+      <List className={activeIndex === 1 ? 'active' : ''} onClick={() => handleMenuClick(1)}>
+        오프라인 캠페인
+      </List>
 
-      <List>온라인 캠페인</List>
+      <List className={activeIndex === 2 ? 'active' : ''} onClick={() => handleMenuClick(2)}>
+        온라인 캠페인
+      </List>
 
-      <List>전시</List>
+      <List className={activeIndex === 3 ? 'active' : ''} onClick={() => handleMenuClick(3)}>
+        전시
+      </List>
 
-      <List>DIY 프로젝트</List>
+      <List className={activeIndex === 4 ? 'active' : ''} onClick={() => handleMenuClick(4)}>
+        DIY 프로젝트
+      </List>
     </NavList>
   );
 };
@@ -20,19 +36,21 @@ const Nav = () => {
 export default Nav;
 
 const NavList = styled.ul`
-  width: 70%;
+  width: 80%;
   display: flex;
   padding: 0px 0 0 30px;
 `;
 
 const List = styled.li`
   width: 17%;
-  padding: 45px 0 0 0;
+  padding: 40px 0 0 0;
   cursor: pointer;
   text-align: center;
   position: relative;
   z-index: 1;
+  font-size: 18px;
 
+  &.active,
   &:hover {
     color: #fff;
   }
@@ -50,7 +68,7 @@ const List = styled.li`
     transition: transform 0.3s ease;
     z-index: -1;
   }
-
+  &.active::before,
   &:hover::before {
     transform: scaleY(1);
   }
