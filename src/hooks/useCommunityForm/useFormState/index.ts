@@ -1,6 +1,6 @@
 import { useState, ChangeEvent, FormEvent } from 'react';
 
-type ChangeEventType = HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement;
+type ChangeEventType = HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement ;
 
 export interface useFormStateProps {
   title: string;
@@ -8,7 +8,7 @@ export interface useFormStateProps {
   categoryType: string;
   maxParticipant: number;
   location: string;
-  file: string;
+  file: File[];
 }
 
 const useFormState = (initialData: useFormStateProps) => {
@@ -16,10 +16,15 @@ const useFormState = (initialData: useFormStateProps) => {
 
   const handleCommunityChange = (event: ChangeEvent<ChangeEventType>) => {
     const { name, value } = event.target;
-    console.log(value);
-    const isEmpty = value.trim() === '';
-    setCommunityFormData({ ...communityFormData, [name]: value });
-    if (isEmpty) return;
+
+    if (event.target instanceof HTMLInputElement && event.target.type === 'file') {
+      const fileArray: File[] = event.target.files ? Array.from(event.target.files) : [];
+      setCommunityFormData({ ...communityFormData, [name]: fileArray });
+    } else {
+      const isEmpty = value.trim() === '';
+      setCommunityFormData({ ...communityFormData, [name]: value });
+      if (isEmpty) return;
+    }
   };
 
   const handleCommunitySubmit = (evnet: FormEvent<HTMLFormElement>) => {
@@ -30,9 +35,11 @@ const useFormState = (initialData: useFormStateProps) => {
     if (isEmptyFormData) return alert('모든 값은 입력이 필수 입니다.');
     const formData = new FormData();
     const isExistFile = file;
+ 
     if (isExistFile) {
       for (let fileIndex = 0; fileIndex < file.length; fileIndex++) {
-        formData.append('file', isExistFile[fileIndex]);
+        const currentFile = isExistFile[fileIndex]
+        formData.append('file', currentFile.name);
       }
     }
 
@@ -44,7 +51,7 @@ const useFormState = (initialData: useFormStateProps) => {
       content: '',
       maxParticipant: 10,
       location: '',
-      file: '',
+      file: [],
     });
     for (const [key, value] of formData.entries()) {
       console.log(`${key}: ${value}`);

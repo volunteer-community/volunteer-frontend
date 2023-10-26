@@ -26,7 +26,7 @@ interface CommunityFormProps {
     categoryType: string;
     maxParticipant: number;
     location: string;
-    file: string;
+    file: File[];
   };
 }
 

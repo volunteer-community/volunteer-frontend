@@ -5,15 +5,15 @@ import NumberInput from '../NumberInput/NumberInput';
 import TextInput from '../TextInput/TextInput';
 import FileInput from '../FileInput/FileInput';
 
-type InputType = 'text' | 'number' | 'file'; // 추가할 타입이 있다면 이곳에 추가
+export type InputType = 'text' | 'number' | 'file'; // 추가할 타입이 있다면 이곳에 추가
 
 export interface InputLabelProps {
   name: string;
   type?: InputType;
-  value?: string | number;
+  value?: string | number | File[] | (string | number)[];
   isValid: boolean;
   placeholder: string;
-  isFlie?: string| undefined;
+  isFlie?: string | undefined;
   labelText: string;
   validateText: string;
   multiple?: boolean;
@@ -39,14 +39,14 @@ const InputLabel = forwardRef(
     ref: ForwardedRef<HTMLInputElement>
   ) => {
     let InputComponent;
-
+    console.log(value);
     switch (type) {
       case 'text':
         InputComponent = (
           <TextInput
-            type="text"
+            type={type}
             name={name}
-            value={value}
+            value={value as string}
             placeholder={placeholder}
             onBlur={onBlur}
             onChange={onChange}
@@ -57,9 +57,9 @@ const InputLabel = forwardRef(
       case 'number':
         InputComponent = (
           <NumberInput
-            type="number"
+            type={type}
             name={name}
-            value={value}
+            value={value as number}
             placeholder={placeholder}
             onBlur={onBlur}
             onChange={onChange}
@@ -68,8 +68,16 @@ const InputLabel = forwardRef(
         );
         break;
       case 'file':
+        
         InputComponent = (
-          <FileInput type="file" name={name} multiple={multiple} onBlur={onBlur} onChange={onChange} ref={ref} />
+          <FileInput
+            type={type}
+            name={name}
+            multiple={multiple}
+            onBlur={onBlur}
+            onChange={onChange}
+            ref={ref}
+          />
         );
         break;
       default:

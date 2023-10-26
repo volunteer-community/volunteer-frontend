@@ -1,5 +1,5 @@
 import useFormState from '@hooks/useCommunityForm/useFormState';
-import useValidation from '@hooks/useCommunityForm/useValidation';
+import useValidation from '@hooks/useValidation';
 
 interface useCommunityFormProps {
   title: string;
@@ -7,7 +7,7 @@ interface useCommunityFormProps {
   categoryType: string;
   maxParticipant: number;
   location: string;
-  file: string;
+  file: File[];
 }
 const useCommunityForm = (initialData: useCommunityFormProps) => {
 

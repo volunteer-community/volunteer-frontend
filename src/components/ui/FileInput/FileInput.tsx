@@ -1,7 +1,11 @@
 import { ChangeEvent, forwardRef, ForwardedRef } from 'react';
-import Input, { InputProps } from '../Input/Input';
+import Input  from '../Input/Input';
+import { InputType } from '../InputLabel/InputLabel';
 
-interface FileInputProps extends InputProps {
+interface FileInputProps {
+  type: InputType;
+  name: string;
+  multiple?: boolean;
   onChange: (event: ChangeEvent<HTMLInputElement>) => void;
   onBlur: () => void;
 }
