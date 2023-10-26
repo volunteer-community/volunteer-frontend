@@ -1,7 +1,7 @@
 import InputLabel from '@components/ui/InputLabel/InputLabel';
 import SelectLabel from '@components/ui/SelectLabel/SelectLabel';
 
-import useCommunityForm from '@hooks/useCommunityForm/useCommunityForm';
+import useCommunityForm from '@hooks/useCommunityForm';
 import styled from 'styled-components';
 
 const Form = styled.form`
@@ -43,7 +43,7 @@ const CommunityForm = ({ initialData }:CommunityFormProps) => {
     communityFormRef,
     handleCommunityChange,
     handleCommunitySubmit,
-  } = useCommunityForm({ initialData });
+  } = useCommunityForm( initialData );
   return (
     <Form onSubmit={handleCommunitySubmit}>
       <InputLabel
