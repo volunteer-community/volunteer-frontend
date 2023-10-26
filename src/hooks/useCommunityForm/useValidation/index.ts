@@ -102,9 +102,22 @@ const useValidation = () => {
       validationMessage('location', isEmptyLocation);
     }
   };
+  const validateFile = () => {
+    const fileInput = inputRefs.current['file'];
+    const fileRefValue = fileInput.value;
+    const isEmptyfile = fileRefValue.trim() === '';
+    if (isEmptyfile) {
+      validationMessage('file', isEmptyfile, '이미지를 입력해주세요.');
+    } else {
+      validationMessage('file', isEmptyfile);
+    }
+  };
+
+
   return {
     validateStatus,
     validateMessage,
+    validateFile,
     validateTitle,
     communityFormRef,
     validateContent,

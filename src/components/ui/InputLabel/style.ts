@@ -1,7 +1,8 @@
 import styled from 'styled-components';
-
-
-export const InputLabelWrap = styled.div`
+interface InputLabelWrapProps {
+  $isFlie?: string | undefined
+}
+export const InputLabelWrap = styled.div<InputLabelWrapProps>`
   display: flex;
   flex-direction: column;
   @media (min-width: 780px) {
@@ -21,7 +22,7 @@ export const InputLabelWrap = styled.div`
     padding: 0 24px;
     height: 42px;
     border-radius: 10px;
-    border: 2px solid #d9d9d9;
+    border: ${(props)=> props.$isFlie? '' :'2px solid #d9d9d9'}
   }
   input[type='number']::-webkit-inner-spin-button,
   input[type='number']::-webkit-outer-spin-button {

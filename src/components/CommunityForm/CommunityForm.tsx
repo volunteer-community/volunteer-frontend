@@ -1,6 +1,6 @@
 import InputLabel from '@components/ui/InputLabel/InputLabel';
 import SelectLabel from '@components/ui/SelectLabel/SelectLabel';
-
+import TextareaLabel from '@components/ui/TextareaLabel/TextareaLabel';
 import useCommunityForm from '@hooks/useCommunityForm';
 import styled from 'styled-components';
 
@@ -30,12 +30,13 @@ interface CommunityFormProps {
   };
 }
 
-const CommunityForm = ({ initialData }:CommunityFormProps) => {
+const CommunityForm = ({ initialData }: CommunityFormProps) => {
   const {
     validateStatus,
     validateMessage,
     communityFormData,
     validateTitle,
+    validateFile,
     validateContent,
     validateLocation,
     validateCategoryType,
@@ -43,7 +44,7 @@ const CommunityForm = ({ initialData }:CommunityFormProps) => {
     communityFormRef,
     handleCommunityChange,
     handleCommunitySubmit,
-  } = useCommunityForm( initialData );
+  } = useCommunityForm(initialData);
   return (
     <Form onSubmit={handleCommunitySubmit}>
       <InputLabel
@@ -69,6 +70,20 @@ const CommunityForm = ({ initialData }:CommunityFormProps) => {
         ref={(ref) => communityFormRef('categoryType', ref)}
       />
       <InputLabel
+        type='file'
+        name='file'
+        isFlie='file'
+        multiple={true}
+        placeholder='사진을 넣어주세요'
+        labelText="이미지"
+        value={communityFormData.file}
+        validateText={validateMessage.file}
+        onChange={handleCommunityChange}
+        onBlur={validateFile}
+        isValid={validateStatus.file}
+        ref={(ref) => communityFormRef('file', ref)}
+      />
+      <InputLabel
         name="maxParticipant"
         value={communityFormData.maxParticipant}
         labelText="모집인원"
@@ -86,13 +101,23 @@ const CommunityForm = ({ initialData }:CommunityFormProps) => {
         labelText="활동장소"
         type="text"
         validateText={validateMessage.location}
-        placeholder="커뮤니티 활동장소을 작성해주세요"
+        placeholder="커뮤니티 활동장소을 작성해주세요."
         onBlur={validateLocation}
         onChange={handleCommunityChange}
         ref={(ref) => communityFormRef('location', ref)}
         isValid={validateStatus.location}
       />
-
+      <TextareaLabel
+        name="content"
+        value={communityFormData.content}
+        labelText="커뮤니티 소개"
+        validateText={validateMessage.content}
+        placeholder="커뮤니티 소개를 작성해주세요."
+        onBlur={validateContent}
+        onChange={handleCommunityChange}
+        ref={(ref) => communityFormRef('content', ref)}
+        isValid={validateStatus.content}
+      />
       <div>
         <button>제출하기</button>
       </div>

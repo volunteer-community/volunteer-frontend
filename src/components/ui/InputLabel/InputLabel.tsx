@@ -13,17 +13,29 @@ export interface InputLabelProps {
   value?: string | number;
   isValid: boolean;
   placeholder: string;
+  isFlie?: string| undefined;
   labelText: string;
   validateText: string;
   multiple?: boolean;
   onBlur: () => void;
   onChange: (event: ChangeEvent<HTMLInputElement>) => void;
-  
 }
 
 const InputLabel = forwardRef(
   (
-    { type, labelText, isValid, validateText, name, value, placeholder, multiple, onBlur, onChange }: InputLabelProps,
+    {
+      type,
+      labelText,
+      isValid,
+      validateText,
+      name,
+      value,
+      placeholder,
+      isFlie,
+      multiple,
+      onBlur,
+      onChange,
+    }: InputLabelProps,
     ref: ForwardedRef<HTMLInputElement>
   ) => {
     let InputComponent;
@@ -65,7 +77,7 @@ const InputLabel = forwardRef(
         break;
     }
     return (
-      <S.InputLabelWrap>
+      <S.InputLabelWrap $isFlie={isFlie}>
         <label>{labelText}</label>
         {InputComponent}
         <Paragraph paragraphText={validateText} $isValid={isValid} />
