@@ -1,7 +1,7 @@
 import InputLabel from '@components/ui/InputLabel/InputLabel';
 import SelectLabel from '@components/ui/SelectLabel/SelectLabel';
 
-import useCommunityForm from '@hooks/useCommunityData/useCommunityForm';
+import useCommunityForm from '@hooks/useCommunityForm/useCommunityForm';
 import styled from 'styled-components';
 
 const Form = styled.form`
