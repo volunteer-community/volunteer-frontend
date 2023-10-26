@@ -75,7 +75,7 @@ const Routers = createBrowserRouter([
       },
       {
         path: 'admin/community',
-        element: <CommunitySearchPage/>,
+        element: <CommunitySearchPage />,
       },
     ],
   },
