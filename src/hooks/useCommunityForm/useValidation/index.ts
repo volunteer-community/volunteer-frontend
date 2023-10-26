@@ -1,8 +1,17 @@
-import useRefs from '@hooks/useCommunityForm/useRefs';
-import { useState } from 'react';
+
+import { useState, useRef } from 'react';
+
+type ChangeEventType = HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement;
+type RefType = { [key: string]: ChangeEventType };
 
 const useValidation = () => {
-  const { inputRefs } = useRefs();
+    const inputRefs = useRef<RefType>({});
+    const communityFormRef = (name: string, ref: ChangeEventType | null) => {
+      if (ref) {
+        console.log(inputRefs);
+        inputRefs.current[name] = ref;
+      }
+    };
   const [validateMessage, setValidateMessage] = useState({
     title: '',
     content: '',
@@ -86,6 +95,7 @@ const useValidation = () => {
     validateStatus,
     validateMessage,
     validateTitle,
+    communityFormRef,
     validateContent,
     validateLocation,
     validateCategoryType,

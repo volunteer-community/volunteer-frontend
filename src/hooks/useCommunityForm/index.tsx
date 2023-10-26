@@ -1,5 +1,4 @@
 import useFormState from '@hooks/useCommunityForm/useFormState';
-import useRefs from '@hooks/useCommunityForm/useRefs';
 import useValidation from '@hooks/useCommunityForm/useValidation';
 
 interface useCommunityFormProps {
@@ -11,11 +10,12 @@ interface useCommunityFormProps {
   file: string;
 }
 const useCommunityForm = (initialData: useCommunityFormProps) => {
-  const { communityFormRef } = useRefs();
+
   const { communityFormData, handleCommunityChange, handleCommunitySubmit } = useFormState(initialData);
   const {
     validateStatus,
     validateMessage,
+    communityFormRef,
     validateTitle,
     validateContent,
     validateLocation,
