@@ -1,17 +1,11 @@
-
 import { useState, useRef } from 'react';
 
 type ChangeEventType = HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement;
 type RefType = { [key: string]: ChangeEventType };
 
 const useValidation = () => {
-    const inputRefs = useRef<RefType>({});
-    const communityFormRef = (name: string, ref: ChangeEventType | null) => {
-      if (ref) {
-        console.log(inputRefs);
-        inputRefs.current[name] = ref;
-      }
-    };
+  const inputRefs = useRef<RefType>({});
+
   const [validateMessage, setValidateMessage] = useState({
     title: '',
     content: '',
@@ -28,6 +22,12 @@ const useValidation = () => {
     location: true,
     file: true,
   });
+  
+  const communityFormRef = (name: string, ref: ChangeEventType | null) => {
+    if (ref) {
+      inputRefs.current[name] = ref;
+    }
+  };
 
   const validationMessage = (type: string, isError: boolean, errorMessage: string = '') => {
     setValidateMessage({ ...validateMessage, [type]: errorMessage });

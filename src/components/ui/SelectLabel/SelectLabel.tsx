@@ -17,7 +17,7 @@ interface SelectLabelProps {
 }
 
 const SelectLabel = forwardRef(({ labelText, optionData,value, validateText, isValid, onChange, onBulr }: SelectLabelProps, ref:ForwardedRef<HTMLSelectElement>) => {
-	console.log(ref)
+
   return (
 		<S.SelectLabelWrap color={isValid }>
       <label>{labelText}</label>
