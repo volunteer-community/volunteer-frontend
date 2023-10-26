@@ -22,7 +22,7 @@ const SelectLabel = forwardRef(({ labelText, optionData,value, validateText, isV
 		<S.SelectLabelWrap>
       <label>{labelText}</label>
 			<SelectOption optionData={optionData} onChange={onChange} onBulr={onBulr} value={value} ref={ref } />
-      <Paragraph paragraphText={validateText} isValid={isValid} />
+      <Paragraph paragraphText={validateText} $isValid={isValid} />
     </S.SelectLabelWrap>
   );
 })
