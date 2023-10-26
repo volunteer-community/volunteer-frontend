@@ -1,20 +1,16 @@
-import useFormState from '@hooks/useFormState';
-import useRefs from '@hooks/useRefs';
-import useValidation from '@hooks/useValidation';
-
-
+import useFormState from '@hooks/useCommunityForm/useFormState';
+import useRefs from '@hooks/useCommunityForm/useRefs';
+import useValidation from '@hooks/useCommunityForm/useValidation';
 
 interface useCommunityFormProps {
-
-    title: string;
-    content: string;
-    categoryType: string;
-    maxParticipant: number;
-    location: string;
-    file: string;
-
+  title: string;
+  content: string;
+  categoryType: string;
+  maxParticipant: number;
+  location: string;
+  file: string;
 }
-const useCommunityForm = (initialData:useCommunityFormProps) => {
+const useCommunityForm = (initialData: useCommunityFormProps) => {
   const { communityFormRef } = useRefs();
   const { communityFormData, handleCommunityChange, handleCommunitySubmit } = useFormState(initialData);
   const {
@@ -26,8 +22,6 @@ const useCommunityForm = (initialData:useCommunityFormProps) => {
     validateCategoryType,
     validateMaxParticipant,
   } = useValidation();
-
- 
 
   return {
     validateStatus,

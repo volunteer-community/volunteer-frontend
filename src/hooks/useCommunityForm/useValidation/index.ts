@@ -1,4 +1,4 @@
-import useRefs from '@hooks/useRefs';
+import useRefs from '@hooks/useCommunityForm/useRefs';
 import { useState } from 'react';
 
 const useValidation = () => {
