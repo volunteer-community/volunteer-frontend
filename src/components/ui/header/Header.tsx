@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import GlobalStyle from '../globalStyle/GlobalStyle';
 import mainLogo from '/src/assets/images/Logo.png';
 import Nav from './Nav';
-// import Utill from './Utill';
+import Utill from './Utill';
 
 const Header = () => {
   return (
@@ -16,7 +16,7 @@ const Header = () => {
             <Link to="/">메인로고</Link>
           </Logo>
           <Nav />
-          {/* <Utill /> */}
+          <Utill />
         </HeaderWrap>
       </HeaderLayout>
     </>
@@ -29,6 +29,9 @@ const HeaderLayout = styled.header`
   width: 100%;
   height: 100px;
   background-color: #56c9b6;
+  position: fixed;
+  top: 0;
+  z-index: 1;
 `;
 
 const HeaderWrap = styled.div`
