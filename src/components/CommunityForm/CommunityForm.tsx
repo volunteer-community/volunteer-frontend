@@ -1,8 +1,9 @@
-import InputLabel from '@components/ui/InputLabel/InputLabel';
+
+import styled from 'styled-components';
+import { FileInput, Input } from '@components/ui/Input';
 import SelectLabel from '@components/ui/SelectLabel/SelectLabel';
 import TextareaLabel from '@components/ui/TextareaLabel/TextareaLabel';
 import useCommunityForm from '@hooks/useCommunityForm';
-import styled from 'styled-components';
 
 const Form = styled.form`
   display: flex;
@@ -47,17 +48,17 @@ const CommunityForm = ({ initialData }: CommunityFormProps) => {
   } = useCommunityForm(initialData);
   return (
     <Form onSubmit={handleCommunitySubmit}>
-      <InputLabel
-        name="title"
-        value={communityFormData.title}
-        labelText="커뮤니티 이름"
+      <Input
         type="text"
-        validateText={validateMessage.title}
+        name="title"
+        labelText="커뮤니티 이름"
         placeholder="커뮤니티 이름을 작성해주세요"
         onBlur={validateTitle}
         onChange={handleCommunityChange}
-        ref={(ref) => communityFormRef('title', ref)}
+        value={communityFormData.title}
+        validateText={validateMessage.title}
         isValid={validateStatus.title}
+        ref={(ref) => communityFormRef('title', ref)}
       />
       <SelectLabel
         labelText="커뮤니티 카테고리"
@@ -69,43 +70,39 @@ const CommunityForm = ({ initialData }: CommunityFormProps) => {
         optionData={CATEGORY_TYPE}
         ref={(ref) => communityFormRef('categoryType', ref)}
       />
-      <InputLabel
-        type='file'
-        name='file'
-        isFlie='file'
-        multiple={true}
-        placeholder='사진을 넣어주세요'
+      <FileInput
+        name="file"
         labelText="이미지"
-        value={communityFormData.file}
-        validateText={validateMessage.file}
-        onChange={handleCommunityChange}
+        multiple={true}
         onBlur={validateFile}
+        onChange={handleCommunityChange}
         isValid={validateStatus.file}
+        validateText={validateMessage.file}
         ref={(ref) => communityFormRef('file', ref)}
       />
-      <InputLabel
-        name="maxParticipant"
-        value={communityFormData.maxParticipant}
-        labelText="모집인원"
-        validateText={validateMessage.maxParticipant}
-        placeholder="커뮤니티 모집인원을 작성해주세요"
+      <Input
         type="number"
+        name="maxParticipant"
+        labelText="모집인원"
+        placeholder="커뮤니티 모집인원을 작성해주세요."
         onBlur={validateMaxParticipant}
         onChange={handleCommunityChange}
-        ref={(ref) => communityFormRef('maxParticipant', ref)}
+        value={communityFormData.maxParticipant}
+        validateText={validateMessage.maxParticipant}
         isValid={validateStatus.maxParticipant}
+        ref={(ref) => communityFormRef('maxParticipant', ref)}
       />
-      <InputLabel
-        name="location"
-        value={communityFormData.location}
-        labelText="활동장소"
+      <Input
         type="text"
-        validateText={validateMessage.location}
-        placeholder="커뮤니티 활동장소을 작성해주세요."
+        name="location"
+        labelText="활동장소"
+        placeholder="커뮤니티 활동 장소을 작성해주세요."
         onBlur={validateLocation}
         onChange={handleCommunityChange}
-        ref={(ref) => communityFormRef('location', ref)}
+        value={communityFormData.location}
+        validateText={validateMessage.location}
         isValid={validateStatus.location}
+        ref={(ref) => communityFormRef('location', ref)}
       />
       <TextareaLabel
         name="content"
