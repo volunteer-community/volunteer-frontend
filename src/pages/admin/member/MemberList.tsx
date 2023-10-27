@@ -1,10 +1,10 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { usePagination, useTable } from 'react-table';
 import styled from 'styled-components';
-import { COLUMNS } from './columns';
-import mockdata from './mockdata.json';
+import { memberColumns } from './memberColumns';
+import memberdata from './memberdata.json';
 
-interface Data {
+export interface Data {
   id: number;
   loginId: string;
   email: string;
@@ -15,29 +15,27 @@ interface Data {
   nickname: string;
 }
 
-export const MemberList = () => {
+export const MemberList: React.FC = () => {
   const [data, setData] = useState<Data[]>([]);
 
   useEffect(() => {
-    setData(mockdata as Data[]);
+    setData(memberdata as Data[]);
   }, []);
 
-  const {
-    getTableProps,
-    getTableBodyProps,
-    headerGroups,
-    page,
-    prepareRow,
-    state: { pageIndex, pageSize },
-    pageCount,
-    gotoPage,
-  } = useTable<Data>({ columns: COLUMNS, data, initialState: { pageIndex: 0, pageSize: 5 } }, usePagination);
+  const { getTableProps, getTableBodyProps, headerGroups, page, prepareRow, pageCount, gotoPage } = useTable<Data>(
+    {
+      columns: memberColumns,
+      data: data,
+      initialState: { pageIndex: 0, pageSize: 5 },
+    },
+    usePagination
+  );
 
   // 페이지네이션 버튼 범위 관리 상태
   const [pageRangeStartIndex, setPageRangeStartIndex] = useState(0);
 
   // 다음 or 이전 페이지 그룹(5페이지씩)으로 이동하는 함수
-  function movePageGroup(dir: 'prev' | 'next') {
+  function movePageGroup(dir: 'prev' | 'next'): void {
     if (dir === 'prev' && pageRangeStartIndex >= 5) {
       setPageRangeStartIndex(pageRangeStartIndex - 5);
     } else if (dir === 'next' && pageRangeStartIndex < pageCount - 5) {
@@ -78,7 +76,7 @@ export const MemberList = () => {
         </TableButton>
 
         {/* 페이징 숫자 목록, 최대 5개의 페이지 번호 생성, 마지막 페이지 그룹에서는 남은 페이지 수만큼만 버튼 생성 */}
-        {[...Array(Math.min(5, pageCount - pageRangeStartIndex))].map((x, i) => (
+        {[...Array(Math.min(5, pageCount - pageRangeStartIndex))].map((_, i) => (
           <TableButton key={i} onClick={() => gotoPage(pageRangeStartIndex + i)}>
             {pageRangeStartIndex + i + 1}
           </TableButton>

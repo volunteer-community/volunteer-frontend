@@ -1,4 +1,7 @@
-export const COLUMNS = [
+import { Column } from 'react-table';
+import { Data } from './MemberList';
+
+export const memberColumns: Column<Data>[] = [
   {
     Header: '번호',
     accessor: 'id',
@@ -14,7 +17,9 @@ export const COLUMNS = [
   {
     Header: '프로필사진',
     accessor: 'profileImage',
-    Cell: ({ value }) => <img src={value} alt="프로필 사진" style={{ width: '100px', height: '100px' }} />,
+    Cell: ({ value }: { value: string }) => (
+      <img src={value} alt="프로필 사진" style={{ width: '100px', height: '100px' }} />
+    ),
   },
   {
     Header: '이름',
