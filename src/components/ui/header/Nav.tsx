@@ -10,23 +10,53 @@ const Nav = () => {
 
   return (
     <NavList>
-      <List className={activeIndex === 0 ? 'active' : ''} onClick={() => handleMenuClick(0)}>
+      <List
+        className={activeIndex === 0 ? 'active' : ''}
+        onClick={() => {
+          handleMenuClick(0);
+          window.scrollTo(0, 700);
+        }}
+      >
         전체보기
       </List>
 
-      <List className={activeIndex === 1 ? 'active' : ''} onClick={() => handleMenuClick(1)}>
+      <List
+        className={activeIndex === 1 ? 'active' : ''}
+        onClick={() => {
+          handleMenuClick(1);
+          window.scrollTo(0, 700);
+        }}
+      >
         오프라인 캠페인
       </List>
 
-      <List className={activeIndex === 2 ? 'active' : ''} onClick={() => handleMenuClick(2)}>
+      <List
+        className={activeIndex === 2 ? 'active' : ''}
+        onClick={() => {
+          handleMenuClick(2);
+          window.scrollTo(0, 700);
+        }}
+      >
         온라인 캠페인
       </List>
 
-      <List className={activeIndex === 3 ? 'active' : ''} onClick={() => handleMenuClick(3)}>
+      <List
+        className={activeIndex === 3 ? 'active' : ''}
+        onClick={() => {
+          handleMenuClick(3);
+          window.scrollTo(0, 700);
+        }}
+      >
         전시
       </List>
 
-      <List className={activeIndex === 4 ? 'active' : ''} onClick={() => handleMenuClick(4)}>
+      <List
+        className={activeIndex === 4 ? 'active' : ''}
+        onClick={() => {
+          handleMenuClick(4);
+          window.scrollTo(0, 700);
+        }}
+      >
         DIY 프로젝트
       </List>
     </NavList>
