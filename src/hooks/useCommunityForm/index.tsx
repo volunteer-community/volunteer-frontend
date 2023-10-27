@@ -1,5 +1,5 @@
 import useFormState from '@hooks/useCommunityForm/useFormState';
-import useValidation from '@hooks/useValidation';
+import useValidation from '@hooks/useCommunityForm/useValidation';
 
 interface useCommunityFormProps {
   title: string;
