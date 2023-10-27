@@ -1,9 +1,8 @@
-import { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { usePagination, useTable } from 'react-table';
 import styled from 'styled-components';
 import { communityColumns } from './communityColumns';
 import communitydata from './communitydata.json';
-
 export interface Data {
   communityId: number;
   categoryId: string;
@@ -20,28 +19,24 @@ export interface Data {
 }
 
 export const CommunityList: React.FC = () => {
-  const [data, setData] = useState<Data[]>([]);
+  // const [data, setData] = useState<Data[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<string>('전체');
-  const [filteredData, setFilteredData] = useState<Data[]>([]);
 
-  useEffect(() => {
-    const transformedData = communitydata.map((item) => ({
+  const transformedData = React.useMemo(() => {
+    return communitydata.map((item) => ({
       ...item,
       createdAt: new Date(item.createdAt),
       updatedAt: new Date(item.updatedAt),
-    }));
-    setData(transformedData as Data[]);
+    })) as Data[];
   }, []);
 
-  // useEffect 훅 외에 다른 방법을 찾자
-  useEffect(() => {
+  // 필터 사용 시 useMemo훅 사용이 최선인지 고려 중
+  const filteredData = React.useMemo(() => {
     if (selectedCategory === '전체') {
-      setFilteredData(data);
-    } else {
-      const filtered = data.filter((item) => item.categoryId === selectedCategory);
-      setFilteredData(filtered);
+      return transformedData;
     }
-  }, [selectedCategory, data]);
+    return transformedData.filter((item) => item.categoryId === selectedCategory);
+  }, [selectedCategory, transformedData]);
 
   const { getTableProps, getTableBodyProps, headerGroups, page, prepareRow, pageCount, gotoPage } = useTable<Data>(
     {
@@ -51,7 +46,6 @@ export const CommunityList: React.FC = () => {
     },
     usePagination
   );
-
   // 페이지네이션 버튼 범위 관리 상태
   const [pageRangeStartIndex, setPageRangeStartIndex] = useState(0);
 
@@ -70,14 +64,14 @@ export const CommunityList: React.FC = () => {
 
   return (
     <>
-      {/* 선미님이 만든 셀렉트 적용할 것 */}
-      <select value={selectedCategory} onChange={handleCategoryChange}>
+      {/* 임시로 작성한 코드, 수정 예정 */}
+      <StyledSelect value={selectedCategory} onChange={handleCategoryChange}>
         <option value="전체">전체</option>
         <option value="DIY">DIY</option>
         <option value="오프라인 캠페인">오프라인 캠페인</option>
         <option value="온라인 캠페인">온라인 캠페인</option>
         <option value="전시/홍보">전시/홍보</option>
-      </select>
+      </StyledSelect>
 
       <ProductTableStyle>
         <table {...getTableProps()}>
@@ -127,11 +121,20 @@ export const CommunityList: React.FC = () => {
   );
 };
 
+// 삭제 예정
+const StyledSelect = styled.select`
+  margin: 8rem 0 2rem 2.5rem;
+`;
+
 const ProductTableStyle = styled.div`
-  padding: 50px 0 50px 0;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  flex-direction: column;
+
   table {
     border-collapse: collapse;
-    width: 100%;
+    width: 95%;
   }
 
   th,
@@ -142,10 +145,10 @@ const ProductTableStyle = styled.div`
   }
 
   tr:hover {
-    background-color: rgba(51, 51, 51, 0.5);
+    background-color: rgb(0, 192, 158, 0.5);
   }
   th {
-    background-color: #02c75a;
+    background-color: #57c8b5;
     color: white;
     text-align: center;
   }
