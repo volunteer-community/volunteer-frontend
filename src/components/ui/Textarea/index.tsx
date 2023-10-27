@@ -1,7 +1,7 @@
 import { forwardRef, ForwardedRef, ChangeEvent } from 'react';
-import Textarea from '../Textarea/Textarea';
 import Paragraph from '../Paragraph/Paragraph';
 import * as S from './style';
+
 interface TextareaLabelProps {
   labelText: string;
   value: string;
@@ -21,7 +21,7 @@ const TextareaLabel = forwardRef(
     return (
       <S.TextareaLabelWrap>
         <label>{labelText}</label>
-        <Textarea name={name} value={value} placeholder={placeholder} onBlur={onBlur} onChange={onChange} ref={ref} />
+        <textarea name={name} value={value} placeholder={placeholder} onBlur={onBlur} onChange={onChange} ref={ref} />
         <Paragraph paragraphText={validateText} $isValid={isValid} />
       </S.TextareaLabelWrap>
     );

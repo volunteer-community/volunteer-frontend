@@ -2,7 +2,7 @@
 import styled from 'styled-components';
 import { FileInput, Input } from '@components/ui/Input';
 import SelectLabel from '@components/ui/SelectLabel/SelectLabel';
-import TextareaLabel from '@components/ui/TextareaLabel/TextareaLabel';
+import TextareaLabel from '@components/ui/Textarea';
 import useCommunityForm from '@hooks/useCommunityForm';
 
 const Form = styled.form`
