@@ -4,18 +4,19 @@ import { Link } from 'react-router-dom';
 const CategoryListWrap = styled.div`
   width: 1500px;
   margin: 0 auto;
-  padding: 100px 0 0 0;
+  padding: 100px 0 50px 0;
 `;
 const CategoryListBox = styled.ul`
   width: 100%;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   flex-flow: wrap;
 `;
 
 const CategoryItem = styled.li`
   width: 23%;
-  padding-bottom: 50px;
+  padding: 0 20px 50px 20px;
+  box-sizing: border-box;
 `;
 
 const StyledLink = styled(Link)`
@@ -120,6 +121,32 @@ const HostName = styled.span`
   padding: 5px 5px 0 0px;
 `;
 
+const MoreBtnWrap = styled.span`
+  display: block;
+  width: 91%;
+`;
+
+const MoreBtn = styled.button`
+  font-family: 'NotoSans-Medium';
+  width: 200px;
+  display: block;
+  margin: 0 auto;
+  text-align: center;
+  font-size: 22px;
+  font-weight: 600;
+  color: #56c9b6;
+  margin-top: 30px;
+  border: solid 1px #56c9b6;
+  border-radius: 10px;
+  padding: 7px 40px;
+  box-sizing: border-box;
+  transition: transform 0.3s ease;
+  &:hover {
+    background: #56c9b6;
+    color: #fff;
+  }
+`;
+
 export {
   CategoryListWrap,
   FlexBox,
@@ -137,4 +164,6 @@ export {
   IsJoinedText,
   CommunityJoinCount,
   HostName,
+  MoreBtnWrap,
+  MoreBtn,
 };
