@@ -16,7 +16,7 @@ const INIT_EDIT_IMAGE = [Logo, Camera]
 const CommunityEditPage = () => {
 	return (
     <Section sectionTitle="커뮤니티 수정">
-			<CommunityForm initialData={INITIDATA} initialImageURLS={INIT_EDIT_IMAGE } />
+			<CommunityForm initialData={INITIDATA} initialImageURLs={INIT_EDIT_IMAGE } />
     </Section>
   );
 }
