@@ -1,6 +1,6 @@
-import { useState, ChangeEvent, FormEvent } from 'react';
+import { useState, ChangeEvent, useEffect } from 'react';
 
-type ChangeEventType = HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement ;
+type ChangeEventType = HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement;
 
 export interface useFormStateProps {
   title: string;
@@ -11,8 +11,9 @@ export interface useFormStateProps {
   file: File[];
 }
 
-const useFormState = (initialData: useFormStateProps) => {
+const useFormState = (initialData: useFormStateProps, initialImageURLs?: (string | null)[]) => {
   const [communityFormData, setCommunityFormData] = useState(initialData);
+  const [imageURLs, setImageURLs] = useState(initialImageURLs);
 
   const handleCommunityChange = (event: ChangeEvent<ChangeEventType>) => {
     const { name, value } = event.target;
@@ -20,6 +21,12 @@ const useFormState = (initialData: useFormStateProps) => {
     if (event.target instanceof HTMLInputElement && event.target.type === 'file') {
       const fileArray: File[] = event.target.files ? Array.from(event.target.files) : [];
       setCommunityFormData({ ...communityFormData, [name]: fileArray });
+      const objectURLs: string[] = [];
+      for (let i = 0; i < fileArray.length; i++) {
+        const objectURL = URL.createObjectURL(fileArray[i]);
+        objectURLs.push(objectURL);
+      }
+      setImageURLs(objectURLs);
     } else {
       const isEmpty = value.trim() === '';
       setCommunityFormData({ ...communityFormData, [name]: value });
@@ -27,37 +34,35 @@ const useFormState = (initialData: useFormStateProps) => {
     }
   };
 
-  const handleCommunitySubmit = (evnet: FormEvent<HTMLFormElement>) => {
-    evnet.preventDefault();
-    const { title, content, categoryType, maxParticipant, location, file } = communityFormData;
-    // if(file === '') return alert('이미지 추가는 필수 입니다.')
-    const isEmptyFormData = !title || !content || !categoryType || !maxParticipant || !location;
-    if (isEmptyFormData) return alert('모든 값은 입력이 필수 입니다.');
-    const formData = new FormData();
-    const isExistFile = file;
- 
-    if (isExistFile) {
-      for (let fileIndex = 0; fileIndex < file.length; fileIndex++) {
-        const currentFile = isExistFile[fileIndex]
-        formData.append('file', currentFile.name);
-      }
-    }
+  const handleFileDelectClick = (index: number) => {
+    if (imageURLs && imageURLs[index] !== null) {
+      URL.revokeObjectURL(imageURLs[index] as string);
 
-    const jsonFormData = JSON.stringify({ title, content, categoryType, maxParticipant, location });
-    formData.append('data', jsonFormData);
-    setCommunityFormData({
-      title: '',
-      categoryType: '',
-      content: '',
-      maxParticipant: 10,
-      location: '',
-      file: [],
-    });
-    for (const [key, value] of formData.entries()) {
-      console.log(`${key}: ${value}`);
+      const updatedFiles = [...communityFormData.file];
+      updatedFiles.splice(index, 1);
+      setCommunityFormData({ ...communityFormData, file: updatedFiles });
+    }
+    if (imageURLs) {
+      const updatedImageURLs = [...imageURLs];
+      updatedImageURLs.splice(index, 1);
+      setImageURLs(updatedImageURLs);
     }
   };
-  return { communityFormData, handleCommunityChange, handleCommunitySubmit };
+
+  useEffect(() => {
+    if (initialImageURLs && initialImageURLs.length > 0) {
+      setImageURLs(initialImageURLs);
+    }
+  }, [initialImageURLs]);
+
+  return {
+    imageURLs,
+    communityFormData,
+    handleCommunityChange,
+    handleFileDelectClick,
+    setCommunityFormData,
+    setImageURLs,
+  };
 };
 
 export default useFormState;
