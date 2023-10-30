@@ -7,7 +7,7 @@ const INITIDATA = {
     categoryType: '',
     maxParticipant: 10,
     location: '',
-    file: '',
+    file: [],
 }
 const CommunityCreatePage = () => {
   return (

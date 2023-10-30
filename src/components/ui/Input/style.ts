@@ -1,9 +1,6 @@
 import styled from 'styled-components';
 
-interface InputLabelWrapProps {
-  color: boolean;
-}
-export const InputLabelWrap = styled.div<InputLabelWrapProps>`
+export const InputLabelWrap = styled.div`
   display: flex;
   flex-direction: column;
   @media (min-width: 780px) {
@@ -23,7 +20,7 @@ export const InputLabelWrap = styled.div<InputLabelWrapProps>`
     padding: 0 24px;
     height: 42px;
     border-radius: 10px;
-    border: ${(props) => (props.color  ? '2px solid #d9d9d9' : '2px solid #fb304b')};
+    border: 2px solid #d9d9d9
   }
   input[type='number']::-webkit-inner-spin-button,
   input[type='number']::-webkit-outer-spin-button {
@@ -34,6 +31,7 @@ export const InputLabelWrap = styled.div<InputLabelWrapProps>`
   input[type='number'] {
     -moz-appearance: textfield;
   }
+
   p {
     font-size: 14px;
     height: 14px;
