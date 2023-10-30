@@ -92,10 +92,14 @@ export const MemberList: React.FC = () => {
 };
 
 const ProductTableStyle = styled.div`
-  padding: 50px 0 50px 0;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  flex-direction: column;
+
   table {
     border-collapse: collapse;
-    width: 100%;
+    width: 95%;
   }
 
   th,
@@ -106,10 +110,10 @@ const ProductTableStyle = styled.div`
   }
 
   tr:hover {
-    background-color: rgba(51, 51, 51, 0.5);
+    background-color: rgb(0, 192, 158, 0.5);
   }
   th {
-    background-color: #02c75a;
+    background-color: #57c8b5;
     color: white;
     text-align: center;
   }

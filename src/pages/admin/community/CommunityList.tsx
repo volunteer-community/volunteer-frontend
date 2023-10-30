@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { usePagination, useTable } from 'react-table';
 import styled from 'styled-components';
 import { communityColumns } from './communityColumns';
+import Select from '@components/ui/Select/Select';
 import communitydata from './communitydata.json';
 export interface Data {
   communityId: number;
@@ -65,13 +66,15 @@ export const CommunityList: React.FC = () => {
   return (
     <>
       {/* 임시로 작성한 코드, 수정 예정 */}
-      <StyledSelect value={selectedCategory} onChange={handleCategoryChange}>
-        <option value="전체">전체</option>
-        <option value="DIY">DIY</option>
-        <option value="오프라인 캠페인">오프라인 캠페인</option>
-        <option value="온라인 캠페인">온라인 캠페인</option>
-        <option value="전시/홍보">전시/홍보</option>
-      </StyledSelect>
+      <SelectStyle>
+        <Select value={selectedCategory} onChange={handleCategoryChange}>
+          <option value="전체">전체</option>
+          <option value="오프라인 캠페인">오프라인 캠페인</option>
+          <option value="온라인 캠페인">온라인 캠페인</option>
+          <option value="전시/홍보">전시/홍보</option>
+          <option value="DIY 프로젝트">DIY 프로젝트</option>
+        </Select>
+      </SelectStyle>
 
       <ProductTableStyle>
         <table {...getTableProps()}>
@@ -122,7 +125,7 @@ export const CommunityList: React.FC = () => {
 };
 
 // 삭제 예정
-const StyledSelect = styled.select`
+const SelectStyle = styled.div`
   margin: 8rem 0 2rem 2.5rem;
 `;
 
