@@ -17,12 +17,17 @@ export const TextareaLabelWrap = styled.div`
     font-weight: 600;
   }
   textarea {
+    font-size: 16px;
     padding: 0 24px;
     height: 280px;
     border-radius: 10px;
     border: 2px solid #d9d9d9;
     resize: none;
   }
+  textarea::placeholder {
+    font-size: 16px;
+  }
+  
   p {
     font-size: 14px;
     height: 14px;
