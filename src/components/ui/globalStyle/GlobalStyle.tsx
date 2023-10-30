@@ -38,11 +38,6 @@ const GlobalStyle = createGlobalStyle`
     src: url('${NotoSansBold}') format('woff');
     }
 
-           
-
-
-
-
 /* 모든 요소의 패딩, 마진, 테두리 초기화 */
 * {
   font-family: 'NotoSans-Medium';
