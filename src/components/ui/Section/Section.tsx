@@ -9,19 +9,20 @@ justify-content: center;
 margin-top: 150px;
 	h2 {
 		font-size: 20px;
+    margin-bottom: 30px;
 		text-align: center;
     font-family: 'BMDOHYEON'
 	}
 `;
 interface SectionProps {
   children: React.ReactNode;
-  sectionTitle: string;
+  sectionTitle?: string;
 }
 
 const Section = ({ children, sectionTitle }: SectionProps) => {
   return (
     <StSection>
-      <h2>{sectionTitle}</h2>
+      {sectionTitle && <h2>{sectionTitle}</h2>}
       {children}
     </StSection>
   );
