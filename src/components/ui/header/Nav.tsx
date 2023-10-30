@@ -1,60 +1,64 @@
-import React, { useState } from 'react';
 import styled from 'styled-components';
+import { setActiveIndex, selectActiveIndex } from '@stores/slices/NavCatrgorySlice.ts';
+import { useDispatch, useSelector } from 'react-redux';
 
 const Nav = () => {
-  const [activeIndex, setActiveIndex] = useState<number>(-1);
+  const dispatch = useDispatch();
+  const activeIndex = useSelector(selectActiveIndex);
 
   const handleMenuClick = (index: number) => {
-    setActiveIndex(index);
+    if (index === activeIndex) {
+      // 이미 선택한 메뉴를 다시 클릭한 경우, "전체보기"로 변경
+      dispatch(setActiveIndex(-1));
+    } else {
+      // 다른 메뉴 클릭 시 해당 인덱스로 설정
+      dispatch(setActiveIndex(index));
+    }
+    window.scrollTo(0, 700);
   };
 
   return (
     <NavList>
       <List
-        className={activeIndex === 0 ? 'active' : ''}
+        className={activeIndex === -1 ? 'active' : ''}
         onClick={() => {
-          handleMenuClick(0);
-          window.scrollTo(0, 700);
+          handleMenuClick(-1);
         }}
       >
         전체보기
       </List>
 
       <List
-        className={activeIndex === 1 ? 'active' : ''}
+        className={activeIndex === 0 ? 'active' : ''}
         onClick={() => {
-          handleMenuClick(1);
-          window.scrollTo(0, 700);
+          handleMenuClick(0);
         }}
       >
         오프라인 캠페인
       </List>
 
       <List
-        className={activeIndex === 2 ? 'active' : ''}
+        className={activeIndex === 1 ? 'active' : ''}
         onClick={() => {
-          handleMenuClick(2);
-          window.scrollTo(0, 700);
+          handleMenuClick(1);
         }}
       >
         온라인 캠페인
       </List>
 
       <List
-        className={activeIndex === 3 ? 'active' : ''}
+        className={activeIndex === 2 ? 'active' : ''}
         onClick={() => {
-          handleMenuClick(3);
-          window.scrollTo(0, 700);
+          handleMenuClick(2);
         }}
       >
         전시
       </List>
 
       <List
-        className={activeIndex === 4 ? 'active' : ''}
+        className={activeIndex === 3 ? 'active' : ''}
         onClick={() => {
-          handleMenuClick(4);
-          window.scrollTo(0, 700);
+          handleMenuClick(3);
         }}
       >
         DIY 프로젝트
