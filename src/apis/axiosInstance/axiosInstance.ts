@@ -17,6 +17,8 @@ const createInstance = (contentType: string) => {
     }
     return config;
   });
+
+  
   return instance;
 };
 
