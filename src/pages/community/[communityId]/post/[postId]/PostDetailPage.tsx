@@ -1,7 +1,12 @@
 import PostDetail from '@components/Post/PostDetail';
+import Section from '@components/ui/Section/Section';
 
 const PostDetailPage = () => {
-  return <PostDetail />;
+  return (
+    <Section>
+      <PostDetail />
+    </Section>
+  );
 };
 
 export default PostDetailPage;
