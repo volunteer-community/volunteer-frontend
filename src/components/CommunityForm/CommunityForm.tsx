@@ -2,9 +2,9 @@ import styled from 'styled-components';
 import { FileInput, Input } from '@components/ui/Input';
 import SelectLabel from '@components/ui/SelectLabel/SelectLabel';
 import TextareaLabel from '@components/ui/Textarea';
-import useValidation from '@hooks/useCommunityForm/useValidation';
+import { useFormState, useValidation } from '@hooks/form';
 import { FormEvent } from 'react';
-import useFormState from '@hooks/useCommunityForm/useFormState';
+
 
 const Form = styled.form`
   display: flex;
