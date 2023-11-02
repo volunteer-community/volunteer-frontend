@@ -65,6 +65,7 @@ const CommunityForm = ({ initialData, initialImageURLs }: CommunityFormProps) =>
     const isExistFile = file;
 
     if (isExistFile) {
+      
       for (let fileIndex = 0; fileIndex < file.length; fileIndex++) {
         const currentFile = isExistFile[fileIndex];
         const imageBlob = new Blob([currentFile], { type: 'image/jpeg' });
