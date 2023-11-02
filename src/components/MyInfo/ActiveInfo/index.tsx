@@ -1,12 +1,12 @@
-import Article from '@components/ui/Aticle/Aticle'
-
+import * as S from './style'
+import ActiveBox from './ActiveBox';
 
 const ActiveInfo = () => {
-	return (
-		<Article articleTitle='내 활동'>
-			이아아ㅏ앙
-	</Article>
-	)
-}
+  return (
+    <S.Aticle articleTitle="내 활동">
+      <ActiveBox />
+    </S.Aticle>
+  );
+};
 
-export default ActiveInfo
+export default ActiveInfo;
