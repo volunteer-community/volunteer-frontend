@@ -12,9 +12,9 @@ const Header = () => {
       <GlobalStyle />
       <HeaderLayout>
         <HeaderWrap>
-          <Logo>
-            <Link to="/">메인로고</Link>
-          </Logo>
+          <Link to="/">
+            <Logo>메인로고</Logo>
+          </Link>
           <Nav />
           <Utill />
         </HeaderWrap>
