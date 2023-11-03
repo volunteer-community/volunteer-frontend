@@ -1,7 +1,7 @@
 import React from 'react';
 import * as S from '@pages/community/stlyes/CommunityStyle.ts';
-import { useParams } from 'react-router-dom';
 import { CommunityDetail, CommunityImgPath } from '@interfaces/Community.ts';
+import { useCommunityId } from '@hooks/useParamsId/useCommunityId';
 
 interface Props {
   DetailData: {
@@ -13,9 +13,8 @@ interface Props {
 }
 
 const IntroPostContent: React.FC<Props> = ({ DetailData }) => {
-  const { communityId } = useParams<{ communityId: string }>();
-
-  const communityIdNumber = communityId ? parseInt(communityId, 10) : undefined;
+  //useparams로 받아온 커뮤니티 아이디
+  const communityIdNumber = useCommunityId();
 
   console.log('DetailData:', DetailData);
   console.log('DetailData.communityId:', DetailData.data.communityDetail.communityId);
@@ -31,7 +30,7 @@ const IntroPostContent: React.FC<Props> = ({ DetailData }) => {
   return (
     <>
       <S.IntroPostBox>
-        <S.IntroPostTitle>{DetailData.data.communityDetail.communityLocation}</S.IntroPostTitle>
+        <S.IntroPostTitle>{DetailData.data.communityDetail.communityTitle}</S.IntroPostTitle>
         <S.IntroPostImg src={DetailData.data.communityImgPathList[0].communityImgPath} />
         <S.IntroPostContent>{DetailData.data.communityDetail.communityContent}</S.IntroPostContent>
       </S.IntroPostBox>

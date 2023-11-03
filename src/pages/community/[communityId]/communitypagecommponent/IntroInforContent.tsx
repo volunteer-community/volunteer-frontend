@@ -1,7 +1,7 @@
 import React from 'react';
 import * as S from '@pages/community/stlyes/CommunityStyle.ts';
-import { useParams } from 'react-router-dom';
 import { CommunityDetail } from '@interfaces/Community.ts';
+import { useCommunityId } from '@hooks/useParamsId/useCommunityId';
 
 interface Props {
   DetailData: {
@@ -12,9 +12,8 @@ interface Props {
 }
 
 const IntroInforContent: React.FC<Props> = ({ DetailData }) => {
-  const { communityId } = useParams<{ communityId: string }>();
-
-  const communityIdNumber = communityId ? parseInt(communityId, 10) : undefined;
+  //useparams로 받아온 커뮤니티 아이디
+  const communityIdNumber = useCommunityId();
 
   console.log('DetailData:', DetailData);
   console.log('DetailData.communityId:', DetailData.data.communityDetail.communityId);
@@ -37,7 +36,7 @@ const IntroInforContent: React.FC<Props> = ({ DetailData }) => {
         </S.ParticipantIco>
         <S.WritingTime>
           글 작성 시간
-          <S.WritingTimeText>{DetailData.data.communityDetail.communityContent}</S.WritingTimeText>
+          <S.WritingTimeText>{DetailData.data.communityDetail.createdAt}</S.WritingTimeText>
         </S.WritingTime>
       </S.Felxbox>
     </S.IntroInforBox>

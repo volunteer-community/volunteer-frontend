@@ -22,12 +22,14 @@ const IntroUserContent = styled.div`
 
 const UserImgBox = styled.img`
   width: 100%;
+  height: 550px;
+  object-fit: cover;
 `;
 
 const UserInforBox = styled.div`
   width: 200px;
   position: absolute;
-  bottom: -21%;
+  bottom: -20%;
   left: 43%;
   right: 50%;
   transform: translate(0 -50%);
@@ -58,7 +60,7 @@ const IntroPostTitle = styled.h4`
 
 const IntroPostImg = styled.img`
   width: 100%;
-  height: 100%;
+  height: 600px;
   object-fit: cover;
 `;
 
@@ -120,7 +122,7 @@ const ParticipantText = styled.i`
 `;
 
 const WritingTime = styled.div`
-  padding: 5px 0 0 0;
+  padding: 25px 0 0 0;
 `;
 
 const WritingTimeText = styled.span`

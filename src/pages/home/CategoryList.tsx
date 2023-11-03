@@ -86,15 +86,17 @@ const CategoryList = () => {
 
                 <S.FlexBox>
                   <S.CategoryDataBox>
-                    <S.CategoryTitle>{community.categoryId}</S.CategoryTitle>
+                    <S.CategoryTitle>{community.categoryType}</S.CategoryTitle>
                     <S.CommunityTitle>{community.communityTitle}</S.CommunityTitle>
                     <S.CommunityDescription>{community.communityContent}</S.CommunityDescription>
                   </S.CategoryDataBox>
 
                   <S.CategoryJoinBox>
-                    <S.IsJoined>
-                      <S.IsJoinedText>{community.communityParticipant}</S.IsJoinedText>
-                    </S.IsJoined>
+                    {community.communityMaxParticipant === 10 ? (
+                      <S.IsJoined>
+                        <S.IsJoinedText>참여완료</S.IsJoinedText>
+                      </S.IsJoined>
+                    ) : null}
                     <S.CommunityJoinCount>{community.communityMaxParticipant}</S.CommunityJoinCount>
                     <S.HostName>{community.communityAuthor}</S.HostName>
                   </S.CategoryJoinBox>

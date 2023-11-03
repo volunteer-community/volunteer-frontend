@@ -51,7 +51,7 @@ const CommunityPage = () => {
     <W.CommunityCommonLayout>
       <S.CommunityIntroBox>
         <S.CommunityIntroWrap>
-          <IntroUserContent />
+          <IntroUserContent DetailData={DetailData} />
           <IntroInforContent DetailData={DetailData} />
           <IntroPostContent DetailData={DetailData} />
           <S.CommunityBtnWrap>
