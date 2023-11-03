@@ -3,6 +3,21 @@ import * as S from './style';
 import Comments from './Comments';
 import { useState } from 'react';
 import LikeButton from './Like';
+import { axiosInstance } from '../../../apis/axiosInstance/axiosInstance';
+
+// 게시글 상세 데이터 가져오기
+const getPostDetail = async (posterId, communityId) => {
+  try {
+    const response = await axiosInstance.get(`poster/${posterId}/community`, {
+      params: {
+        communityId: communityId,
+      },
+    });
+    console.log(response.data);
+  } catch (err) {
+    console.log(err);
+  }
+};
 
 function PostDetail({ likesCount = 0, onToggleLike }) {
   const [liked, setLiked] = useState(false);

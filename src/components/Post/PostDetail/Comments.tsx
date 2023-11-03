@@ -2,7 +2,7 @@ import { useState } from 'react';
 import TextareaLabel from '@components/ui/Textarea';
 import * as S from './style';
 import { Input } from '@components/ui/Input';
-import EllipsisIcon from '../../assets/images/ellipsis.svg';
+import EllipsisIcon from '../../../assets/images/ellipsis.svg';
 
 const COMMENTS = [
   {

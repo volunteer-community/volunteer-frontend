@@ -1,5 +1,5 @@
-import FullHeart from '../../assets/images/full_heart.svg';
-import EmptyHeart from '../../assets/images/empty_heart.svg';
+import FullHeart from '../../../assets/images/full_heart.svg';
+import EmptyHeart from '../../../assets/images/empty_heart.svg';
 import * as S from './style';
 
 const LikeButton = ({ like, onClick }) => {

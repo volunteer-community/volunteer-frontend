@@ -1,7 +1,7 @@
 import axios, { AxiosRequestConfig, AxiosRequestHeaders } from 'axios';
 
 const createInstance = (contentType: string) => {
-  const config:AxiosRequestConfig= {
+  const config: AxiosRequestConfig = {
     baseURL: import.meta.env.VITE_SERVER_API,
     timeout: 3000,
     headers: {
@@ -18,7 +18,6 @@ const createInstance = (contentType: string) => {
     return config;
   });
 
-  
   return instance;
 };
 
