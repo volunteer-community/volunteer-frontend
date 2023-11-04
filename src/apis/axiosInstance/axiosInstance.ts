@@ -1,3 +1,5 @@
+import { reissueToken } from '@apis/auth/reissueToken';
+import { getCookie } from '@utils/cookies/cookies';
 import axios, { AxiosRequestConfig, AxiosRequestHeaders } from 'axios';
 
 const createInstance = (contentType: string) => {
@@ -17,6 +19,20 @@ const createInstance = (contentType: string) => {
     }
     return config;
   });
+
+  instance.interceptors.response.use(
+    (response) => response,
+    async (error) => {
+      const { status } = error.response;
+      const refreshToken = getCookie('refreshToken');
+      if (status === 400) {
+        const response = await reissueToken(refreshToken);
+        return response;
+      } else {
+        window.location.href = '/login';
+      }
+    }
+  );
 
   return instance;
 };
