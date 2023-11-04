@@ -35,9 +35,10 @@ interface CommentsProps {
   post: PostProps;
 }
 
-function Comments({ post }: CommentsProps) {
+function Comments({ postId }: CommentsProps) {
   const [comment, setComment] = useState('');
-  // const {user} = useAuth();
+  const navigate = useNavigate();
+  const { isLoading, isError, data } = useQuery('comments', () => commentRequest(postId));
 
   // 더보기 버튼
   const [showOptions, setShowOptions] = useState(false);
@@ -73,7 +74,7 @@ function Comments({ post }: CommentsProps) {
               <S.CommentAuthor>{comment?.commentAuthor}</S.CommentAuthor>
               <S.CommentText>{comment?.content}</S.CommentText>
               <S.CommentDate>{comment?.createdAt}</S.CommentDate>
-              {showOptions && (
+              {showOptions && token && tokenIsValid() && tokenPayload.id === user.id && (
                 <div className="optionsDropdown">
                   <button className="commentEdit">수정</button>
                   <button className="commentDelete">삭제</button>
@@ -86,7 +87,7 @@ function Comments({ post }: CommentsProps) {
           </S.CommentBox>
         ))}
       </S.CommentsList>
-      <form className="commentsForm">
+      <S.CommentsForm>
         <S.FormBlock>
           <img
             src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRDqkt-T7P7wZosqcFaetkHrwA_NAedCeA3sg&usqp=CAU"
@@ -106,7 +107,7 @@ function Comments({ post }: CommentsProps) {
         <div className="FormBlockSubmit">
           <Input type="submit" value="등록" className="formBtnSubmit" />
         </div>
-      </form>
+      </S.CommentsForm>
     </S.Comments>
   );
 }

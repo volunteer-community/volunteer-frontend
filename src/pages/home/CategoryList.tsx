@@ -2,12 +2,21 @@ import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { selectActiveIndex } from '@stores/slices/NavCatrgorySlice.ts';
 import { useQuery } from 'react-query';
-import { getCommunityData } from '@apis/axiosInstance/axiosInstance';
 import * as S from '@pages/home/styles/CategoryListStyle';
 import { Community, QueryData } from '@interfaces/Community.ts';
 import CategorySearch from '@pages/home/CategorySearch.tsx';
 import 'aos/dist/aos.css';
 import { animateScroll as scroll } from 'react-scroll';
+
+export const getCommunityData = async () => {
+  try {
+    const response = await mainCommuAxiosInstance.get('/community');
+    console.log(response.data);
+    return response.data;
+  } catch (error) {
+    console.error(error);
+  }
+};
 
 const CategoryList = () => {
   const { data: fetchedData, isLoading, error } = useQuery<QueryData, Error>('communityData', getCommunityData);

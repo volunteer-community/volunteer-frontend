@@ -1,12 +1,14 @@
 import DefalutProfile from '@assets/images/default_profile_img.gif';
 import * as S from './style';
 import Comments from './Comments';
+import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { useState } from 'react';
 import LikeButton from './Like';
 import { axiosInstance } from '../../../apis/axiosInstance/axiosInstance';
+import { useNavigate, useParams } from 'react-router-dom';
 
 // 게시글 상세 데이터 가져오기
-const getPostDetail = async (posterId, communityId) => {
+const getPostDetail = async (posterId: any, communityId: any) => {
   try {
     const response = await axiosInstance.get(`poster/${posterId}/community`, {
       params: {
@@ -20,10 +22,35 @@ const getPostDetail = async (posterId, communityId) => {
 };
 
 function PostDetail({ likesCount = 0, onToggleLike }) {
-  const [liked, setLiked] = useState(false);
+  const queryClient = useQueryClient();
+  const navigate = useNavigate();
+  const params = useParams();
+  const postId = params.id;
 
+  //게시글 상세 정보를 불러오는 쿼리
+  const { isLoading, isError, data } = useQuery('detail', () => detailRequest(postId));
+
+  //게시물 좋아요 상태 업데이트
+  // const mutation = useMutation(isLikeAxios, {
+  //   onSuccess: () => {
+  //     queryClient.invalidateQueries('detail');
+  //   },
+  // });
+
+  // 좋아요 관련 상태, 토글
+  const [liked, setLiked] = useState(false);
   const toggleLike = () => {
     setLiked(!liked);
+  };
+
+  // 좋아요 버튼 클릭 시 호출
+  const handleClickLikeButton = () => {
+    mutation.mutate(postId);
+  };
+
+  const handleLikeButtonClick = () => {
+    toggleLike(); // toggleLike 함수 호출
+    handleClickLikeButton(); // handleClickLikeButton 함수 호출
   };
 
   return (
@@ -48,7 +75,7 @@ function PostDetail({ likesCount = 0, onToggleLike }) {
             style={{ width: '25px', height: '25px', borderRadius: '50%' }}
           />
           <div className="postAuthor">흰둥이</div>
-          <LikeButton like={liked} onClick={toggleLike} />
+          <LikeButton like={liked} onClick={handleLikeButtonClick} />
           <span>좋아요 {likesCount}개</span>
         </S.ProfileWrap>
       </S.PostDetailStyle>

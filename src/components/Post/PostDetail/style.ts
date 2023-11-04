@@ -63,6 +63,14 @@ export const CommentsList = styled.div`
   background-color: #f3f3f3;
 `;
 
+export const CommentsForm = styled.form`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 100% important;
+`;
+
 export const CommentBox = styled.div`
   border-bottom: 1px solid #d3d1d1;
 `;
