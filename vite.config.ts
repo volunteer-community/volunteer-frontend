@@ -13,6 +13,7 @@ export default defineConfig({
       '@interfaces': path.resolve(__dirname, 'src/interfaces'),
       '@pages': path.resolve(__dirname, 'src/pages'),
       '@routers': path.resolve(__dirname, 'src/routers'),
+      '@constants': path.resolve(__dirname, 'src/constants'),
       '@stores': path.resolve(__dirname, 'src/stores'),
       '@utils': path.resolve(__dirname, 'src/utils'),
     },
