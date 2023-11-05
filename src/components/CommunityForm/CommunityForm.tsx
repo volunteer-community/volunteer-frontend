@@ -15,7 +15,7 @@ interface CommunityFormProps {
     [key: string]: any;
   };
   initialImageURLs?: (string | null)[];
-  onSave?: ({ communityData, categoryType }: { communityData: FormData; categoryType: string }) => void;
+  onSave?: (communityData: { formData: FormData; categoryType: string }) => void;
   onUpadate?: () => void;
 }
 
@@ -76,7 +76,7 @@ const CommunityForm = ({ initialData, initialImageURLs, onSave, onUpadate }: Com
       const blob = new Blob([jsonFormData], { type: 'application/json' });
       formData.append('communityRequestDto', blob);
 
-      !communityId ? onSave?.({ communityData: formData, categoryType }) : onUpadate?.();
+      !communityId ? onSave?.({ formData:formData, categoryType:categoryType }) : onUpadate?.();
     } catch (error) {
       console.error(error);
     }
@@ -95,7 +95,7 @@ const CommunityForm = ({ initialData, initialImageURLs, onSave, onUpadate }: Com
     <>
       {isShown && (
         <Modal
-          modalText={communityId ? '커뮤니티를 생성하시겠습니까' : '커뮤니티를 생성하시겠어요'}
+          modalText={!communityId ? '커뮤니티를 생성하시겠어요?' : '커뮤니티를 수정하시겠어요?'}
           handleCloseClick={handleCloseClick}
           handleConfirmClick={handleConfirmClick}
         />
