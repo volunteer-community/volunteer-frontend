@@ -1,51 +1,31 @@
-import Google from '../../components/Login/Google';
-import Kakao from '../../components/Login/Kakao';
-import styled from 'styled-components';
+import { useState } from 'react';
+import * as S from './style'
+import { OAUTHBUTTON } from '@constants/login';
+import LoadingIndicator from '@components/ui/Loading';
+import LoginButton from '@components/Login/LoginButton';
+
 
 const LoginPage = () => {
+  const [isLoading, setIsLoading] = useState(false);
+  const getLoading = (loading: boolean) => {
+    setIsLoading(loading);
+  };
+
   return (
-    <LoginPageContainer>
-      <LoginTitle>로그인</LoginTitle>
-      <LoginDivider />
-      <LoginButtons>
-        <Kakao />
-        <Google />
-      </LoginButtons>
-    </LoginPageContainer>
+    <S.LoginPageContainer>
+      <S.LoginTitle>로그인</S.LoginTitle>
+      {isLoading ? (
+        <LoadingIndicator text="로딩 로딩 .." />
+      ) : (
+        <S.LoginButtons>
+          {OAUTHBUTTON.map((oauth) => (
+            <LoginButton key={oauth.oauthName} oauth={oauth} getLoading={getLoading} />
+          ))}
+        </S.LoginButtons>
+      )}
+    </S.LoginPageContainer>
   );
 };
 
-const LoginPageContainer = styled.div`
-  position: relative;
-  width: 100%;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-`;
-
-const LoginTitle = styled.h1`
-  position: relative;
-  justify-content: flex-start;
-  margin-top: 200px;
-  margin-bottom: 30px;
-  font-weight: 800;
-  font-size: 32px;
-  color: #56c9b6;
-`;
-
-const LoginButtons = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-`;
-
-const LoginDivider = styled.div`
-  width: 25%;
-  height: 1px;
-  background-color: #56c9b6;
-  margin-bottom: 100px;
-`;
 
 export default LoginPage;

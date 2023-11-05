@@ -9,33 +9,67 @@ const createInstance = (contentType: string) => {
     timeout: 3000,
     headers: {
       'Content-Type': contentType,
+      Authorization:
+        'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIzIiwicm9sZSI6IlJPTEVfVVNFUiIsImlhdCI6MTY5OTIwODQ0MiwiZXhwIjoxNjk5MjEwMjQyfQ.tt5Sq6eoyw7FtBXTLZpedoFrQXMlGLQSBEVVobgcQmM',
     },
+    withCredentials: true,
   };
   const instance = axios.create(config);
-  instance.interceptors.request.use((config) => {
-    const token = '안녕';
-    if (token) {
-      config.headers = config.headers || {};
-      (config.headers as AxiosRequestHeaders).Authorization = `Bearer ${token}`;
-    }
-    return config;
-  });
+  // instance.interceptors.request.use((config) => {
+  //   const token = '안녕';
+  //   if (token) {
+  //     config.headers = config.headers || {};
+  //     (config.headers as AxiosRequestHeaders).Authorization = `${token}`;
+  //   }
+  //   return config;
+  // });
 
-  instance.interceptors.response.use((response) => response,
-    async (error) => {
-      const { status } = error.response
-      const refreshToken = getCookie('refreshToken')
-      if (status === 400) {
-        const response = await reissueToken(refreshToken)
-        return response
-      } else {
-        window.location.href ='/login'
-      }
-    },
-  );
+  // instance.interceptors.response.use((response) => response,
+  //   async (error) => {
+  //     const { status } = error.response
+  //     const refreshToken = getCookie('refreshToken')
+  //     if (status === 400) {
+  //       const response = await reissueToken(refreshToken)
+  //       return response
+  //     } else {
+  //       window.location.href ='/login'
+  //     }
+  //   },
+  // );
 
   return instance;
 };
 
 export const axiosInstance = createInstance('application/json');
 export const axiosImgInstance = createInstance('multipart/form-data');
+
+
+
+
+
+
+const mainCommuAxiosInstance = axios.create({
+  // baseURL: 'http://localhost:4000',
+  baseURL: 'http://13.209.253.193/maple',
+});
+
+export const getCommunityData = async () => {
+  try {
+    const response = await mainCommuAxiosInstance.get('/community');
+    console.log(response.data);
+    return response.data;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const getCommunityDetail = async (communityId: number) => {
+  try {
+    const response = await mainCommuAxiosInstance.get(`/community/${communityId}`);
+    console.log(response.data);
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};

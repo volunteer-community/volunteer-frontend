@@ -18,7 +18,7 @@ const Utill = () => {
 export default Utill;
 
 const SignupBox = styled.div`
-  width: 20%;
+  width: 15.5%;
   padding: 30px 0 0 0;
   span {
     width: 100px;
