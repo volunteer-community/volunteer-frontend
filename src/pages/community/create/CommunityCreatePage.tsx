@@ -4,7 +4,7 @@ import Section from '@components/ui/Section/Section';
 import { AxiosResponse } from 'axios';
 import { useMutation, useQueryClient } from 'react-query';
 import { useNavigate } from 'react-router-dom';
-import { INITIDATA } from 'src/constants/community';
+import { INITIDATA } from '@constants/community';
 
 
 const CommunityCreatePage = () => {
