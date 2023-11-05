@@ -1,4 +1,4 @@
-import { createCommunity } from '@apis/community/post';
+import { Community, createCommunity } from '@apis/community/post';
 import { useMutation, useQueryClient } from 'react-query';
 import { useNavigate } from 'react-router-dom';
 
@@ -22,7 +22,7 @@ export const useCreateCommunity = () => {
 			}
 		}
 	)
-	const handleCreateCommunity = (commuityData: { formData: FormData; categoryType: string; }) => {
+	const handleCreateCommunity = (commuityData:Community) => {
 		mutate(commuityData)
 	}
   return { handleCreateCommunity };
