@@ -1,5 +1,4 @@
 import { Input } from '@components/ui/Input';
-import { useProfileFormState, useProfileValidation } from '@hooks/form';
 import * as S from './style';
 interface ProfileProps {
   initialData: {
@@ -9,13 +8,13 @@ interface ProfileProps {
 }
 
 const ProfileEditForm = ({ initialData }: ProfileProps) => {
-	const { formData, handleChange } = useProfileFormState(initialData);
-	const { validateStatus, validateMessage, validateNickName, validatePhoneNumber, profileFormRef } =useProfileValidation();
+	// const { formData, handleChange } = useProfileFormState(initialData);
+	// const { validateStatus, validateMessage, validateNickName, validatePhoneNumber, profileFormRef } =useProfileValidation();
   return (
     <S.ProfileFormWrap>
       <div>{/* <Image/> */}</div>
       <S.ProfileForm>
-        <Input
+        {/* <Input
           labelText="닉네임"
           type="text"
           placeholder="닉네임을 입력해주세요"
@@ -38,7 +37,7 @@ const ProfileEditForm = ({ initialData }: ProfileProps) => {
           validateText={validateMessage.phoneNum}
 					isValid={validateStatus.phoneNum}
 					onBlur={validatePhoneNumber}
-        />
+        /> */}
       </S.ProfileForm>
     </S.ProfileFormWrap>
   );
