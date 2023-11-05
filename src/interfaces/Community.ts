@@ -55,15 +55,3 @@ export interface Response {
   data: CommunityData;
 }
 
-interface CommunityDto {
-  communityTitle: string;
-  communityMaxParticipant: number;
-  communityContent: string;
-  communityLocation: string;
-}
-
-
-export interface CommunityFormData {
-  communityDto: CommunityDto
-  imageList: string[]
-}
