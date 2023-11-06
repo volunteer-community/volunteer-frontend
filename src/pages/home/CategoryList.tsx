@@ -43,10 +43,16 @@ const CategoryList = () => {
   //검색 필터링
   const filteredDataToShow: Community[] =
     activeIndex >= 0
-      ? (filteredData ? filteredData : defaultData).filter((community) =>
-          community.communityTitle.toLowerCase().includes(searchQuery.toLowerCase())
+      ? (filteredData ? filteredData : defaultData).filter(
+          (community) =>
+            typeof searchQuery === 'string' &&
+            community.communityTitle.toLowerCase().includes(searchQuery.toLowerCase())
         )
-      : defaultData.filter((community) => community.communityTitle.toLowerCase().includes(searchQuery.toLowerCase()));
+      : defaultData.filter(
+          (community) =>
+            typeof searchQuery === 'string' &&
+            community.communityTitle.toLowerCase().includes(searchQuery.toLowerCase())
+        );
 
   // 사용할 데이터
   const dataToUse: Community[] | undefined = filteredDataToShow.slice(0, itemsToShow);

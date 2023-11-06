@@ -35,8 +35,8 @@ export interface CommunityDetail {
   communityStatus: string;
   communityContent: string;
   communityLocation: string;
-  createdAt: string;
-  updatedAt: string;
+  communityCreatedAt: string;
+  communityUpdatedAt: string;
 }
 
 export interface Data {
