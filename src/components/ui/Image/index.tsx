@@ -1,5 +1,6 @@
-interface ImageProps {
-  src: string;
+
+interface ImageProps extends React.HTMLProps<HTMLImageElement> {
+  src: string 
   alt: string;
 }
 

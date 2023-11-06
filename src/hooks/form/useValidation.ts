@@ -7,19 +7,21 @@ const useValidation = () => {
   const inputRefs = useRef<RefType>({});
 
   const [validateMessage, setValidateMessage] = useState({
-    title: '',
-    content: '',
+    communityTitle: '',
+    communityMaxParticipant: '',
+    communityAuthor: '',
+    communityContent: '',
+    communityLocation: '',
     categoryType: '',
-    maxParticipant: '',
-    location: '',
     file: '',
   });
   const [validateStatus, setValidateStatus] = useState({
-    title: true,
-    content: true,
+    communityTitle: true,
+    communityMaxParticipant: true,
+    communityAuthor: true,
+    communityContent: true,
+    communityLocation: true,
     categoryType: true,
-    maxParticipant: true,
-    location: true,
     file: true,
   });
 
@@ -43,7 +45,7 @@ const useValidation = () => {
       titleInput.style.border = '2px solid #fb304b';
     } else {
       validationMessage('title', isEmptyTitle);
-       titleInput.style.border = '';
+      titleInput.style.border = '';
     }
   };
 
@@ -56,7 +58,7 @@ const useValidation = () => {
       contentTextarea.style.border = '2px solid #fb304b';
     } else {
       validationMessage('content', isEmptyContent);
-       contentTextarea.style.border = '';
+      contentTextarea.style.border = '';
     }
   };
 
@@ -84,7 +86,7 @@ const useValidation = () => {
       maxParticipantInput.style.border = '2px solid #fb304b';
     } else {
       validationMessage('maxParticipant', isEmptyMaxParticipant);
-       maxParticipantInput.style.border = ''
+      maxParticipantInput.style.border = '';
     }
 
     if (isMultipleOfTen) {
@@ -92,7 +94,7 @@ const useValidation = () => {
       maxParticipantInput.style.border = '2px solid #fb304b';
     } else {
       validationMessage('maxParticipant', isMultipleOfTen);
-       maxParticipantInput.style.border=''
+      maxParticipantInput.style.border = '';
     }
   };
 
@@ -105,7 +107,7 @@ const useValidation = () => {
       locationInput.style.border = '2px solid #fb304b';
     } else {
       validationMessage('location', isEmptyLocation);
-      locationInput.style.border ='';
+      locationInput.style.border = '';
     }
   };
   const validateFile = () => {
@@ -118,7 +120,6 @@ const useValidation = () => {
       validationMessage('file', isEmptyfile);
     }
   };
-
 
   return {
     validateStatus,
