@@ -58,8 +58,7 @@ const Routers = createBrowserRouter([
         element: <PostCreatePage />,
       },
       {
-        // path: 'community/:communityId/post/:postId',
-        path: 'postdetail',
+        path: 'community/:communityId/post/:postId',
         element: <PostDetailPage />,
       },
       {

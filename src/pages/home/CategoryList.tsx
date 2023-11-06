@@ -8,21 +8,6 @@ import { Community, QueryData } from '@interfaces/Community.ts';
 import CategorySearch from '@pages/home/CategorySearch.tsx';
 import 'aos/dist/aos.css';
 import { animateScroll as scroll } from 'react-scroll';
-import axios from 'axios';
-
-const mainCommuAxiosInstance = axios.create({
-  baseURL: import.meta.env.VITE_SERVER_API,
-});
-
-export const getCommunityData = async () => {
-  try {
-    const response = await mainCommuAxiosInstance.get('/community');
-    console.log(response.data);
-    return response.data;
-  } catch (error) {
-    console.error(error);
-  }
-};
 
 const CategoryList = () => {
   const { data: fetchedData, isLoading, error } = useQuery<QueryData, Error>('communityData', getCommunityData);
