@@ -1,29 +1,29 @@
 import { ChangeEvent, forwardRef, ForwardedRef } from 'react';
-
 import * as S from '../style';
 import Paragraph from '@components/ui/Paragraph/Paragraph';
 
-export interface InputProps {
+export interface InputProps extends React.HTMLProps<HTMLInputElement>{
   name: string;
   type: 'text' | 'number';
   value: string | number;
-  isValid: boolean;
-  placeholder: string;
+  isValid?: boolean;
+  placeholder?: string;
   labelText: string;
-  validateText: string;
-  onBlur: () => void;
+  validateText?: string;
+  onBlur?: () => void;
   onChange: (event: ChangeEvent<HTMLInputElement>) => void;
 }
 
 const Input = forwardRef(
   (
-    { type, labelText, isValid, validateText, name, value, placeholder, onBlur, onChange }: InputProps,
-    ref: ForwardedRef<HTMLInputElement>
+    { type, labelText, isValid, validateText, name, value, placeholder, onBlur, onChange,...props }: InputProps,
+    ref?: ForwardedRef<HTMLInputElement>
   ) => {
     return (
       <S.InputLabelWrap>
         <label>{labelText}</label>
         <input
+          {...props}
           type={type}
           name={name}
           value={value}

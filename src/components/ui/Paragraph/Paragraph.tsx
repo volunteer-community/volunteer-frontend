@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 interface StPagragraphProps {
-  $isValid: boolean;
+  $isValid?: boolean;
 }
 
 const StParagraph = styled.p<StPagragraphProps>`
@@ -9,8 +9,8 @@ const StParagraph = styled.p<StPagragraphProps>`
 `;
 
 interface ParagraphProps {
-  paragraphText: string;
-  $isValid: boolean;
+  paragraphText?: string;
+  $isValid?: boolean;
 }
 
 const Paragraph = ({ paragraphText, $isValid }: ParagraphProps) => {

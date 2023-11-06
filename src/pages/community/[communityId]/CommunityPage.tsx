@@ -5,6 +5,7 @@ import IntroUserContent from './communitypagecommponent/IntroUserContent';
 import IntroPostContent from './communitypagecommponent/IntroPostContent';
 import IntroInforContent from './communitypagecommponent/IntroInforContent';
 import { useQuery } from 'react-query';
+import { getCommunityDetail } from '@apis/axiosInstance/axiosInstance';
 import { CommunityDetail, CommunityImgPath, Data } from '@interfaces/Community.ts';
 import { Link, useParams } from 'react-router-dom';
 
@@ -20,17 +21,6 @@ interface Props {
     };
   };
 }
-
-export const getCommunityDetail = async (communityId: number) => {
-  try {
-    const response = await mainCommuAxiosInstance.get(`/community/${communityId}`);
-    console.log(response.data);
-    return response.data;
-  } catch (error) {
-    console.error(error);
-    throw error;
-  }
-};
 
 const CommunityPage = () => {
   const { communityId } = useParams<{ communityId: string }>();

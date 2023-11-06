@@ -1,5 +1,9 @@
 import styled from 'styled-components';
 import CamaraIcon from '@assets/images/camara_icon.svg';
+
+interface PreviewProps {
+  $pageName: string
+}
 export const InputLabelWrap = styled.div`
   display: flex;
   flex-direction: column;
@@ -59,10 +63,10 @@ export const InputLabelWrap = styled.div`
   }
 `;
 
-export const PreviewWrap = styled.div`
+export const PreviewWrap = styled.div<PreviewProps>`
 display: flex;
 gap: 10px;
 justify-content: space-between;
 width: 100%;
-height: 200px;
+height: ${(props)=> props.$pageName? '400px': '200px'};
 `

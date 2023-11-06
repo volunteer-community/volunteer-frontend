@@ -27,7 +27,7 @@ export const ImageInner = styled.div`
 `; 
 export const StImage = styled(Image)<StImageProps>`
   text-align: center;
-  width: ${(props) => (props.$isExist ? '100%' : '40%')};
+  width: ${(props) => (props.$isExist ? '100%' : '')};
   height: ${(props) => (props.$isExist ? '100%' : '40%')};
   border-radius: 8px;
   object-fit: cover;
