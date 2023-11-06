@@ -1,8 +1,16 @@
 import styled from 'styled-components';
 
+export const BackLine = styled.div`
+  max-width: 800px;
+  padding: 10px;
+  width: 100%;
+  text-align: left;
+  background-color: #f3f3f3;
+`;
+
 export const PostDetailStyle = styled.div`
   text-align: center;
-  padding: 20px 20px 0px 20px;
+  padding: 5px 20px 0px 20px;
   max-width: 840px;
   justify-content: center;
   margin: 0 auto;
@@ -27,8 +35,13 @@ export const PostTime = styled.div`
 `;
 
 export const PostContentBox = styled.div`
+  width: 100%;
   padding: 10px 0px;
   font-size: 17px;
+`;
+
+export const PostAuthorInfo = styled.div`
+  width: 100%;
 `;
 
 export const ProfileWrap = styled.div`
@@ -68,7 +81,7 @@ export const CommentsForm = styled.form`
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  width: 100% important;
+  width: 100%;
 `;
 
 export const CommentBox = styled.div`

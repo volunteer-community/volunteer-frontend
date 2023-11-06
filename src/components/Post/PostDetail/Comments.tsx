@@ -37,8 +37,7 @@ interface CommentsProps {
 
 function Comments({ postId }: CommentsProps) {
   const [comment, setComment] = useState('');
-  const navigate = useNavigate();
-  const { isLoading, isError, data } = useQuery('comments', () => commentRequest(postId));
+  // const { isLoading, isError, data } = useQuery('comments', () => commentRequest(postId));
 
   // 더보기 버튼
   const [showOptions, setShowOptions] = useState(false);

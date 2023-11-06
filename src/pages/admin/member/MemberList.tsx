@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
-import { usePagination, useTable } from 'react-table';
+import { useGlobalFilter, usePagination, useTable } from 'react-table';
 import styled from 'styled-components';
 import { memberColumns } from './memberColumns';
 import memberdata from './memberdata.json';
+import TableSearch from './TableSearch';
 
 export interface Data {
   id: number;
@@ -17,19 +18,22 @@ export interface Data {
 
 export const MemberList: React.FC = () => {
   const [data, setData] = useState<Data[]>([]);
+  // const handleSearch = (searchTerm: string) => {} axios 관련 함수
 
   useEffect(() => {
     setData(memberdata as Data[]);
   }, []);
 
-  const { getTableProps, getTableBodyProps, headerGroups, page, prepareRow, pageCount, gotoPage } = useTable<Data>(
-    {
-      columns: memberColumns,
-      data: data,
-      initialState: { pageIndex: 0, pageSize: 5 },
-    },
-    usePagination
-  );
+  const { getTableProps, getTableBodyProps, headerGroups, page, prepareRow, pageCount, gotoPage, setGlobalFilter } =
+    useTable<Data>(
+      {
+        columns: memberColumns,
+        data: data,
+        initialState: { pageIndex: 0, pageSize: 5 },
+      },
+      useGlobalFilter,
+      usePagination
+    );
 
   // 페이지네이션 버튼 범위 관리 상태
   const [pageRangeStartIndex, setPageRangeStartIndex] = useState(0);
@@ -45,6 +49,8 @@ export const MemberList: React.FC = () => {
 
   return (
     <ProductTableStyle>
+      <TableSearch onSubmit={setGlobalFilter} />
+      {/* <TableSearch onSubmit={handleSearch} /> */}
       <table {...getTableProps()}>
         <thead>
           {headerGroups.map((headerGroup) => (
