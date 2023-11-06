@@ -1,6 +1,6 @@
 import { Input } from '@components/ui/Input'
 import { useFormState } from '@hooks/form';
-import useCreateUserAddInfo from '@hooks/query/signup';
+import useCreateUserAddInfo from '@hooks/queries/signup';
 import { FormEvent } from 'react';
 import styled from 'styled-components'
 

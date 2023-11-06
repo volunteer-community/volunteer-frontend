@@ -1,4 +1,4 @@
-import { axiosImgInstance } from "@apis/axiosInstance/axiosInstance"
+import { axiosImgInstance, axiosInstance } from "@apis/axiosInstance/axiosInstance"
 
 export interface Community {
   communityData: FormData
@@ -15,4 +15,7 @@ interface UpdataCommunity extends Community{
 export const upadateCommunity = async ({ communityData, communityId }:UpdataCommunity) => {
   const response = await axiosImgInstance.put(`community/${communityId}`, communityData);
   return response
+}
+export const getCommunityData = async () => {
+  const response = await axiosInstance.get()
 }
