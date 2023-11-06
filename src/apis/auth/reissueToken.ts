@@ -16,7 +16,7 @@ export const reissueToken = (token: string) => {
 		const newRefreshToken = refreshToken;
 		const expiration = new Date();
 		expiration.setDate(expiration.getDate() + 14);
-		const expiresStr = expiration.toUTCString();
+		const expiresStr = expiration
 		setCookie('accessToken', newAccessToken, newAccessTokenExpireTime)
 		setCookie('refreshToken', newRefreshToken, expiresStr);
 	})
