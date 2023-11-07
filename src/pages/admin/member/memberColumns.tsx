@@ -18,7 +18,7 @@ export const memberColumns: Column<Data>[] = [
     Header: '프로필사진',
     accessor: 'profileImage',
     Cell: ({ value }: { value: string }) => (
-      <img src={value} alt="프로필 사진" style={{ width: '100px', height: '100px' }} />
+      <img src={value} alt="프로필 사진" style={{ width: '100px', height: '100px', borderRadius: '50%' }} />
     ),
   },
   {

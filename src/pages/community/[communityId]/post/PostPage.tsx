@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import { useCommunityId } from '@hooks/useParamsId/useCommunityId';
 import PostList from '@pages/community/[communityId]/post/postpageComponent/PostList';
 import { useQuery } from 'react-query';
-import { getPostData } from '@apis/axiosInstance/axiosInstance';
+import { getPostData } from '@apis/community/community.ts';
 
 const PostPage = () => {
   //useparams로 받아온 커뮤니티 아이디

@@ -1,9 +1,12 @@
-import React from 'react'
+import PostDetail from '@components/Post/PostDetail/PostDetail';
+import Section from '@components/ui/Section/Section';
 
 const PostDetailPage = () => {
-	return (
-		<div>PostDetailPage</div>
-	)
-}
+  return (
+    <Section>
+      <PostDetail />
+    </Section>
+  );
+};
 
-export default PostDetailPage
+export default PostDetailPage;

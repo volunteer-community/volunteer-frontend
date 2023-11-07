@@ -10,14 +10,12 @@ import * as S from './style';
 import { CATEGORY_TYPE } from '@constants/community';
 import { Community } from '@apis/community/post';
 
-
-
 interface CommunityFormProps {
   initialData: {
     [key: string]: any;
   };
   initialImageURLs?: (string | null)[];
-  onSave?: (communityData:Community ) => void;
+  onSave?: (communityData: Community) => void;
   onUpadate?: () => void;
 }
 
@@ -28,7 +26,7 @@ const CommunityForm = ({ initialData, initialImageURLs, onSave, onUpadate }: Com
   );
   const { communityTitle, communityContent, categoryType, communityMaxParticipant, communityLocation, file } =
     postFormData;
- 
+
   const isEmptyFormData =
     !communityTitle ||
     !communityContent ||
@@ -36,7 +34,7 @@ const CommunityForm = ({ initialData, initialImageURLs, onSave, onUpadate }: Com
     !communityMaxParticipant ||
     !communityLocation ||
     file.length === 0;
-  
+
   const {
     validateStatus,
     validateMessage,
@@ -78,7 +76,7 @@ const CommunityForm = ({ initialData, initialImageURLs, onSave, onUpadate }: Com
       const blob = new Blob([jsonFormData], { type: 'application/json' });
       formData.append('communityRequestDto', blob);
 
-      !communityId ? onSave?.({ communityData:formData, categoryType:categoryType }) : onUpadate?.();
+      !communityId ? onSave?.({ communityData: formData, categoryType: categoryType }) : onUpadate?.();
     } catch (error) {
       console.error(error);
     }
