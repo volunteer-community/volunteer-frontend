@@ -35,6 +35,7 @@ const StButton = styled(Button)`
 `;
 const PostForm = ({ initialData, initialImageURLs, mutate }: PostFormProps) => {
   const { communityId, postId } = useParams();
+  console.log(communityId, postId)
   const { imageURLs, postFormData, setPostFormData, handleChange, handleFileDelectClick } = useFormState(
     initialData,
     initialImageURLs
@@ -62,7 +63,12 @@ const PostForm = ({ initialData, initialImageURLs, mutate }: PostFormProps) => {
       });
       const blob = new Blob([jsonFormData], { type: 'application/json' });
       formData.append('data', blob);
-      postId ? mutate({ formData, communityId, postId }) : mutate({ formData, communityId });
+      if (postId) {
+        mutate({ formData, communityId, postId })  
+      } else {
+        
+        mutate({ formData, communityId });
+      }
     } catch (error) {
       console.error(error);
     }

@@ -1,8 +1,11 @@
-import styled from 'styled-components';
-
-export const TextareaLabelWrap = styled.div`
+import styled,{css} from 'styled-components';
+interface TextareaLabelWrapProps {
+  $isPage: string
+}
+export const TextareaLabelWrap = styled.div<TextareaLabelWrapProps>`
   display: flex;
   flex-direction: column;
+  if
   /* @media (min-width: 780px) {
     width: 50%;
   }

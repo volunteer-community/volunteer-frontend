@@ -176,6 +176,7 @@ const CommunityForm = ({ initialData, initialImageURLs, onSave, onUpadate }: Com
           <S.StButton buttonText="제출하기" />
         </S.BtnWrap>
       </S.Form>
+      <button>버튼</button>
     </>
   );
 };

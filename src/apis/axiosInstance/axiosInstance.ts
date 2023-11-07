@@ -29,9 +29,7 @@ const createInstance = (contentType: string) => {
       if (status === 401) {
         const response = await reissueToken(refreshToken);
         return response;
-      } else {
-        window.location.href = '/login';
-      }
+      } 
     }
   );
 
