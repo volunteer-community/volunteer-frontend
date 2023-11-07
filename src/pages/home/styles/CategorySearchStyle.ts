@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import searchBtn from '@assets/images/searchBtn.png';
 
 const SearchBox = styled.div`
-  width: 92%;
+  width: 96%;
   display: flex;
   justify-content: center;
   padding-bottom: 50px;
