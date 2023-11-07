@@ -8,7 +8,7 @@ export const reissueToken = (token: string) => {
       Authorization: token
     },
   };
-	const response = tokenInstance.post('/user/newToken', null, config);
+	const response = tokenInstance.post('user/newToken', null, config);
 	response.then((res) => {
 		const {accessToken, refreshToken, expirationDate } = res.data
 		const newAccessToken = accessToken;
@@ -16,7 +16,7 @@ export const reissueToken = (token: string) => {
 		const newRefreshToken = refreshToken;
 		const expiration = new Date();
 		expiration.setDate(expiration.getDate() + 14);
-		const expiresStr = expiration
+	
 		setCookie('accessToken', newAccessToken, newAccessTokenExpireTime)
 		setCookie('refreshToken', newRefreshToken, expiresStr);
 	})

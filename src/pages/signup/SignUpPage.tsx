@@ -1,38 +1,29 @@
-import AddInfoForm from '@components/AddInfoForm';
-import Section from '@components/ui/Section/Section';
-import { useSearchParams } from 'react-router-dom';
-import * as S from './style'
+import { useState } from 'react';
+import * as S from './style';
+import { OAUTHBUTTON } from '@constants/login';
+import LoadingIndicator from '@components/ui/Loading';
+import LoginButton from '@components/Login/LoginButton';
 
+const SignPage = () => {
+  const [isLoading, setIsLoading] = useState(false);
+  const getLoading = (loading: boolean) => {
+    setIsLoading(loading);
+  };
 
-const SignUpPage = () => {
-
-  const [searchParams] = useSearchParams()
-  const email = searchParams.get('email') 
-  const provider  = searchParams.get('provider') 
-  const role = searchParams.get('role')?.slice(5,9); 
-  const name = searchParams.get('name'); 
-  const picture = searchParams.get('picture'); 
-  console.log(role)
-  
-  const initialData = {
-    name,
-    email,
-    phoneNumber: '',
-    nickname: '',
-    role,
-    provider,
-    picture
-  }
   return (
-    <Section sectionTitle="회원 정보입력">
-      <S.ImgWrap>
-        <S.StImage src={picture!} alt='프로필 이미지' />
-      </S.ImgWrap>
-      <AddInfoForm initialData={initialData} />
-    </Section>
+    <S.LoginPageContainer>
+      <S.LoginTitle>회원가입</S.LoginTitle>
+      {isLoading ? (
+        <LoadingIndicator text="로딩 로딩 .." />
+      ) : (
+        <S.LoginButtons>
+          {OAUTHBUTTON.map((oauth) => (
+            <LoginButton key={oauth.oauthName} oauth={oauth} getLoading={getLoading} />
+          ))}
+        </S.LoginButtons>
+      )}
+    </S.LoginPageContainer>
   );
 };
 
-
-
-export default SignUpPage;
+export default SignPage;
