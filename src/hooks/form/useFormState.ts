@@ -3,24 +3,19 @@ import { useState, ChangeEvent, useEffect } from 'react';
 type ChangeEventType = HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement;
 
 export interface useFormStateProps {
-  title: string;
-  content: string;
-  categoryType: string;
-  maxParticipant: number;
-  location: string;
-  file: File[];
+  [key: string]: any;
 }
 
 const useFormState = (initialData: useFormStateProps, initialImageURLs?: (string | null)[]) => {
-  const [communityFormData, setCommunityFormData] = useState(initialData);
+  const [postFormData, setPostFormData] = useState(initialData);
   const [imageURLs, setImageURLs] = useState(initialImageURLs);
 
-  const handleCommunityChange = (event: ChangeEvent<ChangeEventType>) => {
-    const { name, value } = event.target;
-
-    if (event.target instanceof HTMLInputElement && event.target.type === 'file') {
+  const handleChange = (event: ChangeEvent<ChangeEventType>) => {
+    const { name, value, type } = event.target;
+    console.log(name, type);
+    if (event.target instanceof HTMLInputElement && type === 'file') {
       const fileArray: File[] = event.target.files ? Array.from(event.target.files) : [];
-      setCommunityFormData({ ...communityFormData, [name]: fileArray });
+      setPostFormData({ ...postFormData, [name]: fileArray });
       const objectURLs: string[] = [];
       for (let i = 0; i < fileArray.length; i++) {
         const objectURL = URL.createObjectURL(fileArray[i]);
@@ -29,7 +24,7 @@ const useFormState = (initialData: useFormStateProps, initialImageURLs?: (string
       setImageURLs(objectURLs);
     } else {
       const isEmpty = value.trim() === '';
-      setCommunityFormData({ ...communityFormData, [name]: value });
+      setPostFormData({ ...postFormData, [name]: value });
       if (isEmpty) return;
     }
   };
@@ -38,9 +33,9 @@ const useFormState = (initialData: useFormStateProps, initialImageURLs?: (string
     if (imageURLs && imageURLs[index] !== null) {
       URL.revokeObjectURL(imageURLs[index] as string);
 
-      const updatedFiles = [...communityFormData.file];
+      const updatedFiles = [...postFormData.file];
       updatedFiles.splice(index, 1);
-      setCommunityFormData({ ...communityFormData, file: updatedFiles });
+      setPostFormData({ ...postFormData, file: updatedFiles });
     }
     if (imageURLs) {
       const updatedImageURLs = [...imageURLs];
@@ -57,10 +52,10 @@ const useFormState = (initialData: useFormStateProps, initialImageURLs?: (string
 
   return {
     imageURLs,
-    communityFormData,
-    handleCommunityChange,
+    postFormData,
+    handleChange,
     handleFileDelectClick,
-    setCommunityFormData,
+    setPostFormData,
     setImageURLs,
   };
 };
