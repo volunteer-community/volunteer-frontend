@@ -7,10 +7,10 @@ const INITIDATA = {
   file: [],
 };
 const PostCreatePage = () => {
-  const {mutate } = useCreatePost()
+  const { mutate } = useCreatePost();
   return (
-		<Section sectionTitle="게시글 작성">
-      <PostForm initialData={INITIDATA} mutate={mutate } />
+    <Section sectionTitle="게시글 작성">
+      <PostForm initialData={INITIDATA} mutate={mutate} />
     </Section>
   );
 };
