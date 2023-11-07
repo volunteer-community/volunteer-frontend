@@ -1,8 +1,8 @@
-import { Input } from '@components/ui/Input'
+import { Input } from '@components/ui/Input';
 import { useFormState } from '@hooks/form';
 import useCreateUserAddInfo from '@hooks/queries/signup';
 import { FormEvent } from 'react';
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 const Form = styled.form`
   display: flex;
@@ -11,16 +11,16 @@ const Form = styled.form`
   flex-direction: column;
   width: 50%;
 `;
-interface AddInfoFormProps{
-	[key:string]: any
+interface AddInfoFormProps {
+  [key: string]: any;
 }
 const AddInfoForm = ({ initialData }: AddInfoFormProps) => {
-	const { postFormData, setPostFormData, handleChange } = useFormState(initialData)
-	const { name, provider, email, nickname, phoneNumber, picture, role } = postFormData
-	const { mutate} = useCreateUserAddInfo()
-	const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
-		event.preventDefault()
-		const addInfoData = JSON.stringify({
+  const { postFormData, setPostFormData, handleChange } = useFormState(initialData);
+  const { name, provider, email, nickname, phoneNumber, picture, role } = postFormData;
+  const { mutate } = useCreateUserAddInfo();
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const addInfoData = JSON.stringify({
       name,
       provider,
       email,
@@ -29,7 +29,7 @@ const AddInfoForm = ({ initialData }: AddInfoFormProps) => {
       picture,
       role,
     });
-		const signupDtoBlob = new Blob([addInfoData], { type: 'application/json' });
+    const signupDtoBlob = new Blob([addInfoData], { type: 'application/json' });
     setPostFormData({
       name: '',
       provider: '',
@@ -39,17 +39,17 @@ const AddInfoForm = ({ initialData }: AddInfoFormProps) => {
       picture: '',
       role: '',
     });
-		mutate(signupDtoBlob);
-	}
-	return (
+    mutate(signupDtoBlob);
+  };
+  return (
     <Form onSubmit={handleSubmit}>
-      <Input labelText="이름" type="text" name="name" disabled  value={name} onChange={handleChange}/>
-      <Input labelText="이메일" type="text" name="email" disabled value={email} onChange={handleChange}/>
-      <Input labelText="닉네임" type="text" name="nickname" value={nickname} onChange={handleChange}/>
-      <Input labelText="핸드폰 번호" type="text" name="phoneNumber"  value={phoneNumber} onChange={handleChange}/>
+      <Input labelText="이름" type="text" name="name" disabled value={name} onChange={handleChange} />
+      <Input labelText="이메일" type="text" name="email" disabled value={email} onChange={handleChange} />
+      <Input labelText="닉네임" type="text" name="nickname" value={nickname} onChange={handleChange} />
+      <Input labelText="핸드폰 번호" type="text" name="phoneNumber" value={phoneNumber} onChange={handleChange} />
       <button>정보 추가하기</button>
     </Form>
   );
-}
+};
 
-export default AddInfoForm
+export default AddInfoForm;
