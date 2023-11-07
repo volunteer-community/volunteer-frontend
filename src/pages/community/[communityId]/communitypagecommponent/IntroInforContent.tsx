@@ -36,7 +36,7 @@ const IntroInforContent: React.FC<Props> = ({ DetailData }) => {
         </S.ParticipantIco>
         <S.WritingTime>
           글 작성 시간
-          <S.WritingTimeText>{DetailData.data.communityDetail.createdAt}</S.WritingTimeText>
+          <S.WritingTimeText>{DetailData.data.communityDetail.communityCreatedAt}</S.WritingTimeText>
         </S.WritingTime>
       </S.Felxbox>
     </S.IntroInforBox>

@@ -22,8 +22,8 @@ const IntroUserContent = styled.div`
 
 const UserImgBox = styled.img`
   width: 100%;
-  height: 550px;
-  object-fit: cover;
+  height: auto;
+  object-fit: contain;
 `;
 
 const UserInforBox = styled.div`
@@ -49,7 +49,7 @@ const UserName = styled.span`
 
 const IntroPostBox = styled.div`
   width: 100%;
-  padding: 100px 0 0 0;
+  padding: 100px 0 50px 0;
 `;
 
 const IntroPostTitle = styled.h4`
