@@ -1,5 +1,6 @@
 import { axiosImgInstance, axiosInstance } from '@apis/axiosInstance/axiosInstance';
 export interface PosterDetail {
+  posterDetail: any;
   data: PosterDetail | PromiseLike<PosterDetail>;
   userId: number;
   posterId: number;

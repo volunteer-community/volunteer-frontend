@@ -45,7 +45,7 @@ function PostDetail() {
   }
 
   if (isError) {
-    return <div>로그인이 만료되었습니다.{isError.message}</div>;
+    return <div>에러가 발생하였습니다.{isError.message}</div>;
   }
 
   if (!data) {
