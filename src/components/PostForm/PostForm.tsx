@@ -10,7 +10,7 @@ interface PostFormProps {
   initialData: {
     [key: string]: any;
   };
-  mutate:()=> void
+  mutate: () => void;
   initialImageURLs?: (string | null)[]; // ['slkeke']  [null]
 }
 const Form = styled.form`
@@ -34,15 +34,15 @@ const StButton = styled(Button)`
   background-color: #56c9b6;
 `;
 const PostForm = ({ initialData, initialImageURLs, mutate }: PostFormProps) => {
-  const { communityId,postId} = useParams()
+  const { communityId, postId } = useParams();
   const { imageURLs, postFormData, setPostFormData, handleChange, handleFileDelectClick } = useFormState(
     initialData,
     initialImageURLs
   );
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault()
+    event.preventDefault();
     const { posterTitle, file, posterContent } = postFormData;
-    const isEmptyFormData = !posterTitle || !posterContent
+    const isEmptyFormData = !posterTitle || !posterContent;
     if (isEmptyFormData) return alert('모든 값은 입력이 필수 입니다.');
     const formData = new FormData();
     const isExistFile = file;
@@ -62,46 +62,45 @@ const PostForm = ({ initialData, initialImageURLs, mutate }: PostFormProps) => {
       });
       const blob = new Blob([jsonFormData], { type: 'application/json' });
       formData.append('data', blob);
-      postId?mutate({ formData , communityId, postId}): mutate({ formData , communityId})
-      
+      postId ? mutate({ formData, communityId, postId }) : mutate({ formData, communityId });
     } catch (error) {
-      console.error(error)
+      console.error(error);
     }
-  }
-    return (
-      <Form onSubmit={handleSubmit}>
-        <Input
-          labelText="게시물 제목"
-          name="posterTitle"
-          value={postFormData.posterTitle}
-          placeholder=""
-          validateText=""
-          isValid
-          onChange={handleChange}
-        />
-        <FileInput
-          labelText="이미지"
-          name="file"
-          multiple={false}
-          imageUrls={imageURLs}
-          maxImage={1}
-          onChange={handleChange}
-          pageName="post"
-          onClick={handleFileDelectClick}
-        />
-        <TextareaLabel
-          labelText="게시물 내용"
-          name="posterContent"
-          value={postFormData.posterContent}
-          isValid
-          validateText=""
-          onChange={handleChange}
-        />
-        <BtnWrap>
-          <StButton buttonText="제출하기" />
-        </BtnWrap>
-      </Form>
-    );
   };
+  return (
+    <Form onSubmit={handleSubmit}>
+      <Input
+        labelText="게시물 제목"
+        name="posterTitle"
+        value={postFormData.posterTitle}
+        placeholder=""
+        validateText=""
+        isValid
+        onChange={handleChange}
+      />
+      <FileInput
+        labelText="이미지"
+        name="file"
+        multiple={false}
+        imageUrls={imageURLs}
+        maxImage={1}
+        onChange={handleChange}
+        pageName="post"
+        onClick={handleFileDelectClick}
+      />
+      <TextareaLabel
+        labelText="게시물 내용"
+        name="posterContent"
+        value={postFormData.posterContent}
+        isValid
+        validateText=""
+        onChange={handleChange}
+      />
+      <BtnWrap>
+        <StButton buttonText="제출하기" />
+      </BtnWrap>
+    </Form>
+  );
+};
 
 export default PostForm;
