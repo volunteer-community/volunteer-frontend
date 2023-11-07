@@ -51,7 +51,7 @@ const PostForm = ({ initialData, initialImageURLs, mutate }: PostFormProps) => {
         const currentFile = isExistFile[fileIndex];
         const imageBlob = new Blob([currentFile], { type: 'image/jpeg' });
 
-        formData.append('imageList', imageBlob, 'image.jpg');
+        formData.append('file', imageBlob, 'image.jpg');
       }
     }
 

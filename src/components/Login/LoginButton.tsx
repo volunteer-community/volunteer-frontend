@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
 import * as S from './style'
+import { getCookie, setCookie } from '@utils/cookies/cookies';
+import { access } from 'fs/promises';
 
 interface LoginButtonProps {
   oauth: {
@@ -13,6 +15,7 @@ const LoginButton = ({ oauth, getLoading }: LoginButtonProps) => {
   const handleClick = () => {
     setLoading(true);
     window.location.href = `${import.meta.env.VITE_SERVER_OAUTH2}/oauth2/authorization/${oauthName}`;
+    getCookie('accessToken')
   };
 
   useEffect(() => {

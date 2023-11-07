@@ -6,7 +6,7 @@ export interface Community {
 }
 export const createCommunity = async ({ communityData, categoryType }:Community) => {
   const response = await axiosImgInstance.post(`community?categoryType=${categoryType}`, communityData);
-  return response;
+  return response
 };
 
 interface UpdataCommunity extends Community{

@@ -1,6 +1,6 @@
 import PostForm from '@components/PostForm/PostForm';
 import Section from '@components/ui/Section/Section';
-import { useCreatePost } from '@hooks/query/post';
+import { useCreatePost } from '@hooks/queries/post';
 const INITIDATA = {
   posterTitle: '',
   posterContent: '',
