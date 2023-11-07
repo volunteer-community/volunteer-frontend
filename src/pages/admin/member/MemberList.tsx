@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import { useGlobalFilter, usePagination, useTable } from 'react-table';
 import styled from 'styled-components';
 import { memberColumns } from './memberColumns';
-import memberdata from './memberdata.json';
 import TableSearch from './TableSearch';
 
 export interface Data {

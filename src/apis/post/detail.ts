@@ -1,6 +1,6 @@
-import { axiosImgInstance } from '@apis/axiosInstance/axiosInstance';
-
+import { axiosImgInstance, axiosInstance } from '@apis/axiosInstance/axiosInstance';
 export interface PosterDetail {
+  data: PosterDetail | PromiseLike<PosterDetail>;
   userId: number;
   posterId: number;
   posterTitle: string;
@@ -13,7 +13,7 @@ export interface PosterDetail {
   posterUpdatedAt: string;
 }
 
-export interface Comments {
+export interface CommentList {
   commentId: number;
   commentContent: string;
   commentAuthor: string;
@@ -22,17 +22,33 @@ export interface Comments {
   profileImg: string;
 }
 
-export const getPostDetail = async (posterId: number, communityId: number): Promise<PosterDetail> => {
-  const response = await axiosImgInstance.get<PosterDetail>(`poster/${posterId}/community?communityId=${communityId}`);
+interface CommentData {
+  commentContent: string;
+  postId: number;
+  communityId: number;
+}
+
+// 게시글 상세 내용
+export const getPostDetail = async (postId: number, communityId: number): Promise<PosterDetail> => {
+  const response = await axiosImgInstance.get<PosterDetail>(`poster/${postId}/community?communityId=${communityId}`);
+  return response.data.data;
+};
+
+export const likePost = async (postId: number, communityId: number) => {
+  const response = await axiosImgInstance.post(`like/poster/${postId}/community?communityId=${communityId}`);
   return response.data;
 };
 
-export const likePost = async (posterId: number, communityId: number) => {
-  const response = await axiosImgInstance.post(`like/poster/${posterId}/community?communityId=${communityId}`);
-  return response.data;
+// 게시글 상세 코멘트
+export const getComments = async (postId: number, communityId: number): Promise<CommentList[]> => {
+  const response = await axiosImgInstance.get(`comment/poster/${postId}/community?communityId=${communityId}`);
+  return response.data.data;
 };
 
-export const getComments = async (posterId: number, communityId: number): Promise<Comments[]> => {
-  const response = await axiosImgInstance.get(`comment/poster/${posterId}/community?communityId=${communityId}`);
-  return response.data;
+export const postComment = async ({ postId, communityId, commentContent }: CommentData) => {
+  const response = await axiosInstance.post(`comment/poster/${postId}/community?communityId=${communityId}`, {
+    commentContent,
+  });
+
+  return response;
 };

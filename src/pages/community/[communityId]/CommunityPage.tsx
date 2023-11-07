@@ -1,4 +1,3 @@
-import React from 'react';
 import * as S from '@pages/community/stlyes/CommunityStyle.ts';
 import * as W from '@pages/community/stlyes/SubLayoutCommon.ts';
 import IntroUserContent from './communitypagecommponent/IntroUserContent';
