@@ -54,3 +54,9 @@ export interface Response {
   message: string;
   data: CommunityData;
 }
+
+export interface QueryData {
+  data: {
+    communityList: Community[];
+  };
+}
