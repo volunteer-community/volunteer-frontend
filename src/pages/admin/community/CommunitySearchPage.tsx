@@ -1,11 +1,9 @@
-import { CommunityList } from './CommunityList';
+import React from 'react'
 
 const CommunitySearchPage = () => {
-  return (
-    <div>
-      <CommunityList />
-    </div>
-  );
-};
+	return (
+		<div>CommunitySearchPage</div>
+	)
+}
 
-export default CommunitySearchPage;
+export default CommunitySearchPage

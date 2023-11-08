@@ -1,12 +1,9 @@
-import { MemberList } from './MemberList';
-import Section from '@components/ui/Section/Section';
+import React from 'react'
 
 const MemberListPage = () => {
-  return (
-    <Section>
-      <MemberList />
-    </Section>
-  );
-};
+	return (
+		<div>MemberListPage</div>
+	)
+}
 
-export default MemberListPage;
+export default MemberListPage

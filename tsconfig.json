@@ -10,7 +10,6 @@
       "@interfaces/*": ["src/interfaces/*"],
       "@pages/*": ["src/pages/*"],
       "@routers/*": ["src/routers/*"],
-      "@constants/*": ["src/constants/*"],
       "@stores/*": ["src/stores/*"],
       "@utils/*": ["src/utils/*"]
     },
