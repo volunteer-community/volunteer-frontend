@@ -1,22 +1,22 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { selectActiveIndex } from '@stores/slices/NavCatrgorySlice.ts';
 import { useQuery } from 'react-query';
-import { getCommunityData } from '@apis/axiosInstance/mainCommuAxiosInstance';
+import { getCommunityData } from '@apis/community/community.ts'; 
 import * as S from '@pages/home/styles/CategoryListStyle';
-import { Community } from '@interfaces/Community.ts';
+import { Community, QueryData } from '@interfaces/Community.ts';
 import CategorySearch from '@pages/home/CategorySearch.tsx';
 import 'aos/dist/aos.css';
 import { animateScroll as scroll } from 'react-scroll';
 
 const CategoryList = () => {
-  const {
-    data: fetchedCommunityData,
-    isLoading,
-    error,
-  } = useQuery<Community[], Error>('communityData', getCommunityData);
+  const { data: fetchedData, isLoading, error } = useQuery<QueryData, Error>('communityData', getCommunityData);
+
+  console.log(fetchedData);
 
   const activeIndex = useSelector(selectActiveIndex);
+
+  const fetchedCommunityData = fetchedData?.data.communityList || [];
 
   // searched 상태와 해당 상태를 변경할 함수 설정
   const [searched, setSearched] = useState(false);
@@ -31,13 +31,13 @@ const CategoryList = () => {
   const [searchQuery, setSearchQuery] = useState('');
 
   const loadMore = () => {
-    setItemsToShow(itemsToShow + 4); // 4개씩 추가₩
+    setItemsToShow(itemsToShow + 4); // 4개씩 추가
     // 스크롤 이동
     scroll.scrollMore(500); // 현재 스크롤 위치에서 500px 아래로 스크롤
   };
 
   // 데이터 필터링
-  const filteredData = fetchedCommunityData?.filter((community) => community.category.categoryId === activeIndex + 1);
+  const filteredData = fetchedCommunityData?.filter((community) => community.categoryId === activeIndex + 1);
 
   // 고정 데이터
   const defaultData = fetchedCommunityData || [];
@@ -45,10 +45,16 @@ const CategoryList = () => {
   //검색 필터링
   const filteredDataToShow: Community[] =
     activeIndex >= 0
-      ? (filteredData ? filteredData : defaultData).filter((community) =>
-          community.communityTitle.toLowerCase().includes(searchQuery.toLowerCase())
+      ? (filteredData ? filteredData : defaultData).filter(
+          (community) =>
+            typeof searchQuery === 'string' &&
+            community.communityTitle.toLowerCase().includes(searchQuery.toLowerCase())
         )
-      : defaultData.filter((community) => community.communityTitle.toLowerCase().includes(searchQuery.toLowerCase()));
+      : defaultData.filter(
+          (community) =>
+            typeof searchQuery === 'string' &&
+            community.communityTitle.toLowerCase().includes(searchQuery.toLowerCase())
+        );
 
   // 사용할 데이터
   const dataToUse: Community[] | undefined = filteredDataToShow.slice(0, itemsToShow);
@@ -83,22 +89,24 @@ const CategoryList = () => {
             <S.CategoryItem key={community.communityId} data-aos="fade-up">
               <S.StyledLink to={`/community/${community.communityId}`}>
                 <S.ImgBox>
-                  <S.Img src={community.imagePath} />
+                  <S.Img src={community.communityMainImgPath} />
                 </S.ImgBox>
 
                 <S.FlexBox>
                   <S.CategoryDataBox>
-                    <S.CategoryTitle>{community.category.categoryName}</S.CategoryTitle>
+                    <S.CategoryTitle>{community.categoryType}</S.CategoryTitle>
                     <S.CommunityTitle>{community.communityTitle}</S.CommunityTitle>
                     <S.CommunityDescription>{community.communityContent}</S.CommunityDescription>
                   </S.CategoryDataBox>
 
                   <S.CategoryJoinBox>
-                    <S.IsJoined>
-                      <S.IsJoinedText>{community.participantsCompleted}</S.IsJoinedText>
-                    </S.IsJoined>
-                    <S.CommunityJoinCount>{community.communityParticipant}</S.CommunityJoinCount>
-                    <S.HostName>{community.authorName}</S.HostName>
+                    {community.communityMaxParticipant === 10 ? (
+                      <S.IsJoined>
+                        <S.IsJoinedText>참여완료</S.IsJoinedText>
+                      </S.IsJoined>
+                    ) : null}
+                    <S.CommunityJoinCount>{community.communityMaxParticipant}</S.CommunityJoinCount>
+                    <S.HostName>{community.communityAuthor}</S.HostName>
                   </S.CategoryJoinBox>
                 </S.FlexBox>
               </S.StyledLink>
