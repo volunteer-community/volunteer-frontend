@@ -21,7 +21,7 @@ function PostDetail() {
   });
 
   // 게시물 좋아요 상태 업데이트
-  const likePostMutation = useMutation(() => likePost(Number(postId)), {
+  const likePostMutation = useMutation(() => likePost(Number(postId), Number(communityId)), {
     onSuccess: () => {
       // 호출이 성공하면 게시글 상세 정보를 다시 불러옴
       queryClient.invalidateQueries('detail');
@@ -36,7 +36,7 @@ function PostDetail() {
 
   const handleLikeButtonClick = () => {
     toggleLike(); // 좋아요 상태 토글
-    likePostMutation.mutate(Number(postId)); // 좋아요 수 변경 API 호출
+    likePostMutation.mutate(Number(postId), Number(communityId)); // 좋아요 수 변경 API 호출
   };
 
   // 로딩 중이거나 에러가 발생했을 때 렌더링할 내용

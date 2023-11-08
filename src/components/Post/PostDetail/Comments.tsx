@@ -4,7 +4,7 @@ import * as S from './style';
 import { Input } from '@components/ui/Input';
 import EllipsisIcon from '../../../assets/images/ellipsis.svg';
 import { useParams } from 'react-router-dom';
-import { getComments, CommentList } from '@apis/post/detail';
+import { getComments, CommentList, postComment, putComment, deleteComment } from '@apis/post/detail';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
 
 function Comments() {
@@ -39,78 +39,27 @@ function Comments() {
   };
 
   // 댓글 등록
-  const commentMutation = useMutation(
-    async ({ postId, communityId, commentContent }) => {
-      const response = await fetch(`comment/poster/${postId}/community?communityId=${communityId}`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ postId, communityId, commentContent }),
-      });
-
-      if (!response.ok) {
-        throw new Error('댓글 등록에 실패했습니다.');
-      }
-
-      return response.json();
+  const commentMutation = useMutation(postComment, {
+    onSuccess: () => {
+      queryClient.invalidateQueries(['comments', Number(postId), Number(communityId)]);
     },
-    {
-      onSuccess: () => {
-        queryClient.invalidateQueries(['comments', Number(postId), Number(communityId)]);
-      },
-    }
-  );
+  });
 
   // 댓글 수정
-  const editCommentMutation = useMutation(
-    async ({ commentId, communityId, commentContent }) => {
-      const response = await fetch(`comment/${commentId}/community?communityId=${communityId}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ communityId, commentContent }),
-      });
-
-      if (!response.ok) {
-        throw new Error('댓글 수정에 실패했습니다.');
-      }
-
-      return response.json();
+  const editCommentMutation = useMutation(putComment, {
+    onSuccess: () => {
+      queryClient.invalidateQueries(['comments', Number(communityId), Number(commentId)]);
+      setEditingCommentId(null); // 댓글 수정 모드 종료
     },
-    {
-      onSuccess: () => {
-        queryClient.invalidateQueries(['comments', Number(communityId), Number(commentId)]);
-        setEditingCommentId(null); // 댓글 수정 모드 종료
-      },
-    }
-  );
+  });
 
   // 댓글 삭제
-  const deleteCommentMutation = useMutation(
-    async ({ commentId, communityId }) => {
-      const response = await fetch(`comment/${commentId}/community?communityId=${communityId}`, {
-        method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ communityId }),
-      });
-
-      if (!response.ok) {
-        throw new Error('댓글 삭제에 실패했습니다.');
-      }
-
-      return response.json();
+  const deleteCommentMutation = useMutation(deleteComment, {
+    onSuccess: () => {
+      // 댓글 삭제가 성공하면 댓글 목록 쿼리를 다시 불러옵니다.
+      queryClient.invalidateQueries('comments');
     },
-    {
-      onSuccess: () => {
-        // 댓글 삭제가 성공하면 댓글 목록 쿼리를 다시 불러옵니다.
-        queryClient.invalidateQueries('comments');
-      },
-    }
-  );
+  });
 
   // const handleCommentSubmit = async () => {
   //   try {
