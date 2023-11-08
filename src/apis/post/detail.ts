@@ -65,7 +65,7 @@ export const putComment = async ({ communityId, commentContent, commentId }: Com
 };
 
 export const deleteComment = async (commentId, communityId) => {
-  const response = await axiosInstance.delete(`comment/${commentId}/communityId/${communityId}`, {
+  const response = await axiosInstance.delete(`comment/${commentId}/community?communityId=${communityId}`, {
     params: {
       communityId: communityId,
     },
