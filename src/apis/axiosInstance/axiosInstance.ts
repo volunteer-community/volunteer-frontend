@@ -17,10 +17,10 @@ const createInstance = (contentType: string) => {
     if (token) {
       config.headers['Authorization'] = `${token}`;
     }
-    console.log(token)
+    console.log(token);
     return config;
   });
-  
+
   instance.interceptors.response.use(
     (response) => response,
     async (error) => {
