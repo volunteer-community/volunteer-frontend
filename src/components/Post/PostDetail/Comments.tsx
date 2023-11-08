@@ -1,16 +1,16 @@
 import { useState } from 'react';
 import TextareaLabel from '@components/ui/Textarea';
 import * as S from './style';
-import { Input } from '@components/ui/Input';
 import EllipsisIcon from '../../../assets/images/ellipsis.svg';
 import { useParams } from 'react-router-dom';
-import { getComments, CommentList, postComment, putComment, deleteComment } from '@apis/post/detail';
+import { getComments, CommentList, putComment, deleteComment } from '@apis/post/detail';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
 
 function Comments() {
   const queryClient = useQueryClient();
   const [editingCommentId, setEditingCommentId] = useState(null);
   const { communityId, postId, commentId } = useParams();
+  const [editingComments, setEditingComments] = useState({});
 
   // useQuery 훅을 사용하여 댓글 목록을 가져옴
   const { isLoading, isError, data } = useQuery<CommentList[], Error>(['comments', postId], async () => {
@@ -18,8 +18,6 @@ function Comments() {
     console.log(result);
     return result;
   });
-
-  const [comment, setComment] = useState('');
 
   // 더보기 버튼
   const [showOptions, setShowOptions] = useState(false);
@@ -37,13 +35,6 @@ function Comments() {
       setComment(value);
     }
   };
-
-  // 댓글 등록
-  const commentMutation = useMutation(postComment, {
-    onSuccess: () => {
-      queryClient.invalidateQueries(['comments', Number(postId), Number(communityId)]);
-    },
-  });
 
   // 댓글 수정
   const editCommentMutation = useMutation(putComment, {
@@ -74,40 +65,22 @@ function Comments() {
   //   }
   // };
 
-  const handleCommentSubmit = async () => {
+  const handleEditSubmit = async (commentId) => {
     try {
-      if (editingCommentId) {
-        // 수정 중인 댓글이 있는 경우
-        await editCommentMutation.mutateAsync({
-          commentId: editingCommentId,
-          communityId: Number(communityId),
-          commentContent: comment,
-        });
-      } else {
-        // 새 댓글을 등록하는 경우
-        await commentMutation.mutateAsync({
-          postId: Number(postId),
-          communityId: Number(communityId),
-          commentContent: comment,
-        });
-      }
-      setComment(''); // 댓글 입력 필드 초기화
-      setEditingCommentId(null); // 댓글 수정 모드 종료
+      await editCommentMutation.mutateAsync({
+        commentId: commentId,
+        communityId: Number(communityId),
+        commentContent: editingComments[commentId],
+      });
+      setEditingComments((prev) => {
+        const newState = { ...prev };
+        delete newState[commentId];
+        return newState;
+      });
     } catch (error) {
-      console.error('댓글 게시 중 오류 발생', error);
+      console.error('댓글 수정 중 오류 발생', error);
     }
   };
-
-  // const handleEditComment = async (commentId, newCommentText) => {
-  //   try {
-  //     await editCommentMutation.mutateAsync(commentId, {
-  //       communityId: Number(communityId),
-  //       commentContent: newCommentText,
-  //     });
-  //   } catch (error) {
-  //     console.error('댓글 수정 중 오류 발생', error);
-  //   }
-  // };
 
   // const handleDeleteComment = async (communityId, commentId) => {
   //   try {
@@ -127,7 +100,7 @@ function Comments() {
   };
 
   return (
-    <S.Comments>
+    <>
       <div className="Comment">Comment</div>
       {data &&
         data.commentList &&
@@ -141,14 +114,15 @@ function Comments() {
                 <S.CommentAuthor>{commentItem.commentAuthor}</S.CommentAuthor>
                 <S.CommentText>{commentItem.commentContent}</S.CommentText>
                 <S.CommentDate>{commentItem.commentCreatedAt}</S.CommentDate>
-                {/* {showOptions && token && tokenIsValid() && tokenPayload.id === user.id && ( */}
                 {showOptions && (
                   <div className="optionsDropdown">
                     <button
                       className="commentEdit"
                       onClick={() => {
-                        setEditingCommentId(commentItem.commentId);
-                        setComment(commentItem.commentContent); // 댓글 내용을 TextArea에 설정
+                        setEditingComments({
+                          ...editingComments,
+                          [commentItem.commentId]: commentItem.commentContent,
+                        });
                       }}
                     >
                       수정
@@ -162,27 +136,28 @@ function Comments() {
                   <img src={EllipsisIcon} alt="더보기" style={{ width: '20px', height: '20px' }} />
                 </div>
               </S.CommentProfileBox>
+              {editingComments[commentItem.commentId] && (
+                <>
+                  <TextareaLabel
+                    name="comment"
+                    id="comment"
+                    required
+                    value={editingComments[commentItem.commentId]}
+                    placeholder="댓글을 수정해주세요."
+                    onChange={(event) =>
+                      setEditingComments({
+                        ...editingComments,
+                        [commentItem.commentId]: event.target.value,
+                      })
+                    }
+                  />
+                  <button onClick={() => handleEditSubmit(commentItem.commentId)}>수정 완료</button>
+                </>
+              )}
             </S.CommentBox>
           </S.CommentsList>
         ))}
-      <S.CommentsForm>
-        <S.FormBlock>
-          <img src={null} style={{ width: '25px', height: '25px', borderRadius: '50%' }} />
-          <div className="commentAuthor">{null}</div>
-        </S.FormBlock>
-        <TextareaLabel
-          name="comment"
-          id="comment"
-          required
-          value={comment}
-          placeholder="자유롭게 댓글을 작성해주세요."
-          onChange={onChange}
-        />
-        <div className="FormBlockSubmit">
-          <Input type="submit" value="등록" className="formBtnSubmit" onClick={handleCommentSubmit} />
-        </div>
-      </S.CommentsForm>
-    </S.Comments>
+    </>
   );
 }
 export default Comments;

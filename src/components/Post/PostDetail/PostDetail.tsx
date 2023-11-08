@@ -1,6 +1,5 @@
 import back from '@assets/images/back.svg';
 import * as S from './style';
-import Comments from './Comments';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { useState } from 'react';
 import LikeButton from './Like';
@@ -75,8 +74,6 @@ function PostDetail() {
           </S.ProfileWrap>
         </S.PostAuthorInfo>
       </S.PostDetailStyle>
-      {/* <Comments post={post} /> */}
-      <Comments />
     </>
   );
 }
