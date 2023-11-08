@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import * as S from '@pages/community/stlyes/PostStyle.ts';
 import { Link } from 'react-router-dom';
 import { deletePostData } from '@apis/community/community.ts';
+import { getCookie } from '@utils/cookies/cookies.ts';
 import jwtDecode from 'jwt-decode';
 
 interface Props {
@@ -17,7 +18,7 @@ interface DecodedToken {
 
 const PostList = ({ posterListData, communityIdNumber }: Props) => {
   // userId jsonwebtoken decode
-  const token = localStorage.getItem('token');
+  const token: string | null = getCookie('token');
   let loggedInUserId: string | null;
 
   if (token) {
@@ -70,7 +71,9 @@ const PostList = ({ posterListData, communityIdNumber }: Props) => {
                 {showToggleBox && (
                   <S.ToggleBox>
                     <S.ModifyBtn>
-                      <Link to={`${post.posterId}/edit`}>수정</Link>
+                      <Link to={`${post.posterId}/edit`} state={{ data: post }}>
+                        수정
+                      </Link>
                     </S.ModifyBtn>
                     <S.DeleteBtn onClick={handleDeleteBtnClick}>삭제</S.DeleteBtn>
                   </S.ToggleBox>
