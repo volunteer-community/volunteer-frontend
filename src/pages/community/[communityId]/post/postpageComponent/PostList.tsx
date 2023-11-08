@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import * as S from '@pages/community/stlyes/PostStyle.ts';
 import { Link } from 'react-router-dom';
 import { deletePostData } from '@apis/community/community.ts';
+import jwtDecode from 'jwt-decode';
 
 interface Props {
   posterListData: any;
@@ -10,7 +11,19 @@ interface Props {
   communityIdNumber: any;
 }
 
+interface DecodedToken {
+  userId: string;
+}
+
 const PostList = ({ posterListData, communityIdNumber }: Props) => {
+  const token = localStorage.getItem('token');
+  let loggedInUserId: string | null;
+
+  if (token) {
+    const decodedToken = jwtDecode<DecodedToken>(token);
+    loggedInUserId = decodedToken?.userId;
+  }
+
   console.log('communityIdNumber:', communityIdNumber);
 
   if (!posterListData || !posterListData.data || !posterListData.data.posterList) {
@@ -50,18 +63,19 @@ const PostList = ({ posterListData, communityIdNumber }: Props) => {
           </S.UserTitleBox>
 
           <S.PostListDateBox>
-            <S.OptionBtnBox>
-              <S.OptionBtn onClick={handleOptionBtnClick}></S.OptionBtn>
-              {showToggleBox && (
-                <S.ToggleBox>
-                  <S.ModifyBtn>
-                    <Link to={`${post.posterId}/edit`}>수정</Link>
-                  </S.ModifyBtn>
-                  <S.DeleteBtn onClick={handleDeleteBtnClick}>삭제</S.DeleteBtn>
-                </S.ToggleBox>
-              )}
-            </S.OptionBtnBox>
-
+            {post.userId === loggedInUserId && (
+              <S.OptionBtnBox>
+                <S.OptionBtn onClick={handleOptionBtnClick}></S.OptionBtn>
+                {showToggleBox && (
+                  <S.ToggleBox>
+                    <S.ModifyBtn>
+                      <Link to={`${post.posterId}/edit`}>수정</Link>
+                    </S.ModifyBtn>
+                    <S.DeleteBtn onClick={handleDeleteBtnClick}>삭제</S.DeleteBtn>
+                  </S.ToggleBox>
+                )}
+              </S.OptionBtnBox>
+            )}
             <S.PostListDate>
               <S.PostListDateTitle>글 작성시간 :</S.PostListDateTitle>
               <S.PostListDateContent>{post.posterCreatedAt}</S.PostListDateContent>

@@ -82,6 +82,7 @@ const PostForm = ({ initialData, initialImageURLs, mutate }: PostFormProps) => {
         labelText="이미지"
         name="file"
         multiple={false}
+        value={postFormData.file}
         imageUrls={imageURLs}
         maxImage={1}
         onChange={handleChange}
