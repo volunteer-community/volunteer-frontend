@@ -3,7 +3,7 @@ import LocationIcon from '@assets/images/locationIco.png';
 import EngagementIcon from '@assets/images/EngagementIco.png';
 
 const CommunityIntroBox = styled.div`
-  width: 1500px;
+  width: 1000px;
   margin: 0 auto;
   padding: 0 50px;
   box-sizing: border-box;
@@ -22,8 +22,8 @@ const IntroUserContent = styled.div`
 
 const UserImgBox = styled.img`
   width: 100%;
-  height: 550px;
-  object-fit: cover;
+  height: auto;
+  object-fit: contain;
 `;
 
 const UserInforBox = styled.div`
@@ -49,7 +49,7 @@ const UserName = styled.span`
 
 const IntroPostBox = styled.div`
   width: 100%;
-  padding: 100px 0 0 0;
+  padding: 100px 0 50px 0;
 `;
 
 const IntroPostTitle = styled.h4`

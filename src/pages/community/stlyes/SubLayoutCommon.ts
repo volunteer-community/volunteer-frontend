@@ -5,4 +5,9 @@ const CommunityCommonLayout = styled.div`
   box-sizing: border-box;
 `;
 
-export { CommunityCommonLayout };
+const PostCommonLayout = styled.div`
+  padding: 100px 0px 0 0px;
+  box-sizing: border-box;
+`;
+
+export { CommunityCommonLayout, PostCommonLayout };
