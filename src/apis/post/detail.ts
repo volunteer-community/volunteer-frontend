@@ -74,11 +74,7 @@ export const putComment = async ({ communityId, commentContent, commentId }: Com
   return response;
 };
 
-export const deleteComment = async (commentId, communityId) => {
-  const response = await axiosInstance.delete(`comment/${commentId}/community?communityId=${communityId}`, {
-    params: {
-      communityId: communityId,
-    },
-  });
+export const deleteComment = async (commentId: number, communityId: number) => {
+  const response = await axiosInstance.delete(`maple/comment/${commentId}/communityId/${communityId}`);
   return response;
 };
