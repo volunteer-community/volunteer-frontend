@@ -30,7 +30,7 @@ const createInstance = (contentType: string) => {
         const response = await reissueToken(refreshToken);
         return response;
       } else {
-        window.location.href = '/login';
+        // window.location.href = '/login';
       }
     }
   );

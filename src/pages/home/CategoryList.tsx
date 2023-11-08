@@ -12,6 +12,8 @@ import { animateScroll as scroll } from 'react-scroll';
 const CategoryList = () => {
   const { data: fetchedData, isLoading, error } = useQuery<QueryData, Error>('communityData', getCommunityData);
 
+  console.log(fetchedData);
+
   const activeIndex = useSelector(selectActiveIndex);
 
   const fetchedCommunityData = fetchedData?.data.communityList || [];

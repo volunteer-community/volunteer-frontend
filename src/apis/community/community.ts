@@ -38,7 +38,19 @@ export const sendCommunityData = async (communityId: number) => {
 
 export const getPostData = async (communityId: number) => {
   try {
+    // const response = await axiosInstance.get('poster/community/4');
     const response = await axiosInstance.get(`poster/community/${communityId}`);
+    console.log(response.data);
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
+
+export const deletePostData = async (posterId: number, communityId: number) => {
+  try {
+    const response = await axiosInstance.delete(`/poster/${posterId}/community?communityId=${communityId}`);
     console.log(response.data);
     return response.data;
   } catch (error) {

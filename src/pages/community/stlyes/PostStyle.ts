@@ -4,10 +4,13 @@ import HeartIco from '@assets/images/HeartIco.png';
 import CommentIco from '@assets/images/CommentIco.png';
 
 const PostListWrap = styled.div`
-  width: 1500px;
+  width: 100%;
+  background-color: #f2f2f2;
+`;
+
+const PostListCenterWrap = styled.div`
+  width: 1000px;
   margin: 0 auto;
-  position: relative;
-  background-color: #edebeb;
   padding: 40px 40px;
   box-sizing: border-box;
 `;
@@ -26,6 +29,8 @@ const UserProfileBox = styled.div`
 
 const UserProfileImg = styled.img`
   width: 100%;
+  height: 250px;
+  border-radius: 100%;
 `;
 
 const UserProfileName = styled.span`
@@ -86,7 +91,11 @@ const UserTitleBox = styled.div`
   justify-content: flex-start;
 `;
 
-const PostListUserImg = styled.img``;
+const PostListUserImg = styled.img`
+  width: 100px;
+  height: 100px;
+  border-radius: 100%;
+`;
 
 const PostListNameBox = styled.div`
   padding: 35px 0 0 40px;
@@ -115,7 +124,8 @@ const OptionBtn = styled.button`
   height: 9px;
   background: url(${PostListOptionBtn}) no-repeat 100% 100%;
   background-size: 50px;
-  text-indent: -9999px;
+  z-index: 9999;
+  position: relative;
 `;
 
 const ToggleBox = styled.div`
@@ -255,8 +265,21 @@ const CommentCount = styled.i`
   margin-left: 5px;
 `;
 
+const NoContent = styled.div`
+  background: #fff;
+  padding: 40px;
+  box-sizing: border-box;
+  color: #333;
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
+  box-shadow: 0px 2px 9px #adadad;
+  margin-top: 20px;
+`;
+
 export {
   PostListWrap,
+  PostListCenterWrap,
   PostUserBox,
   UserProfileBox,
   UserProfileImg,
@@ -290,4 +313,5 @@ export {
   Comment,
   LikeCount,
   CommentCount,
+  NoContent,
 };
