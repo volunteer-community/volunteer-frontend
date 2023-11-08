@@ -11,7 +11,6 @@ export const login = async (loginData: LoginData) => {
 	const { accessToken, refreshToken, accessTokenExpireTime, refreshTokenExprieTime } = response.data.data;
 	const accessTokenExpire = new Date(accessTokenExpireTime);
 	const refreshTokenExprie = new Date(refreshTokenExprieTime)
-console.log(response.data.data)
 	setCookie('accessToken', accessToken, accessTokenExpire)
 	setCookie('refreshToken', refreshToken, refreshTokenExprie)
   return response
