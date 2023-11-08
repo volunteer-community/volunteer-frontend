@@ -9,6 +9,5 @@ export const getCookie = (name: string) => {
     acc[key] = value ? value : '';
     return acc;
   }, {} as { [key: string]: string });
-  console.log(cookies[name])
 	return cookies[name]
 };

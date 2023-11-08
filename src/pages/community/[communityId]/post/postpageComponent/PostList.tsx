@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import * as S from '@pages/community/stlyes/PostStyle.ts';
 import { Link } from 'react-router-dom';
 import { deletePostData } from '@apis/community/community.ts';
+import { getCookie } from '@utils/cookies/cookies.ts';
+import jwtDecode from 'jwt-decode';
 
 interface Props {
   posterListData: any;
@@ -10,19 +12,28 @@ interface Props {
   communityIdNumber: any;
 }
 
+interface DecodedToken {
+  userId: string;
+}
+
 const PostList = ({ posterListData, communityIdNumber }: Props) => {
+  const token: string | null = getCookie('token');
+  let loggedInUserId: string | null;
+
+  if (token) {
+    const decodedToken = jwtDecode<DecodedToken>(token);
+    loggedInUserId = decodedToken?.userId;
+  }
+
   console.log('communityIdNumber:', communityIdNumber);
 
   if (!posterListData || !posterListData.data || !posterListData.data.posterList) {
     return <S.NoContent>컨텐츠가 없습니다.</S.NoContent>;
   }
-
   const [showToggleBox, setShowToggleBox] = useState(false);
-
   const handleOptionBtnClick = () => {
     setShowToggleBox(!showToggleBox);
   };
-
   const handleDeleteBtnClick = async () => {
     try {
       const posterId = posterListData.data.posterList[0].posterId;
@@ -34,7 +45,6 @@ const PostList = ({ posterListData, communityIdNumber }: Props) => {
     }
     setShowToggleBox(false);
   };
-
   return posterListData.data.posterList.map((post: any, index: any) => {
     const posterIdNumber = post.posterId;
     console.log('posterIdNumber:', posterIdNumber);
@@ -62,6 +72,21 @@ const PostList = ({ posterListData, communityIdNumber }: Props) => {
               )}
             </S.OptionBtnBox>
 
+            {post.userId === loggedInUserId && (
+              <S.OptionBtnBox>
+                <S.OptionBtn onClick={handleOptionBtnClick}></S.OptionBtn>
+                {showToggleBox && (
+                  <S.ToggleBox>
+                    <S.ModifyBtn>
+                      <Link to={`${post.posterId}/edit`} state={{ data: post }}>
+                        수정
+                      </Link>
+                    </S.ModifyBtn>
+                    <S.DeleteBtn onClick={handleDeleteBtnClick}>삭제</S.DeleteBtn>
+                  </S.ToggleBox>
+                )}
+              </S.OptionBtnBox>
+            )}
             <S.PostListDate>
               <S.PostListDateTitle>글 작성시간 :</S.PostListDateTitle>
               <S.PostListDateContent>{post.posterCreatedAt}</S.PostListDateContent>

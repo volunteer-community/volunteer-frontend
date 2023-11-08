@@ -1,9 +1,13 @@
-import React from 'react'
+import PostForm from '@components/PostForm/PostForm';
+import Section from '@components/ui/Section/Section';
+
 
 const PostEditPage = () => {
 	return (
-		<div>PostEditPage</div>
-	)
+    <Section sectionTitle="게시글 수정">
+      <PostForm  />
+    </Section>
+  );
 }
 
 export default PostEditPage

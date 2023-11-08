@@ -70,11 +70,12 @@ const CommunityForm = ({ initialData, initialImageURLs, onSave, onUpadate }: Com
         communityContent,
         communityMaxParticipant,
         communityLocation,
+        categoryType,
       });
       const blob = new Blob([jsonFormData], { type: 'application/json' });
       formData.append('communityRequestDto', blob);
 
-      !communityId ? onSave?.({ communityData: formData, categoryType: categoryType }) : onUpadate?.();
+      !communityId ? onSave?.({ communityData: formData, }) : onUpadate?.();
       setPostFormData({
         communityTitle: '',
         categoryType: '',
