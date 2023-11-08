@@ -5,7 +5,7 @@ import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { useState } from 'react';
 import LikeButton from './Like';
 import { useNavigate, useParams } from 'react-router-dom';
-import { getPostDetail, PosterDetail } from '@apis/post/detail';
+import { getPostDetail, likePost, PosterDetail } from '@apis/post/detail';
 
 // 게시글 상세 데이터 가져오기(axios 사용할 것)
 function PostDetail() {
@@ -27,6 +27,7 @@ function PostDetail() {
       queryClient.invalidateQueries('detail');
     },
   });
+  console.log('communityId:', communityId);
 
   // 좋아요 관련 상태, 토글
   const [liked, setLiked] = useState(false);

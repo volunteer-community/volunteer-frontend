@@ -37,6 +37,10 @@ export const getPostDetail = async (postId: number, communityId: number): Promis
 
 export const likePost = async (postId: number, communityId: number) => {
   const response = await axiosImgInstance.post(`like/poster/${postId}/community?communityId=${communityId}`);
+  if (!response.data) {
+    console.error('API response does not contain data.');
+    return null; // 또는 오류 처리 방식을 선택합니다.
+  }
   return response.data;
 };
 
@@ -50,6 +54,12 @@ export const postComment = async ({ postId, communityId, commentContent }: Comme
   const response = await axiosInstance.post(`comment/poster/${postId}/community?communityId=${communityId}`, {
     commentContent,
   });
+  return response;
+};
 
+export const putComment = async ({ communityId, commentContent, commentId }: CommentData & { commentId: number }) => {
+  const response = await axiosInstance.put(`comment/${commentId}/community?communityId=${communityId}`, {
+    commentContent,
+  });
   return response;
 };
