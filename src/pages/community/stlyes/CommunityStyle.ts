@@ -3,7 +3,7 @@ import LocationIcon from '@assets/images/locationIco.png';
 import EngagementIcon from '@assets/images/EngagementIco.png';
 
 const CommunityIntroBox = styled.div`
-  width: 1500px;
+  width: 1000px;
   margin: 0 auto;
   padding: 0 50px;
   box-sizing: border-box;

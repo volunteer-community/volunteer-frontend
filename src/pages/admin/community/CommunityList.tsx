@@ -3,40 +3,32 @@ import { usePagination, useTable } from 'react-table';
 import styled from 'styled-components';
 import { communityColumns } from './communityColumns';
 import Select from '@components/ui/Select/Select';
-import communitydata from './communitydata.json';
-export interface Data {
-  communityId: number;
-  categoryId: string;
-  imageId: string;
-  title: string;
-  maxParticipant: number;
-  participant: number;
-  createdAt: Date;
-  updatedAt: Date;
-  author: string;
-  status: string;
-  content: string;
-  location: string;
-}
+import { getCommunityData } from '@apis/axiosInstance/axiosInstance';
+import { useQuery } from 'react-query';
+import { Community } from '@interfaces/Community';
 
 export const CommunityList: React.FC = () => {
-  // const [data, setData] = useState<Data[]>([]);
+  // const [data, setData] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState<string>('전체');
-
+  const { data: fetchedData, isLoading, error } = useQuery<Data, Error>('communityData', getCommunityData);
   const transformedData = React.useMemo(() => {
-    return communitydata.map((item) => ({
-      ...item,
-      createdAt: new Date(item.createdAt),
-      updatedAt: new Date(item.updatedAt),
-    })) as Data[];
-  }, []);
+    if (fetchedData) {
+      return fetchedData.data.communityList.map((item) => ({
+        ...item,
+        createdAt: new Date(item.communityCreatedAt),
+        updatedAt: new Date(item.communityUpdatedAt),
+      })) as Community[];
+    }
+    console.log(fetchedData);
+    return [];
+  }, [fetchedData]);
 
-  // 필터 사용 시 useMemo훅 사용이 최선인지 고려 중
+  // 필터 사용 시 useMemo 훅 사용이 최선인지 고려 중
   const filteredData = React.useMemo(() => {
     if (selectedCategory === '전체') {
       return transformedData;
     }
-    return transformedData.filter((item) => item.categoryId === selectedCategory);
+    return transformedData.filter((item) => item.categoryType === selectedCategory);
   }, [selectedCategory, transformedData]);
 
   const { getTableProps, getTableBodyProps, headerGroups, page, prepareRow, pageCount, gotoPage } = useTable<Data>(
@@ -71,8 +63,8 @@ export const CommunityList: React.FC = () => {
           <option value="전체">전체</option>
           <option value="오프라인 캠페인">오프라인 캠페인</option>
           <option value="온라인 캠페인">온라인 캠페인</option>
-          <option value="전시/홍보">전시/홍보</option>
-          <option value="DIY 프로젝트">DIY 프로젝트</option>
+          <option value="전시">전시</option>
+          <option value="DIY 프로젝트">DIY프로젝트</option>
         </Select>
       </SelectStyle>
 
@@ -119,6 +111,7 @@ export const CommunityList: React.FC = () => {
             {'>'}
           </TableButton>
         </div>
+        {error && <div>Error: {error.message}</div>}
       </ProductTableStyle>
     </>
   );
