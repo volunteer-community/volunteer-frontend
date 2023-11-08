@@ -16,6 +16,7 @@ interface DecodedToken {
 }
 
 const PostList = ({ posterListData, communityIdNumber }: Props) => {
+  // userId jsonwebtoken decode
   const token = localStorage.getItem('token');
   let loggedInUserId: string | null;
 
