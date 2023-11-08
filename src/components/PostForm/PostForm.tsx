@@ -20,35 +20,34 @@ const PostForm = ({ initialData, initialImageURLs, mutate }: PostFormProps) => {
   const pathName = useLocation().pathname;
   const { communityId, postId } = useParams();
   const isPostCreatePage = pathName === `/community/${communityId}/post/create`;
-  
+
   const { imageURLs, postFormData, setImageURLs, setPostFormData, handleChange, handleFileDelectClick } = useFormState(
     initialData,
     initialImageURLs
   );
-  
+
   const { posterTitle, file, posterContent } = postFormData;
   const isEmptyFormData = !(posterTitle && posterContent && file.length);
   const { setIsShown, isShown, handleCloseClick } = useShownModal();
-  
+
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (isEmptyFormData) {
       alert('모든 값은 입력이 필수 입니다.');
     }
-    setIsShown(true)
-      
+    setIsShown(true);
   };
 
   const handleConfirmClick = () => {
     const isExistFile = file.length;
     const formData = new FormData();
-    
+
     if (isExistFile) {
       const currentFile = file[0];
       const imageBlob = new Blob([currentFile], { type: 'image/jpeg' });
       formData.append('file', imageBlob, 'image.jpg');
     }
-    
+
     try {
       const jsonFormData = JSON.stringify({
         posterTitle,
@@ -61,16 +60,17 @@ const PostForm = ({ initialData, initialImageURLs, mutate }: PostFormProps) => {
       } else {
         mutate({ postData: formData, communityId: communityId });
       }
-      setPostFormData({
-        posterTitle: '',
-        posterContent: '',
-        file: [],
-      });
-      setImageURLs([])
     } catch (error) {
       console.error(error);
     }
-  }
+    setPostFormData({
+      posterTitle: '',
+      posterContent: '',
+      file: [],
+    });
+    setImageURLs([]);
+    setIsShown(false)
+  };
   return (
     <>
       {isShown && (
