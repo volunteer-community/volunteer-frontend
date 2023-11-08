@@ -1,16 +1,33 @@
-import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import { getCookie } from '@utils/cookies/cookies.ts';
+import { useEffect, useState } from 'react';
 
 const Utill = () => {
+  const [isLoggedIn, setIsLoggedIn] = useState(!!getCookie('token'));
+
+  useEffect(() => {
+    setIsLoggedIn(!!getCookie('token'));
+  }, [isLoggedIn]);
+
+  console.log('isLoggedIn:', isLoggedIn);
+
   return (
     <SignupBox>
-      <SignupBtn>
-        <Link to="/signup">회원가입</Link>
-      </SignupBtn>
-      <LoginBtn>
-        <Link to="/login">로그인</Link>
-      </LoginBtn>
+      {!isLoggedIn ? (
+        <>
+          <SignupBtn>
+            <Link to="/signup">회원가입</Link>
+          </SignupBtn>
+          <LoginBtn>
+            <Link to="/login">로그인</Link>
+          </LoginBtn>
+        </>
+      ) : (
+        <LogoutBtn>
+          <Link to="/logout">로그아웃</Link>
+        </LogoutBtn>
+      )}
     </SignupBox>
   );
 };
@@ -36,6 +53,12 @@ const SignupBtn = styled.span`
 `;
 const LoginBtn = styled.span`
   background: #3aedf9;
+  color: #fff;
+  margin-left: 10px;
+`;
+
+const LogoutBtn = styled.span`
+  background: #314547;
   color: #fff;
   margin-left: 10px;
 `;
