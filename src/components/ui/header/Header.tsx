@@ -5,11 +5,13 @@ import GlobalStyle from '../globalStyle/GlobalStyle';
 import mainLogo from '/src/assets/images/Logo.png';
 import Nav from './Nav';
 import Utill from './Utill';
+import ScrollToTop from '@hooks/location/scrolltop';
 
 const Header = () => {
   return (
     <>
       <GlobalStyle />
+      <ScrollToTop />
       <HeaderLayout>
         <HeaderWrap>
           <Link to="/">

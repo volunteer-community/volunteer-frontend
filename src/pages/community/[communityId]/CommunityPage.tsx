@@ -1,11 +1,10 @@
-import React from 'react';
 import * as S from '@pages/community/stlyes/CommunityStyle.ts';
 import * as W from '@pages/community/stlyes/SubLayoutCommon.ts';
 import IntroUserContent from './communitypagecommponent/IntroUserContent';
 import IntroPostContent from './communitypagecommponent/IntroPostContent';
 import IntroInforContent from './communitypagecommponent/IntroInforContent';
-import { useQuery } from 'react-query';
-import { getCommunityDetail } from '@apis/axiosInstance/axiosInstance';
+import { useQuery, useMutation } from 'react-query';
+import { getCommunityDetail, sendCommunityData } from '@apis/community/community.ts';
 import { CommunityDetail, CommunityImgPath, Data } from '@interfaces/Community.ts';
 import { Link, useParams } from 'react-router-dom';
 
@@ -34,6 +33,14 @@ const CommunityPage = () => {
     communityIdNumber ? getCommunityDetail(communityIdNumber) : Promise.resolve(null)
   );
 
+  const mutation = useMutation(sendCommunityData);
+
+  const handleJoinClick = () => {
+    if (communityIdNumber !== undefined) {
+      mutation.mutate(communityIdNumber);
+    }
+  };
+
   if (isLoading) {
     return <div>Loading...</div>;
   }
@@ -52,10 +59,10 @@ const CommunityPage = () => {
       <S.CommunityIntroBox>
         <S.CommunityIntroWrap>
           <IntroUserContent DetailData={DetailData} />
-          <IntroInforContent DetailData={DetailData} />
           <IntroPostContent DetailData={DetailData} />
+          <IntroInforContent DetailData={DetailData} />
           <S.CommunityBtnWrap>
-            <S.CommunityJoinButton>
+            <S.CommunityJoinButton onClick={handleJoinClick}>
               <Link to={`/community/${communityId}/post`}>커뮤니티 참가하기</Link>
             </S.CommunityJoinButton>
           </S.CommunityBtnWrap>

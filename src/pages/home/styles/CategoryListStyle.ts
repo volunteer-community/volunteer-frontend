@@ -86,11 +86,14 @@ const CommunityDescription = styled.span`
 const CategoryJoinBox = styled.div`
   width: 50%;
   padding: 25px 0 0 0;
+  position: relative;
 `;
 const IsJoined = styled.span`
   width: 100%;
   display: block;
   text-align: right;
+  position: absolute;
+  top: 0;
 `;
 
 const IsJoinedText = styled.i`
@@ -115,7 +118,7 @@ const CommunityJoinCount = styled.span`
   font-weight: 400;
   color: #afafaf;
   text-align: right;
-  padding: 5px 5px 0 0px;
+  padding: 25px 5px 0 0px;
 `;
 const HostName = styled.span`
   display: block;
