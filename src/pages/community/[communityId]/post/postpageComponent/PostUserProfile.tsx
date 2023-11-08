@@ -1,14 +1,28 @@
 import * as S from '@pages/community/stlyes/PostStyle.ts';
-import PostUserProfileImg from '@assets/images/postUserProfileImg.png';
+import { PosterList } from '@interfaces/post.ts';
 
-const PostUserProfile = () => {
+// interface Props {
+//   posterListData: { data: { posterList: PosterList[] } } | undefined;
+// }
+
+interface Props {
+  posterListData: any;
+}
+
+const PostUserProfile: React.FC<Props> = ({ posterListData }) => {
+  if (!posterListData || !posterListData.data || !posterListData.data.posterList) {
+    return <S.NoContent>유저정보가 없습니다.</S.NoContent>;
+  }
+
+  console.log('posterListData:', posterListData.data.posterList[0].posterAuthor);
+
   return (
     <S.PostUserBox>
       <S.UserProfileBox>
-        <S.UserProfileImg src={PostUserProfileImg} />
-        <S.UserProfileName>유저닉네임</S.UserProfileName>
+        <S.UserProfileImg src={posterListData.data.posterList[0].profileImg} alt="User Profile" />
+        <S.UserProfileName>{posterListData.data.posterList[0].posterAuthor}</S.UserProfileName>
       </S.UserProfileBox>
-      <S.PostCommunityTitle>커뮤니티 제목</S.PostCommunityTitle>
+      <S.PostCommunityTitle>{posterListData.data.posterList[0].posterTitle}</S.PostCommunityTitle>
     </S.PostUserBox>
   );
 };

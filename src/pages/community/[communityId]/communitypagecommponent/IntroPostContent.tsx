@@ -31,7 +31,7 @@ const IntroPostContent: React.FC<Props> = ({ DetailData }) => {
     <>
       <S.IntroPostBox>
         <S.IntroPostTitle>{DetailData.data.communityDetail.communityTitle}</S.IntroPostTitle>
-        <S.IntroPostImg src={DetailData.data.communityImgPathList[1].communityImgPath} />
+        <S.IntroPostImg src={DetailData.data.communityImgPathList[0].communityImgPath} />
         <S.IntroPostContent>{DetailData.data.communityDetail.communityContent}</S.IntroPostContent>
       </S.IntroPostBox>
     </>

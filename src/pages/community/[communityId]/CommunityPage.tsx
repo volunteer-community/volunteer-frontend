@@ -59,8 +59,8 @@ const CommunityPage = () => {
       <S.CommunityIntroBox>
         <S.CommunityIntroWrap>
           <IntroUserContent DetailData={DetailData} />
-          <IntroInforContent DetailData={DetailData} />
           <IntroPostContent DetailData={DetailData} />
+          <IntroInforContent DetailData={DetailData} />
           <S.CommunityBtnWrap>
             <S.CommunityJoinButton onClick={handleJoinClick}>
               <Link to={`/community/${communityId}/post`}>커뮤니티 참가하기</Link>
