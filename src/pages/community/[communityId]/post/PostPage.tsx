@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { useCommunityId } from '@hooks/useParamsId/useCommunityId';
 import PostList from '@pages/community/[communityId]/post/postpageComponent/PostList';
 import { useQuery } from 'react-query';
-import { getPostData, deletePostData } from '@apis/community/community.ts';
+import { getPostData } from '@apis/community/community.ts';
 import { ReactElement } from 'react';
 
 // Props 타입 정의
