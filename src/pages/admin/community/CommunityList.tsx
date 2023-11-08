@@ -3,9 +3,9 @@ import { usePagination, useTable } from 'react-table';
 import styled from 'styled-components';
 import { communityColumns } from './communityColumns';
 import Select from '@components/ui/Select/Select';
-import { getCommunityData } from '@apis/axiosInstance/axiosInstance';
 import { useQuery } from 'react-query';
 import { Community } from '@interfaces/Community';
+import { getCommunityData } from '@apis/community/community';
 
 export const CommunityList: React.FC = () => {
   // const [data, setData] = useState([]);

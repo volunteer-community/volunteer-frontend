@@ -4,12 +4,16 @@ import * as S from './style';
 import { Input } from '@components/ui/Input';
 import EllipsisIcon from '../../../assets/images/ellipsis.svg';
 import { useParams } from 'react-router-dom';
-import { getComments, CommentList, postComment } from '@apis/post/detail';
+import { getComments, CommentList, postComment, putComment, deleteComment } from '@apis/post/detail';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
+import { useCommunityId } from '@hooks/useParamsId/useCommunityId';
+import { useCommentId } from '@hooks/useParamsId/useCommentId';
 
 function Comments() {
-  const { communityId, postId } = useParams();
+  const { communityId, postId, commentId } = useParams();
   const queryClient = useQueryClient();
+  const communityIdNumber: any = useCommunityId();
+  const commentIdNumber: any = useCommentId();
 
   // useQuery 훅을 사용하여 댓글 목록을 가져옴
   const { isLoading, isError, data } = useQuery<CommentList[], Error>(['comments', postId], async () => {
@@ -40,7 +44,22 @@ function Comments() {
   // 댓글 등록
   const commentMutation = useMutation(postComment, {
     onSuccess: () => {
-      queryClient.invalidateQueries(['comments', postId]);
+      queryClient.invalidateQueries(['comments', Number(postId), Number(communityId)]);
+    },
+  });
+
+  // 댓글 수정
+  const editCommentMutation = useMutation(putComment, {
+    onSuccess: () => {
+      queryClient.invalidateQueries(['comments', Number(communityId), Number(commentId)]);
+      setEditingCommentId(null); // 댓글 수정 모드 종료
+    },
+  });
+
+  // 댓글 삭제
+  const deleteCommentMutation = useMutation(deleteComment, {
+    onSuccess: () => {
+      queryClient.invalidateQueries(['comments', Number(communityId), Number(commentId)]);
     },
   });
 
@@ -51,8 +70,41 @@ function Comments() {
         communityId: Number(communityId),
         commentContent: comment,
       });
+      setComment(''); // 댓글 입력 필드 초기화
     } catch (error) {
       console.error('댓글 게시 중 오류 발생', error);
+    }
+  };
+
+  const handleEditComment = async (commentId, newCommentText) => {
+    try {
+      await editCommentMutation.mutateAsync(commentId, {
+        communityId: Number(communityId),
+        commentContent: newCommentText,
+      });
+    } catch (error) {
+      console.error('댓글 수정 중 오류 발생', error);
+    }
+  };
+
+  // const handleDeleteComment = async (communityId, commentId) => {
+  //   try {
+  //     await deleteCommentMutation.mutateAsync(communityId, commentId);
+  //   } catch (error) {
+  //     console.error('댓글 삭제 중 오류 발생', error);
+  //   }
+  // };
+
+  const handleDeleteComment = async () => {
+    try {
+      const commentId = commentIdNumber;
+      console.log('commentId:', commentId);
+
+      const communityId = communityIdNumber;
+      const response = await deleteComment(commentId, communityId);
+      console.log(response);
+    } catch (error) {
+      console.error(error);
     }
   };
 
@@ -74,8 +126,12 @@ function Comments() {
                 {/* {showOptions && token && tokenIsValid() && tokenPayload.id === user.id && ( */}
                 {showOptions && (
                   <div className="optionsDropdown">
-                    <button className="commentEdit">수정</button>
-                    <button className="commentDelete">삭제</button>
+                    <button className="commentEdit" onClick={() => setEditingCommentId(commentItem.commentId)}>
+                      수정
+                    </button>
+                    <button className="commentDelete" onClick={() => handleDeleteComment(commentItem.commentId)}>
+                      삭제
+                    </button>
                   </div>
                 )}
                 <div className="optionsIcon" onClick={toggleOptions}>
@@ -105,5 +161,4 @@ function Comments() {
     </S.Comments>
   );
 }
-
 export default Comments;
