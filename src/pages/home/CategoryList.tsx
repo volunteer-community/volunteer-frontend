@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { selectActiveIndex } from '@stores/slices/NavCatrgorySlice.ts';
 import { useQuery } from 'react-query';
-import { getCommunityData } from '@apis/community/community.ts';
+import { getCommunityData } from '@apis/community/community.ts'; 
 import * as S from '@pages/home/styles/CategoryListStyle';
 import { Community, QueryData } from '@interfaces/Community.ts';
 import CategorySearch from '@pages/home/CategorySearch.tsx';
