@@ -34,8 +34,8 @@ const PostForm = ({ initialData, initialImageURLs, mutate }: PostFormProps) => {
     event.preventDefault();
     if (isEmptyFormData) {
       alert('모든 값은 입력이 필수 입니다.');
-      setIsShown(true)
     }
+    setIsShown(true)
       
   };
 
