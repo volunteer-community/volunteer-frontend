@@ -8,33 +8,31 @@ import Modal from '@components/ui/Modal';
 import { useParams } from 'react-router-dom';
 import * as S from './style';
 import { CATEGORY_TYPE } from '@constants/community';
-import { Community } from '@apis/community/post';
+import { CommunityPost } from '@apis/community/post';
 
 interface CommunityFormProps {
   initialData: {
     [key: string]: any;
   };
   initialImageURLs?: (string | null)[];
-  onSave?: (communityData: Community) => void;
+  onSave?: (communityData: CommunityPost) => void;
   onUpadate?: () => void;
 }
 
 const CommunityForm = ({ initialData, initialImageURLs, onSave, onUpadate }: CommunityFormProps) => {
+  const { communityId } = useParams();
   const { imageURLs, postFormData, setPostFormData, handleChange, setImageURLs, handleFileDelectClick } = useFormState(
     initialData,
     initialImageURLs
   );
   const { communityTitle, communityContent, categoryType, communityMaxParticipant, communityLocation, file } =
     postFormData;
-
   const isEmptyFormData =
-    !communityTitle ||
-    !communityContent ||
-    !categoryType ||
-    !communityMaxParticipant ||
-    !communityLocation ||
+    ![communityTitle, communityContent, categoryType, communityMaxParticipant, communityLocation].every(Boolean) ||
     file.length === 0;
-
+    
+  const { isShown, setIsShown, handleCloseClick } = useShownModal();
+  
   const {
     validateStatus,
     validateMessage,
@@ -46,14 +44,14 @@ const CommunityForm = ({ initialData, initialImageURLs, onSave, onUpadate }: Com
     validateCategoryType,
     validateMaxParticipant,
   } = useValidation();
-  const { communityId } = useParams();
-  const { isShown, setIsShown, handleCloseClick } = useShownModal();
+
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    if (isEmptyFormData) return alert('모든 값은 입력이 필수 입니다.');
     if (!isEmptyFormData) setIsShown(true);
   };
+  
   const handleConfirmClick = () => {
-    if (isEmptyFormData) return alert('모든 값은 입력이 필수 입니다.');
     const formData = new FormData();
     const isExistFile = file;
     console.log(categoryType);
@@ -77,18 +75,18 @@ const CommunityForm = ({ initialData, initialImageURLs, onSave, onUpadate }: Com
       formData.append('communityRequestDto', blob);
 
       !communityId ? onSave?.({ communityData: formData, categoryType: categoryType }) : onUpadate?.();
+      setPostFormData({
+        communityTitle: '',
+        categoryType: '',
+        communityContent: '',
+        communityMaxParticipant: 10,
+        communityLocation: '',
+        file: [],
+      });
+      setImageURLs([]);
     } catch (error) {
       console.error(error);
     }
-    setPostFormData({
-      communityTitle: '',
-      categoryType: '',
-      communityContent: '',
-      communityMaxParticipant: 10,
-      communityLocation: '',
-      file: [],
-    });
-    setImageURLs([]);
   };
 
   return (
@@ -171,12 +169,12 @@ const CommunityForm = ({ initialData, initialImageURLs, onSave, onUpadate }: Com
           onChange={handleChange}
           ref={(ref) => communityFormRef('communityContent', ref)}
           isValid={validateStatus.communityContent}
+          isPage='communityFormPage'
         />
         <S.BtnWrap>
           <S.StButton buttonText="제출하기" />
         </S.BtnWrap>
       </S.Form>
-      <button>버튼</button>
     </>
   );
 };
