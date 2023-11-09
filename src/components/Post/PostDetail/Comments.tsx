@@ -6,6 +6,7 @@ import { useParams } from 'react-router-dom';
 import { getComments, CommentList, putComment } from '@apis/post/detail';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
 import axios, { AxiosResponse } from 'axios';
+import { deletePostData } from '@apis/community/community';
 
 function Comments() {
   const queryClient = useQueryClient();
@@ -57,19 +58,29 @@ function Comments() {
       const response = await axios.delete(
         `http://13.209.253.193/maple/comment/${commentId}/community?communityId=${communityId}`
       );
-      return response;
+      console.log(response.data);
+      return response.data;
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
+  };
+
+  // // 댓글 삭제
+  // const deleteCommentMutation = useMutation(deleteComment, {
+  //   onSuccess: () => {
+  //     queryClient.invalidateQueries('comments');
+  //   },
+  // });
+
+  const handleDeleteComment = async () => {
+    try {
+      const communityId = Number(communityId);
+      await deletePostData({ commentId, communityId });
     } catch (error) {
       console.error(error);
     }
   };
-
-  // 댓글 삭제
-  const deleteCommentMutation = useMutation(deleteComment, {
-    onSuccess: () => {
-      queryClient.invalidateQueries('comments');
-      console.log(message);
-    },
-  });
 
   const handleEditSubmit = async (commentId) => {
     try {
@@ -92,13 +103,13 @@ function Comments() {
   //   return commentItem.commentId;
   // };
 
-  const handleDeleteComment = async (commentId, communityId) => {
-    try {
-      await deleteCommentMutation.mutateAsync({ commentId, communityId });
-    } catch (error) {
-      console.error('댓글 삭제 실패:', error);
-    }
-  };
+  // const handleDeleteComment = async (commentId, communityId) => {
+  //   try {
+  //     await deleteCommentMutation.mutateAsync({ commentId, communityId });
+  //   } catch (error) {
+  //     console.error('댓글 삭제 실패:', error);
+  //   }
+  // };
 
   // 로딩 중이거나 에러가 발생했을 때 렌더링할 내용
   if (isLoading) {
