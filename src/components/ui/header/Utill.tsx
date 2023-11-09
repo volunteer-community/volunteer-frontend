@@ -2,13 +2,26 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { getCookie } from '@utils/cookies/cookies.ts';
 import { useEffect, useState } from 'react';
+import { logout } from '@apis/community/community.ts';
+import { useMutation } from 'react-query';
 
 const Utill = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(!!getCookie('token'));
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  const mutation = useMutation(logout, {
+    onSuccess: () => {
+      setIsLoggedIn(false);
+    },
+  });
 
   useEffect(() => {
-    setIsLoggedIn(!!getCookie('token'));
-  }, [isLoggedIn]);
+    const token = getCookie('accessToken');
+    setIsLoggedIn(!!token);
+  }, []);
+
+  const handleLogin = async () => {
+    setIsLoggedIn(true);
+  };
 
   console.log('isLoggedIn:', isLoggedIn);
 
@@ -19,13 +32,18 @@ const Utill = () => {
           <SignupBtn>
             <Link to="/signup">회원가입</Link>
           </SignupBtn>
-          <LoginBtn>
+          <LoginBtn onClick={handleLogin}>
             <Link to="/login">로그인</Link>
           </LoginBtn>
         </>
       ) : (
-        <LogoutBtn>
-          <Link to="/logout">로그아웃</Link>
+        <LogoutBtn
+          onClick={(event) => {
+            event.preventDefault();
+            mutation.mutate();
+          }}
+        >
+          로그아웃
         </LogoutBtn>
       )}
     </SignupBox>
