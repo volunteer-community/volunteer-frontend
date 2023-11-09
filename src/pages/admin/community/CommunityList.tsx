@@ -117,7 +117,7 @@ export const CommunityList: React.FC = () => {
             })}
           </tbody>
         </table>
-        <div className="pagination">
+        <PaginationWrap>
           <TableButton onClick={() => movePageGroup('prev')} disabled={pageRangeStartIndex === 0}>
             {'<'}
           </TableButton>
@@ -129,7 +129,7 @@ export const CommunityList: React.FC = () => {
           <TableButton onClick={() => movePageGroup('next')} disabled={pageRangeStartIndex >= pageCount - 5}>
             {'>'}
           </TableButton>
-        </div>
+        </PaginationWrap>
         {error && <div>Error: {error.message}</div>}
       </ProductTableStyle>
     </>
@@ -146,7 +146,6 @@ const ProductTableStyle = styled.div`
   align-items: center;
   text-align: center;
   flex-direction: column;
-
   table {
     border-collapse: collapse;
     width: 95%;
@@ -169,10 +168,15 @@ const ProductTableStyle = styled.div`
   }
 `;
 
+const PaginationWrap = styled.div`
+  padding: 30px;
+`;
+
 const TableButton = styled.button`
   background: #919191;
   color: #fff;
   margin-right: 10px;
   border: none;
   border-radius: 5px;
+  padding: 5px 10px;
 `;
