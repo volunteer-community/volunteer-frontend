@@ -1,5 +1,4 @@
 import { Column } from 'react-table';
-import { Data } from './CommunityList';
 
 export const communityColumns: Column<Data>[] = [
   {
