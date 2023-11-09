@@ -1,12 +1,11 @@
-import { useState } from 'react';
-import TextareaLabel from '@components/ui/Textarea';
-import * as S from './style';
-import EllipsisIcon from '../../../assets/images/ellipsis.svg';
-import { useParams } from 'react-router-dom';
-import { getComments, CommentList, putComment } from '@apis/post/detail';
-import { useMutation, useQuery, useQueryClient } from 'react-query';
-import axios, { AxiosResponse } from 'axios';
-import { deletePostData } from '@apis/community/community';
+import { useState } from "react";
+import TextareaLabel from "@components/ui/Textarea";
+import * as S from "./style";
+import EllipsisIcon from "../../../assets/images/ellipsis.svg";
+import { useParams } from "react-router-dom";
+import { getComments, CommentList, putComment } from "@apis/post/detail";
+import { useMutation, useQuery, useQueryClient } from "react-query";
+import axios, { AxiosResponse } from "axios";
 
 function Comments() {
   const queryClient = useQueryClient();
@@ -16,7 +15,7 @@ function Comments() {
 
   // useQuery 훅을 사용하여 댓글 목록을 가져옴
   const { isLoading, isError, data } = useQuery<CommentList[], Error>(
-    ['comments', Number(postId), Number(communityId)], // 쿼리 키 수정
+    ["comments", Number(postId), Number(communityId)], // 쿼리 키 수정
     async () => {
       const result = await getComments(Number(postId), Number(communityId));
       console.log(result);
@@ -48,7 +47,11 @@ function Comments() {
   const editCommentMutation = useMutation(putComment, {
     onSuccess: () => {
       // 쿼리 키를 올바르게 설정하여 해당 댓글 목록 쿼리를 다시 불러옴
-      queryClient.invalidateQueries(['comments', Number(postId), Number(communityId)]); // 수정
+      queryClient.invalidateQueries([
+        "comments",
+        Number(postId),
+        Number(communityId),
+      ]); // 수정
       setEditingCommentId(null); // 댓글 수정 모드 종료
     },
   });
@@ -66,17 +69,16 @@ function Comments() {
     }
   };
 
-  // // 댓글 삭제
-  // const deleteCommentMutation = useMutation(deleteComment, {
-  //   onSuccess: () => {
-  //     queryClient.invalidateQueries('comments');
-  //   },
-  // });
+  // 댓글 삭제
+  const deleteCommentMutation = useMutation(deleteComment, {
+    onSuccess: () => {
+      queryClient.invalidateQueries("comments");
+    },
+  });
 
-  const handleDeleteComment = async () => {
+  const handleDeleteComment = (commentId, communityId) => {
     try {
-      const communityId = Number(communityId);
-      await deletePostData({ commentId, communityId });
+      deleteCommentMutation.mutateAsync({ commentId, communityId });
     } catch (error) {
       console.error(error);
     }
@@ -95,7 +97,7 @@ function Comments() {
         return newState;
       });
     } catch (error) {
-      console.error('댓글 수정 중 오류 발생', error);
+      console.error("댓글 수정 중 오류 발생", error);
     }
   };
 
@@ -134,7 +136,14 @@ function Comments() {
             <S.CommentBox>
               <S.CommentProfileBox>
                 <S.ProfileWrap>
-                  <img src={commentItem.profileImg} style={{ width: '25px', height: '25px', borderRadius: '50%' }} />
+                  <img
+                    src={commentItem.profileImg}
+                    style={{
+                      width: "25px",
+                      height: "25px",
+                      borderRadius: "50%",
+                    }}
+                  />
                 </S.ProfileWrap>
                 <S.CommentAuthor>{commentItem.commentAuthor}</S.CommentAuthor>
                 <S.CommentText>{commentItem.commentContent}</S.CommentText>
@@ -154,14 +163,23 @@ function Comments() {
                     </button>
                     <button
                       className="commentDelete"
-                      onClick={() => handleDeleteComment(commentItem.commentId, communityId)}
+                      onClick={() =>
+                        handleDeleteComment(commentItem.commentId, communityId)
+                      }
                     >
                       삭제
                     </button>
                   </div>
                 )}
-                <div className="optionsIcon" onClick={() => toggleOptions(commentItem.commentId)}>
-                  <img src={EllipsisIcon} alt="더보기" style={{ width: '20px', height: '20px' }} />
+                <div
+                  className="optionsIcon"
+                  onClick={() => toggleOptions(commentItem.commentId)}
+                >
+                  <img
+                    src={EllipsisIcon}
+                    alt="더보기"
+                    style={{ width: "20px", height: "20px" }}
+                  />
                 </div>
               </S.CommentProfileBox>
               {editingComments[commentItem.commentId] && (
@@ -179,7 +197,11 @@ function Comments() {
                       })
                     }
                   />
-                  <button onClick={() => handleEditSubmit(commentItem.commentId)}>수정 완료</button>
+                  <button
+                    onClick={() => handleEditSubmit(commentItem.commentId)}
+                  >
+                    수정 완료
+                  </button>
                 </>
               )}
             </S.CommentBox>
