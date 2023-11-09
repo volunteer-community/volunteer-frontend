@@ -15,10 +15,12 @@ export const getAllUser = async (): Promise<UserList[]> => {
   return response.data.data.userList;
 };
 
-export function searchCommunity(type, keyword) {
-  return axiosImgInstance.get(`community/search/${type}`, {
-    params: {
-      keyword: keyword,
-    },
-  });
-}
+export const searchCommunity = async (type, keyword): Promise<any> => {
+  return axiosImgInstance
+    .get(`community/search/${type}`, {
+      params: {
+        keyword: keyword,
+      },
+    })
+    .then((response) => response.data);
+};

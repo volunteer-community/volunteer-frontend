@@ -138,6 +138,11 @@ export const OptionArea = styled.div`
   gap: 5px;
 `;
 
+export const CommentOptionBtnContainer = styled.div`
+  display: flex;
+  justify-content: flex-end;
+`;
+
 export const CommentFormBtn = styled.button`
   background: #57c8b5;
   color: #fff;

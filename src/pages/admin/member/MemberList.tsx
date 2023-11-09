@@ -105,7 +105,7 @@ const ProductTableStyle = styled.div`
   align-items: center;
   text-align: center;
   flex-direction: column;
-
+  width: 1200px;
   table {
     border-collapse: collapse;
     width: 95%;
