@@ -185,9 +185,11 @@ function Comments() {
                       })
                     }
                   />
-                  <S.CommentOptionBtn title="edit" onClick={() => handleEditSubmit(commentItem.commentId)}>
-                    등록
-                  </S.CommentOptionBtn>
+                  <S.CommentOptionBtnContainer>
+                    <S.CommentOptionBtn title="edit" onClick={() => handleEditSubmit(commentItem.commentId)}>
+                      등록
+                    </S.CommentOptionBtn>
+                  </S.CommentOptionBtnContainer>
                 </>
               )}
             </S.CommentBox>
