@@ -6,7 +6,7 @@ import { useCommunityId } from '@hooks/useParamsId/useCommunityId';
 import PostList from '@pages/community/[communityId]/post/postpageComponent/PostList';
 import { useQuery } from 'react-query';
 import { getPostData } from '@apis/community/community.ts';
-import { ReactElement } from 'react';
+import { ReactElement, useCallback, useEffect, useState } from 'react';
 
 // Props 타입 정의
 type Props = {
@@ -36,12 +36,6 @@ const PostPage: React.FC<Props> = (): ReactElement => {
 
   const posterListData = data;
 
-  // const mutation = useMutation((params: any) => deletePostData(params.posterId, params.communityId));
-
-  // const handleDelete = (params: any) => {
-  //   mutation.mutate({ posterId: params.posterId, communityId: params.communityId });
-  // };
-
   console.log('posterListData:', posterListData);
 
   if (data) {
@@ -58,6 +52,21 @@ const PostPage: React.FC<Props> = (): ReactElement => {
     error = queryError;
     console.error('An error has occurred:', error);
   }
+
+  // const [localPosterListData, setLocalPosterListData] = useState(posterListData);
+
+  // const fetchPosterListData = useCallback(async () => {
+  //   try {
+  //     const data = await getPostData(communityIdNumber);
+  //     setLocalPosterListData(data); // localPosterListData를 업데이트
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // }, [communityIdNumber]);
+
+  // useEffect(() => {
+  //   fetchPosterListData();
+  // }, [fetchPosterListData]);
 
   return (
     <W.PostCommonLayout>

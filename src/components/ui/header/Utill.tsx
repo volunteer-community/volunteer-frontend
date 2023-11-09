@@ -37,14 +37,19 @@ const Utill = () => {
           </LoginBtn>
         </>
       ) : (
-        <LogoutBtn
-          onClick={(event) => {
-            event.preventDefault();
-            mutation.mutate();
-          }}
-        >
-          로그아웃
-        </LogoutBtn>
+        <LogoutFlexBox>
+          <LogoutBtn
+            onClick={(event) => {
+              event.preventDefault();
+              mutation.mutate();
+            }}
+          >
+            로그아웃
+          </LogoutBtn>
+
+          <CommunityCrateBtn>커뮤니티 만들기</CommunityCrateBtn>
+          <MypageBtn>마이페이지</MypageBtn>
+        </LogoutFlexBox>
       )}
     </SignupBox>
   );
@@ -53,12 +58,12 @@ const Utill = () => {
 export default Utill;
 
 const SignupBox = styled.div`
-  width: 15.5%;
+  width: 26%;
   padding: 30px 0 0 0;
   span {
     width: 100px;
     display: inline-block;
-    padding: 10px 10px;
+    padding: 10px 5px;
     box-sizing: border-box;
     border-radius: 5px;
     cursor: pointer;
@@ -75,8 +80,30 @@ const LoginBtn = styled.span`
   margin-left: 10px;
 `;
 
+const LogoutFlexBox = styled.div`
+  display: flex;
+  justify-content: flex-start;
+  span {
+    width: 33%;
+    font-size: 14px;
+    letter-spacing: -1px;
+  }
+`;
+
 const LogoutBtn = styled.span`
   background: #314547;
   color: #fff;
+  margin-left: 10px;
+`;
+
+const CommunityCrateBtn = styled.span`
+  background: #5c9677;
+  color: #fff;
+  margin-left: 10px;
+`;
+
+const MypageBtn = styled.span`
+  background: #ffffff;
+  color: #333;
   margin-left: 10px;
 `;

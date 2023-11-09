@@ -53,7 +53,8 @@ export const deletePostData = async (posterId: number, communityId: number) => {
   try {
     const response = await axiosInstance.delete(`poster/${posterId}/community?communityId=${communityId}`);
     console.log(response.data);
-    return response.data;
+    // return response.data
+    return response.data.deletedPosterId;
   } catch (error) {
     console.error(error);
     throw error;

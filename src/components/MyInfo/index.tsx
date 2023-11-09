@@ -1,7 +1,7 @@
 import ActiveInfo from './ActiveInfo';
 import ProfileInfo from './ProfileInfo/index';
 import styled from 'styled-components';
-import { useGetMyActive } from '@hooks/queries/my/useMy';
+import { useGetMyActive, useGetMyMakeCommunites } from '@hooks/queries/my/useMy';
 import HeartIcon from '@assets/images/heart_icon.svg';
 import CommunityIcon from '@assets/images/community_icon.svg';
 import CommentIcon from '@assets/images/comment_icon.svg';
@@ -12,13 +12,15 @@ const MyInfoWrap = styled.div`
   display: flex;
   flex-direction: column;
   margin: 0 auto;
-  width: 60%;
-  gap: 30px;
+  width: 1000px;
+  gap: 80px;
 `;
 
 const MyInfo = () => {
   const { data: activeData } = useGetMyActive();
+  const { data: createInfo } = useGetMyMakeCommunites();
   const { communityUserCount, countOfPosterLike, countOfLikedPoster, commentCount } = activeData?.data.data ?? [];
+  const { communityList} = createInfo?.data.data ?? []
   const userActiveData = activeData
     ? [
         { icon: HeartIcon, name: '좋아요 한 게시글', value: countOfPosterLike },
@@ -31,7 +33,7 @@ const MyInfo = () => {
     <MyInfoWrap>
       <ProfileInfo />
       <ActiveInfo userActiveData={userActiveData} />
-      <Createlnfo/>
+      <Createlnfo userCreateCommunityData={communityList } />
     </MyInfoWrap>
   );
 };

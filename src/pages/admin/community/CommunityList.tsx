@@ -6,13 +6,36 @@ import Select from '@components/ui/Select/Select';
 import { useQuery } from 'react-query';
 import { Community } from '@interfaces/Community';
 import { getCommunityData } from '@apis/community/community';
+import CommunitySearch from './CommunitySearch';
+import { searchCommunity } from '@apis/admin'; // 여기에 searchCommunity 함수를 import 합니다.
 
 export const CommunityList: React.FC = () => {
-  // const [data, setData] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState<string>('전체');
-  const { data: fetchedData, isLoading, error } = useQuery<Data, Error>('communityData', getCommunityData);
+  const [searchType, setSearchType] = useState<string | null>(null);
+  const [searchTitle, setSearchTitle] = useState<string>('');
+  const [searchAuthor, setSearchAuthor] = useState<string>('');
+
+  const {
+    data: fetchedData,
+    isLoading,
+    error,
+  } = useQuery<Data, Error>(
+    ['communityData', { searchType, searchTitle, searchAuthor }],
+    ({ queryKey }) => {
+      const [_, { searchType, searchTitle, searchAuthor }] = queryKey;
+      if (searchType) {
+        return searchCommunity(searchType, searchType === 'title' ? searchTitle : searchAuthor);
+      } else {
+        return getCommunityData();
+      }
+    },
+    {
+      keepPreviousData: true,
+    }
+  );
+
   const transformedData = React.useMemo(() => {
-    if (fetchedData) {
+    if (fetchedData && fetchedData.data && fetchedData.data.communityList) {
       return fetchedData.data.communityList.map((item) => ({
         ...item,
         createdAt: new Date(item.communityCreatedAt),
@@ -23,7 +46,6 @@ export const CommunityList: React.FC = () => {
     return [];
   }, [fetchedData]);
 
-  // 필터 사용 시 useMemo 훅 사용이 최선인지 고려 중
   const filteredData = React.useMemo(() => {
     if (selectedCategory === '전체') {
       return transformedData;
@@ -39,10 +61,8 @@ export const CommunityList: React.FC = () => {
     },
     usePagination
   );
-  // 페이지네이션 버튼 범위 관리 상태
   const [pageRangeStartIndex, setPageRangeStartIndex] = useState(0);
 
-  // 다음 or 이전 페이지 그룹(5페이지씩)으로 이동하는 함수
   function movePageGroup(dir: 'prev' | 'next'): void {
     if (dir === 'prev' && pageRangeStartIndex >= 5) {
       setPageRangeStartIndex(pageRangeStartIndex - 5);
@@ -55,19 +75,24 @@ export const CommunityList: React.FC = () => {
     setSelectedCategory(event.target.value);
   };
 
+  const handleSearch = (searchTerms) => {
+    setSearchType(searchTerms.condition);
+    setSearchTitle(searchTerms.title);
+    setSearchAuthor(searchTerms.author);
+  };
+
   return (
     <>
-      {/* 임시로 작성한 코드, 수정 예정 */}
       <SelectStyle>
+        <CommunitySearch onSubmit={handleSearch} />
         <Select value={selectedCategory} onChange={handleCategoryChange}>
           <option value="전체">전체</option>
           <option value="오프라인 캠페인">오프라인 캠페인</option>
           <option value="온라인 캠페인">온라인 캠페인</option>
           <option value="전시">전시</option>
-          <option value="DIY 프로젝트">DIY프로젝트</option>
+          <option value="DIY 프로젝트">DIY 프로젝트</option>
         </Select>
       </SelectStyle>
-
       <ProductTableStyle>
         <table {...getTableProps()}>
           <thead>
@@ -92,21 +117,15 @@ export const CommunityList: React.FC = () => {
             })}
           </tbody>
         </table>
-        {/* 페이지네이션 */}
         <div className="pagination">
-          {/* 이전 페이지 그룹 버튼 */}
           <TableButton onClick={() => movePageGroup('prev')} disabled={pageRangeStartIndex === 0}>
             {'<'}
           </TableButton>
-
-          {/* 페이징 숫자 목록, 최대 5개의 페이지 번호 생성, 마지막 페이지 그룹에서는 남은 페이지 수만큼만 버튼 생성 */}
           {[...Array(Math.min(5, pageCount - pageRangeStartIndex))].map((_, i) => (
             <TableButton key={i} onClick={() => gotoPage(pageRangeStartIndex + i)}>
               {pageRangeStartIndex + i + 1}
             </TableButton>
           ))}
-
-          {/* 다음 페이지 그룹 버튼 */}
           <TableButton onClick={() => movePageGroup('next')} disabled={pageRangeStartIndex >= pageCount - 5}>
             {'>'}
           </TableButton>
