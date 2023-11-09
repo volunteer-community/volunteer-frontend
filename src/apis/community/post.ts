@@ -1,18 +1,19 @@
-import { axiosImgInstance } from "@apis/axiosInstance/axiosInstance"
+import { axiosImgInstance } from '@apis/axiosInstance/axiosInstance';
 
-export interface Community {
-  communityData: FormData
-  categoryType: string
+export interface CommunityPost {
+  communityData: FormData;
 }
-export const createCommunity = async ({ communityData, categoryType }:Community) => {
-  const response = await axiosImgInstance.post(`community?categoryType=${categoryType}`, communityData);
-  return response
+export const createCommunity = async (communityPostData: CommunityPost) => {
+  const { communityData } = communityPostData;
+  const response = await axiosImgInstance.post('community', communityData);
+  return response;
 };
 
-interface UpdataCommunity extends Community{
-  communityId: number
+export interface UpdateCommunity extends CommunityPost {
+  communityId: string | undefined;
 }
-export const upadateCommunity = async ({ communityData, communityId }:UpdataCommunity) => {
+export const upadateCommunity = async (upadateCommunityPostData: UpdateCommunity) => {
+  const { communityData, communityId } = upadateCommunityPostData;
   const response = await axiosImgInstance.put(`community/${communityId}`, communityData);
-  return response
-}
+  return response;
+};

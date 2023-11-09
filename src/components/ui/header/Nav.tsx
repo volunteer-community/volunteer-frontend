@@ -113,7 +113,7 @@ const Nav = () => {
 export default Nav;
 
 const NavList = styled.ul`
-  width: 80%;
+  width: 85%;
   display: flex;
   padding: 0px 0 0 30px;
 `;

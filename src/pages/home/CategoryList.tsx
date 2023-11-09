@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { selectActiveIndex } from '@stores/slices/NavCatrgorySlice.ts';
 import { useQuery } from 'react-query';
-import { getCommunityData } from '@apis/axiosInstance/axiosInstance';
+import { getCommunityData } from '@apis/community/community.ts'; 
 import * as S from '@pages/home/styles/CategoryListStyle';
 import { Community, QueryData } from '@interfaces/Community.ts';
 import CategorySearch from '@pages/home/CategorySearch.tsx';
@@ -11,6 +11,8 @@ import { animateScroll as scroll } from 'react-scroll';
 
 const CategoryList = () => {
   const { data: fetchedData, isLoading, error } = useQuery<QueryData, Error>('communityData', getCommunityData);
+
+  console.log(fetchedData);
 
   const activeIndex = useSelector(selectActiveIndex);
 
@@ -43,10 +45,16 @@ const CategoryList = () => {
   //검색 필터링
   const filteredDataToShow: Community[] =
     activeIndex >= 0
-      ? (filteredData ? filteredData : defaultData).filter((community) =>
-          community.communityTitle.toLowerCase().includes(searchQuery.toLowerCase())
+      ? (filteredData ? filteredData : defaultData).filter(
+          (community) =>
+            typeof searchQuery === 'string' &&
+            community.communityTitle.toLowerCase().includes(searchQuery.toLowerCase())
         )
-      : defaultData.filter((community) => community.communityTitle.toLowerCase().includes(searchQuery.toLowerCase()));
+      : defaultData.filter(
+          (community) =>
+            typeof searchQuery === 'string' &&
+            community.communityTitle.toLowerCase().includes(searchQuery.toLowerCase())
+        );
 
   // 사용할 데이터
   const dataToUse: Community[] | undefined = filteredDataToShow.slice(0, itemsToShow);
