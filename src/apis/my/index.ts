@@ -2,7 +2,7 @@ import { axiosInstance } from "@apis/axiosInstance/axiosInstance"
 
 export const getMyMakeCommunites = async () => {
 	try {
-		const response = await axiosInstance.get('mypage/communuty')
+		const response = await axiosInstance.get('mypage/community')
 		return response
 		
 	} catch (error) {

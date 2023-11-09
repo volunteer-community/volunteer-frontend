@@ -2,7 +2,7 @@ import { getMyActive, getMyJoinCommunites, getMyMakeCommunites } from '@apis/my'
 import { useQuery } from 'react-query';
 
 export const useGetMyMakeCommunites = () => {
-  const { data, isLoading, isError } = useQuery(['mypage/communuty'], getMyMakeCommunites);
+  const { data, isLoading, isError } = useQuery(['mypage/community'], getMyMakeCommunites);
   return { data, isLoading, isError };
 };
 
