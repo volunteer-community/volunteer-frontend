@@ -49,6 +49,19 @@ function CommentForm() {
     }
   };
 
+  // 로딩 중이거나 에러가 발생했을 때 렌더링할 내용
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (isError) {
+    return <div>에러가 발생하였습니다.{isError.message}</div>;
+  }
+
+  if (!data) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <S.CommentsForm>
       <S.FormBlock>
