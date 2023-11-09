@@ -20,9 +20,9 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
       <GoogleOAuthProvider clientId={clientId}>
-      <Provider store={store}>
-        <RouterProvider router={Routers} />
-      </Provider>
+        <Provider store={store}>
+          <RouterProvider router={Routers} />
+        </Provider>
       </GoogleOAuthProvider>
     </QueryClientProvider>
   </React.StrictMode>
