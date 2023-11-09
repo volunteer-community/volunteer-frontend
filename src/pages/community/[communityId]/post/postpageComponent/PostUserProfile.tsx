@@ -19,10 +19,10 @@ const PostUserProfile: React.FC<Props> = ({ posterListData }) => {
   return (
     <S.PostUserBox>
       <S.UserProfileBox>
-        <S.UserProfileImg src={posterListData.data.posterList[0].profileImg} alt="User Profile" />
-        <S.UserProfileName>{posterListData.data.posterList[0].posterAuthor}</S.UserProfileName>
+        <S.UserProfileImg src={posterListData.data.communityHostInfo.hostProfileImg} alt="User Profile" />
+        <S.UserProfileName>{posterListData.data.communityHostInfo.hostNickName}</S.UserProfileName>
       </S.UserProfileBox>
-      <S.PostCommunityTitle>{posterListData.data.posterList[0].posterTitle}</S.PostCommunityTitle>
+      <S.PostCommunityTitle>{posterListData.data.communityHostInfo.communityTitle}</S.PostCommunityTitle>
     </S.PostUserBox>
   );
 };

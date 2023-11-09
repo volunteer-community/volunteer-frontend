@@ -1,12 +1,12 @@
 import React from 'react';
 import * as S from '@pages/community/stlyes/CommunityStyle.ts';
-import profile from '@assets/images/profile.png';
-import { CommunityDetail, CommunityImgPath } from '@interfaces/Community.ts';
+import { CommunityDetail, CommunityImgPath, CommunityUserDetail } from '@interfaces/Community.ts';
 import { useCommunityId } from '@hooks/useParamsId/useCommunityId';
 
 interface Props {
   DetailData: {
     data: {
+      communityUserDetail: CommunityUserDetail;
       communityDetail: CommunityDetail;
       communityImgPathList: CommunityImgPath[];
     };
@@ -32,8 +32,8 @@ const IntroUserContent: React.FC<Props> = ({ DetailData }) => {
     <S.IntroUserContent>
       <S.UserImgBox src={DetailData.data.communityImgPathList[0].communityImgPath} />
       <S.UserInforBox>
-        <S.UserImg src={profile} />
-        <S.UserName>김나라</S.UserName>
+        <S.UserImg src={DetailData.data.communityUserDetail.communityUserProfile} />
+        <S.UserName>{DetailData.data.communityUserDetail.communityAuthor}</S.UserName>
       </S.UserInforBox>
     </S.IntroUserContent>
   );
