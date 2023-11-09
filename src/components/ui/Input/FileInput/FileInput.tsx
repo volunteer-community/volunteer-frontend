@@ -42,6 +42,7 @@ const FileInput = forwardRef(
       if (imageUrls && imageUrls.length > 0) {
         for (let i = 0; i < imageUrls.length; i++) {
           previews[i] = imageUrls[i];
+        
         }
       }
 
@@ -49,6 +50,8 @@ const FileInput = forwardRef(
         <ImagePreview key={index} src={url} alt={`${index}`} isExist={url !== DefalutImage} onClick={onClick} />
       ));
     };
+
+    console.log(imageUrls)
 
     return (
       <S.InputLabelWrap>
