@@ -2,6 +2,7 @@ import CommunityForm from "@components/CommunityForm/CommunityForm"
 import Section from "@components/ui/Section/Section"
 import Logo from '@assets/images/Logo.png';
 import Camera from '@assets/images/camara_icon.svg';
+
 const INITIDATA = {
   communityTitle: '텀블러를 사랑하는 모임',
   communityContent: '텀블러를 이용해용',
