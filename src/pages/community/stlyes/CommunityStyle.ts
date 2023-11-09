@@ -30,13 +30,16 @@ const UserInforBox = styled.div`
   width: 200px;
   position: absolute;
   bottom: -20%;
-  left: 43%;
+  left: 38.5%;
   right: 50%;
   transform: translate(0 -50%);
 `;
 
 const UserImg = styled.img`
   display: block;
+  width: 200px;
+  height: 200px;
+  border-radius: 100%;
   margin: 0 auto;
 `;
 
