@@ -1,5 +1,5 @@
 import { FormEvent } from 'react';
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import { PostData, UpdatePostData } from '@apis/post';
 import { useFormState } from '@hooks/form';
 import TextareaLabel from '@components/ui/Textarea';
