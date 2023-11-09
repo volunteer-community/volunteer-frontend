@@ -138,7 +138,7 @@ export const CommunityList: React.FC = () => {
 
 // 삭제 예정
 const SelectStyle = styled.div`
-  padding: 8rem 0 2rem 2.5rem;
+  padding: 1rem 0 2rem 2.5rem;
 `;
 
 const ProductTableStyle = styled.div`
