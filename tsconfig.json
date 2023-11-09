@@ -18,24 +18,20 @@
     "lib": ["ES2020", "DOM", "DOM.Iterable"],
     "module": "ESNext",
     "skipLibCheck": true,
-
+    "noEmitOnError": false,
     /* Bundler mode */
     "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "noImplicitAny": false,
     "noEmit": true,
     "jsx": "react-jsx",
 
     /* Linting */
-    "strict": false,
+    "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true,
-    "noUnusedLocals": false, // 변경 가능
-    "noUnusedParameters": false, // 변경 가능
-
+    "noFallthroughCasesInSwitch": true
   },
   "include": ["src"]
 }
