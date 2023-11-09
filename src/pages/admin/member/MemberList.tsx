@@ -17,9 +17,8 @@ export const MemberList: React.FC = () => {
           setData(response); // 데이터가 배열인 경우에만 설정
         } else {
           console.error('Invalid data format:', response);
-          // 오류 처리 또는 다른 조치 추가
         }
-        setLoading(false); // 데이터 로딩 완료 후 로딩 상태를 업데이트
+        setLoading(false);
       } catch (error) {
         console.error('Error fetching data:', error);
         setLoading(false); // 오류가 발생한 경우에도 로딩 상태를 업데이트
@@ -33,7 +32,7 @@ export const MemberList: React.FC = () => {
       {
         columns: memberColumns,
         data: data, // 데이터 상태를 사용
-        initialState: { pageIndex: 0, pageSize: 5 },
+        initialState: { pageIndex: 0, pageSize: 8 },
       },
       useGlobalFilter,
       usePagination

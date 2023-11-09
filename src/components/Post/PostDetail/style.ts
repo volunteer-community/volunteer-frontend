@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const BackLine = styled.div`
-  max-width: 800px;
+  max-width: 1000px;
   padding: 10px;
   width: 100%;
   text-align: left;
@@ -10,8 +10,8 @@ export const BackLine = styled.div`
 
 export const PostDetailStyle = styled.div`
   text-align: center;
-  padding: 5px 20px 0px 20px;
-  max-width: 840px;
+  padding: 5px 0px 0px 0px;
+  max-width: 1000px;
   justify-content: center;
   margin: 0 auto;
   line-height: 1.8;
@@ -119,4 +119,33 @@ export const FormBlock = styled.div`
 
 export const FormBlockSubmit = styled.div`
   flex-direction: row-reverse;
+`;
+
+export const CommentOptionBtn = styled.button`
+  background: #57c8b5;
+  color: #fff;
+  border-radius: 5px;
+  size: 10px;
+  margin: 5px;
+  width: 50px;
+  height: 30px;
+`;
+
+export const OptionArea = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+`;
+
+export const CommentFormBtn = styled.button`
+  background: #57c8b5;
+  color: #fff;
+  margin-left: 5px;
+  border-radius: 5px;
+  font-size: 15px;
+  font-weight: 800;
+  margin: 10px 10px 10px 10px;
+  width: 100px;
+  height: 50px;
 `;
