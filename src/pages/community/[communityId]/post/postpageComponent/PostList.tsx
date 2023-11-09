@@ -17,7 +17,6 @@ interface DecodedToken {
 }
 
 const PostList = ({ posterListData, communityIdNumber }: Props) => {
-  // userId jsonwebtoken decode
   const token: string | null = getCookie('token');
   let loggedInUserId: string | null;
 
@@ -31,13 +30,10 @@ const PostList = ({ posterListData, communityIdNumber }: Props) => {
   if (!posterListData || !posterListData.data || !posterListData.data.posterList) {
     return <S.NoContent>컨텐츠가 없습니다.</S.NoContent>;
   }
-
   const [showToggleBox, setShowToggleBox] = useState(false);
-
   const handleOptionBtnClick = () => {
     setShowToggleBox(!showToggleBox);
   };
-
   const handleDeleteBtnClick = async () => {
     try {
       const posterId = posterListData.data.posterList[0].posterId;
@@ -49,7 +45,6 @@ const PostList = ({ posterListData, communityIdNumber }: Props) => {
     }
     setShowToggleBox(false);
   };
-
   return posterListData.data.posterList.map((post: any, index: any) => {
     const posterIdNumber = post.posterId;
     console.log('posterIdNumber:', posterIdNumber);
@@ -65,6 +60,18 @@ const PostList = ({ posterListData, communityIdNumber }: Props) => {
           </S.UserTitleBox>
 
           <S.PostListDateBox>
+            <S.OptionBtnBox>
+              <S.OptionBtn onClick={handleOptionBtnClick}></S.OptionBtn>
+              {showToggleBox && (
+                <S.ToggleBox>
+                  <S.ModifyBtn>
+                    <Link to={`${post.posterId}/edit`}>수정</Link>
+                  </S.ModifyBtn>
+                  <S.DeleteBtn onClick={handleDeleteBtnClick}>삭제</S.DeleteBtn>
+                </S.ToggleBox>
+              )}
+            </S.OptionBtnBox>
+
             {post.userId === loggedInUserId && (
               <S.OptionBtnBox>
                 <S.OptionBtn onClick={handleOptionBtnClick}></S.OptionBtn>
