@@ -11,6 +11,8 @@ export interface FileInputProps {
   labelText: string;
   validateText: string;
   multiple: boolean;
+  maxImage: number;
+  pageName?: string
   onClick: (index: number) => void;
   onBlur: () => void;
   onChange: (event: ChangeEvent<HTMLInputElement>) => void;
@@ -18,23 +20,38 @@ export interface FileInputProps {
 
 const FileInput = forwardRef(
   (
-    { multiple, labelText, isValid, imageUrls, validateText, name, onBlur, onChange, onClick }: FileInputProps,
+    {
+      multiple,
+      labelText,
+      isValid,
+      imageUrls,
+      validateText,
+      name,
+      onBlur,
+      onChange,
+      onClick,
+      maxImage,
+      pageName = '',
+    }: FileInputProps,
     ref: ForwardedRef<HTMLInputElement>
   ) => {
-    console.log(imageUrls);
-  const renderImagePreview = () => {
-    const previews = Array(3).fill(DefalutImage);
+    const renderImagePreviews = () => {
+      console.log(maxImage);
+      const previews = Array(maxImage).fill(DefalutImage);
 
-    if (imageUrls && imageUrls.length > 0) {
-      for (let i = 0; i < imageUrls.length; i++) {
-        previews[i] = imageUrls[i];
+      if (imageUrls && imageUrls.length > 0) {
+        for (let i = 0; i < imageUrls.length; i++) {
+          previews[i] = imageUrls[i];
+        
+        }
       }
-    }
 
-    return previews.map((url, index) => (
-      <ImagePreview key={index} src={url} alt={`${index}`} isExist={url !== DefalutImage} onClick={onClick} />
-    ));
-  };
+      return previews.map((url, index) => (
+        <ImagePreview key={index} src={url} alt={`${index}`} isExist={url !== DefalutImage} onClick={onClick} />
+      ));
+    };
+
+    console.log(imageUrls)
 
     return (
       <S.InputLabelWrap>
@@ -42,7 +59,7 @@ const FileInput = forwardRef(
           <label>{labelText}</label>
           <input type="file" name={name} multiple={multiple} ref={ref} onBlur={onBlur} onChange={onChange} />
         </div>
-        <S.PreviewWrap>{renderImagePreview()}</S.PreviewWrap>
+        <S.PreviewWrap $pageName={pageName }>{renderImagePreviews()}</S.PreviewWrap>
         <Paragraph paragraphText={validateText} $isValid={isValid} />
       </S.InputLabelWrap>
     );

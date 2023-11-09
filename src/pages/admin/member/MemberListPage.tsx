@@ -1,11 +1,11 @@
-import React from 'react';
 import { MemberList } from './MemberList';
+import Section from '@components/ui/Section/Section';
 
 const MemberListPage = () => {
   return (
-    <div>
+    <Section>
       <MemberList />
-    </div>
+    </Section>
   );
 };
 

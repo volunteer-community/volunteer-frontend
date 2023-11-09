@@ -5,21 +5,22 @@ import * as S from './style';
 interface TextareaLabelProps {
   labelText: string;
   value: string;
-	name: string; 
+  name: string;
   placeholder: string;
   validateText: string;
   isValid: boolean;
-  onBlur:()=> void;
-  onChange: (event:ChangeEvent<HTMLTextAreaElement>)=> void;
+  isPage?: string;
+  onBlur: () => void;
+  onChange: (event: ChangeEvent<HTMLTextAreaElement>) => void;
 }
 
 const TextareaLabel = forwardRef(
   (
-    { labelText, value, placeholder, onBlur, onChange, validateText, isValid, name }: TextareaLabelProps,
+    { labelText, value, placeholder, isPage, onBlur, onChange, validateText, isValid, name }: TextareaLabelProps,
     ref: ForwardedRef<HTMLTextAreaElement>
   ) => {
     return (
-      <S.TextareaLabelWrap>
+      <S.TextareaLabelWrap $isPage={isPage }>
         <label>{labelText}</label>
         <textarea name={name} value={value} placeholder={placeholder} onBlur={onBlur} onChange={onChange} ref={ref} />
         <Paragraph paragraphText={validateText} $isValid={isValid} />
