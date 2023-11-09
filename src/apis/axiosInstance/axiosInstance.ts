@@ -17,16 +17,15 @@ const createInstance = (contentType: string) => {
     if (token) {
       config.headers['Authorization'] = `${token}`;
     }
-    console.log(token)
+    console.log(token);
     return config;
   });
-  
+
   instance.interceptors.response.use(
     (response) => response,
     async (error) => {
-      console.log(contentType);
-      const { status } = error.response;
       const refreshToken = getCookie('refreshToken');
+      const { status } = error.response;
       if (status === 401) {
         const response = await reissueToken(refreshToken);
         return response;

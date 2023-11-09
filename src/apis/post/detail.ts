@@ -13,6 +13,11 @@ export interface PosterDetail {
   posterCreatedAt: string;
   posterUpdatedAt: string;
 }
+export interface commentUserResponseDto {
+  commentUserId: number;
+  commentUserNickName: string;
+  commentUserProfileImg: string;
+}
 
 export interface CommentList {
   commentId: number;
@@ -30,8 +35,13 @@ interface CommentData {
 }
 
 // 게시글 상세 내용
-export const getPostDetail = async (postId: number, communityId: number): Promise<PosterDetail> => {
-  const response = await axiosImgInstance.get<PosterDetail>(`poster/${postId}/community?communityId=${communityId}`);
+// export const getPostDetail = async (postId: number, communityId: number): Promise<PosterDetail> => {
+//   const response = await axiosImgInstance.get<PosterDetail>(`poster/${postId}/community?communityId=${communityId}`);
+//   return response.data.data;
+// };
+
+export const getPostDetail = async (postId: number, communityId: number) => {
+  const response = await axiosImgInstance.get(`poster/${postId}/community?communityId=${communityId}`);
   return response.data.data;
 };
 
@@ -60,6 +70,15 @@ export const postComment = async ({ postId, communityId, commentContent }: Comme
 export const putComment = async ({ communityId, commentContent, commentId }: CommentData & { commentId: number }) => {
   const response = await axiosInstance.put(`comment/${commentId}/community?communityId=${communityId}`, {
     commentContent,
+  });
+  return response;
+};
+
+export const deleteComment = async (commentId, communityId) => {
+  const response = await axiosInstance.delete(`comment/${commentId}/community?communityId=${communityId}`, {
+    params: {
+      communityId: communityId,
+    },
   });
   return response;
 };
