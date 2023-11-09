@@ -1,5 +1,4 @@
 import { Column } from 'react-table';
-import { Data } from './MemberList';
 
 export const memberColumns: Column<Data>[] = [
   {

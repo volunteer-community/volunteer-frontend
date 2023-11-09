@@ -79,9 +79,9 @@ function CommentForm() {
         required
       />
       <div className="FormBlockSubmit">
-        <button value="등록" className="formBtnSubmit" onClick={handleCommentSubmit}>
+        <S.CommentFormBtn value="등록" className="formBtnSubmit" onClick={handleCommentSubmit}>
           등록
-        </button>
+        </S.CommentFormBtn>
       </div>
     </S.CommentsForm>
   );

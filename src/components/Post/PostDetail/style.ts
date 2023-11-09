@@ -120,3 +120,32 @@ export const FormBlock = styled.div`
 export const FormBlockSubmit = styled.div`
   flex-direction: row-reverse;
 `;
+
+export const CommentOptionBtn = styled.button`
+  background: #57c8b5;
+  color: #fff;
+  border-radius: 5px;
+  size: 10px;
+  margin: 5px;
+  width: 50px;
+  height: 30px;
+`;
+
+export const OptionArea = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+`;
+
+export const CommentFormBtn = styled.button`
+  background: #57c8b5;
+  color: #fff;
+  margin-left: 5px;
+  border-radius: 5px;
+  font-size: 15px;
+  font-weight: 800;
+  margin: 10px 10px 10px 10px;
+  width: 100px;
+  height: 50px;
+`;

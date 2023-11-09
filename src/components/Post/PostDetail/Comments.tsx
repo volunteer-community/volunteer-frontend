@@ -5,12 +5,25 @@ import EllipsisIcon from '../../../assets/images/ellipsis.svg';
 import { useParams } from 'react-router-dom';
 import { getComments, CommentList, putComment, deleteComment } from '@apis/post/detail';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
+import jwtDecode from 'jwt-decode';
+import { getCookie } from '@utils/cookies/cookies';
 
 function Comments() {
   const queryClient = useQueryClient();
   const [editingCommentId, setEditingCommentId] = useState(null);
   const { communityId, postId } = useParams();
   const [editingComments, setEditingComments] = useState({});
+  // 토큰
+  const token: string | null = getCookie('accessToken');
+  let loggedInUserId: string | null;
+  let decodedToken: DecodedToken | null = null;
+
+  decodedToken;
+  if (token) {
+    decodedToken = jwtDecode<DecodedToken>(token);
+    loggedInUserId = decodedToken?.sub;
+    console.log('Logged in user ID:', loggedInUserId);
+  }
 
   // useQuery 훅을 사용하여 댓글 목록을 가져옴
   const { isLoading, isError, data } = useQuery<CommentList[], Error>(
@@ -26,7 +39,7 @@ function Comments() {
   const [showOptions, setShowOptions] = useState({});
 
   // 더보기 버튼 토글 함수를 수정
-  const toggleOptions = (id) => {
+  const toggleOptions = (id: any) => {
     setShowOptions((prevState) => ({
       ...prevState,
       [id]: !prevState[id],
@@ -58,7 +71,7 @@ function Comments() {
     },
   });
 
-  const handleDeleteComment = (commentId, communityId) => {
+  const handleDeleteComment = (commentId: number, communityId: number) => {
     try {
       deleteCommentMutation.mutateAsync({ commentId, communityId });
     } catch (error) {
@@ -96,16 +109,16 @@ function Comments() {
   // };
 
   // 로딩 중이거나 에러가 발생했을 때 렌더링할 내용
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
+  // if (isLoading) {
+  //   return <div>Loading...</div>;
+  // }
 
-  if (isError) {
-    return <div>에러가 발생하였습니다.{isError.message}</div>;
-  }
+  // if (isError) {
+  //   return <div>에러가 발생하였습니다.{isError.message}</div>;
+  // }
 
   if (!data) {
-    return <div>Loading...</div>;
+    return <div>아직 작성된 댓글이 없습니다.</div>;
   }
 
   return (
@@ -130,30 +143,32 @@ function Comments() {
                 <S.CommentAuthor>{commentItem.commentAuthor}</S.CommentAuthor>
                 <S.CommentText>{commentItem.commentContent}</S.CommentText>
                 <S.CommentDate>{commentItem.commentCreatedAt}</S.CommentDate>
-                {showOptions[commentItem.commentId] && (
-                  <div className="optionsDropdown">
-                    <button
-                      className="commentEdit"
-                      onClick={() => {
-                        setEditingComments({
-                          ...editingComments,
-                          [commentItem.commentId]: commentItem.commentContent,
-                        });
-                      }}
-                    >
-                      수정
-                    </button>
-                    <button
-                      className="commentDelete"
-                      onClick={() => handleDeleteComment(commentItem.commentId, communityId)}
-                    >
-                      삭제
-                    </button>
-                  </div>
+                {Number(commentItem.userId) === Number(decodedToken?.sub) && (
+                  <S.OptionArea className="optionsIcon" onClick={() => toggleOptions(commentItem.commentId)}>
+                    <img src={EllipsisIcon} alt="더보기" style={{ width: '20px', height: '20px' }} />
+                    {showOptions[commentItem.commentId] && (
+                      <div className="optionsDropdown">
+                        <S.CommentOptionBtn
+                          className="commentEdit"
+                          onClick={() => {
+                            setEditingComments({
+                              ...editingComments,
+                              [commentItem.commentId]: commentItem.commentContent,
+                            });
+                          }}
+                        >
+                          수정
+                        </S.CommentOptionBtn>
+                        <S.CommentOptionBtn
+                          className="commentDelete"
+                          onClick={() => handleDeleteComment(commentItem.commentId, communityId)}
+                        >
+                          삭제
+                        </S.CommentOptionBtn>
+                      </div>
+                    )}
+                  </S.OptionArea>
                 )}
-                <div className="optionsIcon" onClick={() => toggleOptions(commentItem.commentId)}>
-                  <img src={EllipsisIcon} alt="더보기" style={{ width: '20px', height: '20px' }} />
-                </div>
               </S.CommentProfileBox>
               {editingComments[commentItem.commentId] && (
                 <>
@@ -170,7 +185,9 @@ function Comments() {
                       })
                     }
                   />
-                  <button onClick={() => handleEditSubmit(commentItem.commentId)}>수정 완료</button>
+                  <S.CommentOptionBtn title="edit" onClick={() => handleEditSubmit(commentItem.commentId)}>
+                    등록
+                  </S.CommentOptionBtn>
                 </>
               )}
             </S.CommentBox>
