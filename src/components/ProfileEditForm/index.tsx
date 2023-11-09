@@ -1,4 +1,3 @@
-import { Input } from '@components/ui/Input';
 import * as S from './style';
 interface ProfileProps {
   initialData: {
@@ -8,8 +7,8 @@ interface ProfileProps {
 }
 
 const ProfileEditForm = ({ initialData }: ProfileProps) => {
-	// const { formData, handleChange } = useProfileFormState(initialData);
-	// const { validateStatus, validateMessage, validateNickName, validatePhoneNumber, profileFormRef } =useProfileValidation();
+  // const { formData, handleChange } = useProfileFormState(initialData);
+  // const { validateStatus, validateMessage, validateNickName, validatePhoneNumber, profileFormRef } =useProfileValidation();
   return (
     <S.ProfileFormWrap>
       <div>{/* <Image/> */}</div>

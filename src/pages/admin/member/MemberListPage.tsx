@@ -1,5 +1,5 @@
 import { MemberList } from './MemberList';
-import { H3Title, ListWrap } from '../community/CommunitySearchPage';
+import { ListWrap } from '../community/CommunitySearchPage';
 
 const MemberListPage = () => {
   return (
