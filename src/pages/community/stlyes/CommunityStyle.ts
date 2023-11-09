@@ -151,6 +151,14 @@ const CommunityJoinButton = styled.button`
   border-radius: 50px;
 `;
 
+const CommunityEdit = styled.span`
+  background-color: #29715a;
+  padding: 15px 20px;
+  box-sizing: border-box;
+  border-radius: 5px;
+  color: #fff;
+`;
+
 export {
   CommunityIntroBox,
   CommunityIntroWrap,
@@ -172,4 +180,5 @@ export {
   WritingTimeText,
   CommunityBtnWrap,
   CommunityJoinButton,
+  CommunityEdit,
 };
