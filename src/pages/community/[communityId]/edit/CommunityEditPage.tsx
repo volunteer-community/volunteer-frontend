@@ -16,9 +16,9 @@ const INITIDATA = {
 const INIT_EDIT_IMAGE = [Logo, Camera]
 
 const CommunityEditPage = () => {
-  const location = useLocation()
+  const {data } = useLocation().state
 
-  console.log(location.state.data);
+  console.log(data);
 	return (
     <Section sectionTitle="커뮤니티 수정">
 			<CommunityForm initialData={INITIDATA} initialImageURLs={INIT_EDIT_IMAGE }  />
