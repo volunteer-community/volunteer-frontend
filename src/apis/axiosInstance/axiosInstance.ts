@@ -24,9 +24,8 @@ const createInstance = (contentType: string) => {
   instance.interceptors.response.use(
     (response) => response,
     async (error) => {
-      const { status } = error.response;
-      console.log(contentType);
       const refreshToken = getCookie('refreshToken');
+      const { status } = error.response;
       if (status === 401) {
         const response = await reissueToken(refreshToken);
         return response;

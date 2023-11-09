@@ -54,7 +54,12 @@ function PostDetail() {
   return (
     <>
       <S.BackLine>
-        <img src={back} alt="뒤로 가기" onClick={() => navigate(-1)} style={{ cursor: 'pointer' }} />
+        <img
+          src={back}
+          alt="뒤로 가기"
+          onClick={() => navigate(`/community/${communityId}/post`)}
+          style={{ cursor: 'pointer' }}
+        />
       </S.BackLine>
       <S.PostDetailStyle>
         <div className="postBox">

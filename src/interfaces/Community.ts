@@ -21,6 +21,11 @@ export interface QueryData {
 }
 
 //메인 커뮤니티 상세
+export interface CommunityUserDetail {
+  communityAuthor: string;
+  communityUserProfile: string;
+}
+
 export interface CommunityImgPath {
   communityImgNum: number;
   communityImgPath: string;

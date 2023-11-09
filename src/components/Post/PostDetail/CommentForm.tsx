@@ -1,11 +1,14 @@
 import { commentUserResponseDto, getPostDetail, postComment } from '@apis/post/detail';
 import { useState } from 'react';
-import { useMutation, useQuery } from 'react-query';
+import { useQueryClient, useMutation, useQuery } from 'react-query';
 import TextareaLabel from '@components/ui/Textarea';
 import * as S from './style';
+import { useParams } from 'react-router-dom';
 
 function CommentForm() {
   const [comment, setComment] = useState('');
+  const { communityId, postId } = useParams();
+  const queryClient = useQueryClient();
 
   //게시글 상세 정보를 불러오는 쿼리
   const { isLoading, isError, data } = useQuery<commentUserResponseDto, Error>('detail', async () => {
@@ -21,13 +24,15 @@ function CommentForm() {
     },
   });
 
-  const handleCommentSubmit = async () => {
+  const handleCommentSubmit = async (event: any) => {
+    event.preventDefault();
     try {
       await commentMutation.mutateAsync({
         postId: Number(postId),
         communityId: Number(communityId),
         commentContent: comment,
       });
+      console.log('postId, communityId, commenxtContent');
       setComment(''); // 댓글 입력 필드 초기화
     } catch (error) {
       console.error('댓글 게시 중 오류 발생', error);
@@ -44,6 +49,19 @@ function CommentForm() {
     }
   };
 
+  // 로딩 중이거나 에러가 발생했을 때 렌더링할 내용
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (isError) {
+    return <div>에러가 발생하였습니다.{isError.message}</div>;
+  }
+
+  if (!data) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <S.CommentsForm>
       <S.FormBlock>
@@ -55,14 +73,13 @@ function CommentForm() {
       </S.FormBlock>
       <TextareaLabel
         name="comment"
-        id="comment"
-        required
         value={comment}
         placeholder="자유롭게 댓글을 작성해주세요."
         onChange={onChange}
+        required
       />
       <div className="FormBlockSubmit">
-        <button type="submit" value="등록" className="formBtnSubmit" onClick={handleCommentSubmit}>
+        <button value="등록" className="formBtnSubmit" onClick={handleCommentSubmit}>
           등록
         </button>
       </div>

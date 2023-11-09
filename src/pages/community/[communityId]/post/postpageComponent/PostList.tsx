@@ -17,13 +17,14 @@ interface DecodedToken {
 }
 
 const PostList = ({ posterListData, communityIdNumber }: Props) => {
-  // userId jsonwebtoken decode
-  const token: string | null = getCookie('token');
+  const token: string | null = getCookie('accessToken');
   let loggedInUserId: string | null;
+  let decodedToken: DecodedToken | null = null;
 
   if (token) {
-    const decodedToken = jwtDecode<DecodedToken>(token);
-    loggedInUserId = decodedToken?.userId;
+    decodedToken = jwtDecode<DecodedToken>(token);
+    loggedInUserId = decodedToken?.sub;
+    console.log('Logged in user ID:', loggedInUserId);
   }
 
   console.log('communityIdNumber:', communityIdNumber);
@@ -31,13 +32,10 @@ const PostList = ({ posterListData, communityIdNumber }: Props) => {
   if (!posterListData || !posterListData.data || !posterListData.data.posterList) {
     return <S.NoContent>컨텐츠가 없습니다.</S.NoContent>;
   }
-
   const [showToggleBox, setShowToggleBox] = useState(false);
-
   const handleOptionBtnClick = () => {
     setShowToggleBox(!showToggleBox);
   };
-
   const handleDeleteBtnClick = async () => {
     try {
       const posterId = posterListData.data.posterList[0].posterId;
@@ -49,8 +47,8 @@ const PostList = ({ posterListData, communityIdNumber }: Props) => {
     }
     setShowToggleBox(false);
   };
-
   return posterListData.data.posterList.map((post: any, index: any) => {
+    console.log('Post user ID:', post.userId);
     const posterIdNumber = post.posterId;
     console.log('posterIdNumber:', posterIdNumber);
     return (
@@ -65,7 +63,7 @@ const PostList = ({ posterListData, communityIdNumber }: Props) => {
           </S.UserTitleBox>
 
           <S.PostListDateBox>
-            {post.userId === loggedInUserId && (
+            {Number(post.userId) === Number(decodedToken?.sub) && (
               <S.OptionBtnBox>
                 <S.OptionBtn onClick={handleOptionBtnClick}></S.OptionBtn>
                 {showToggleBox && (
