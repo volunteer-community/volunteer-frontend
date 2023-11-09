@@ -2,6 +2,7 @@ import CommunityForm from "@components/CommunityForm/CommunityForm"
 import Section from "@components/ui/Section/Section"
 import Logo from '@assets/images/Logo.png';
 import Camera from '@assets/images/camara_icon.svg';
+import { useLocation } from "react-router-dom";
 
 const INITIDATA = {
   communityTitle: '텀블러를 사랑하는 모임',
@@ -15,6 +16,9 @@ const INITIDATA = {
 const INIT_EDIT_IMAGE = [Logo, Camera]
 
 const CommunityEditPage = () => {
+  const location = useLocation()
+
+  console.log(location.state.data);
 	return (
     <Section sectionTitle="커뮤니티 수정">
 			<CommunityForm initialData={INITIDATA} initialImageURLs={INIT_EDIT_IMAGE }  />
