@@ -16,7 +16,7 @@ export default CommunitySearchPage;
 export const ListWrap = styled.div`
   display: flex;
   padding: 120px 0 0 0;
-  width: 1600px;
+  width: 100%;
 `;
 
 export const H3Title = styled.div`
