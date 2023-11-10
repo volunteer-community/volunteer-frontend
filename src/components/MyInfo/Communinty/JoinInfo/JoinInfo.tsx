@@ -9,31 +9,31 @@ export const StAticle = styled(Article)`
 `;
 const Ul = styled.ul`
   display: flex;
-  flex-direction: column;
   width: 100%;
   height: 100%;
   padding: 20px;
   margin-top: 24px;
   align-items: center;
+	flex-direction: column;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
   border-radius: 16px;
 `;
 
-interface CreateInfoProps {
-  userCreateCommunityData: Community[];
+interface JoinInfoProps {
+  userJoinCommunityData: Community[];
 }
 
-const CreateInfo = ({ userCreateCommunityData }:CreateInfoProps) => {
-  console.log(userCreateCommunityData)
+const JoinInfo = ({ userJoinCommunityData }: JoinInfoProps) => {
+  console.log(userJoinCommunityData);
   return (
-    <StAticle articleTitle="내가 생성한 커뮤니티">
+    <StAticle articleTitle="내가 가입한 커뮤니티">
       <Ul>
-        {userCreateCommunityData?.map((createCommunityItemData) => (
-          <Card communityItemData={createCommunityItemData} />
+        {userJoinCommunityData?.map((communityItemData) => (
+          <Card communityItemData={communityItemData} />
         ))}
       </Ul>
     </StAticle>
   );
 };
 
-export default CreateInfo;
+export default JoinInfo;

@@ -44,8 +44,8 @@ export const useUpdateCommunity = () => {
       queryClient.setQueryData('communities', context?.previousCommunities);
     },
   });
-  const handleCreateCommunity = (commuityData: UpdateCommunity) => {
+  const handleUpdateCommunity = (commuityData: UpdateCommunity) => {
     mutate(commuityData);
   };
-  return { handleCreateCommunity };
+  return { handleUpdateCommunity };
 };

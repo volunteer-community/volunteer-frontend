@@ -61,6 +61,11 @@ const CommunityPage = () => {
           <IntroUserContent DetailData={DetailData} />
           <IntroPostContent DetailData={DetailData} />
           <IntroInforContent DetailData={DetailData} />
+          <S.CommunityEdit>
+            <Link to={`/community/${communityId}/edit`} state={{ data: DetailData.data }}>
+              커뮤니티 수정하기
+            </Link>
+          </S.CommunityEdit>
           <S.CommunityBtnWrap>
             <S.CommunityJoinButton onClick={handleJoinClick}>
               <Link to={`/community/${communityId}/post`}>커뮤니티 참가하기</Link>

@@ -8,7 +8,7 @@ export const createPost = async (postFormData: PostData) => {
 	const response = await axiosImgInstance.post(`poster/community/${communityId}`, postData);
 	return response
 }
-interface UpdatePostData extends PostData {
+export interface UpdatePostData extends PostData {
 	postId: string | undefined
 }
 export const updatePost = async (postFormData: UpdatePostData) => {
