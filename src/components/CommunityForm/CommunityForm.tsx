@@ -8,7 +8,7 @@ import Modal from '@components/ui/Modal';
 import { useParams } from 'react-router-dom';
 import * as S from './style';
 import { CATEGORY_TYPE } from '@constants/community';
-import { CommunityPost } from '@apis/community/post';
+import { CommunityPost, UpdateCommunity } from '@apis/community/post';
 
 interface CommunityFormProps {
   initialData: {
@@ -16,7 +16,7 @@ interface CommunityFormProps {
   };
   initialImageURLs?: (string | null)[];
   onSave?: (communityData: CommunityPost) => void;
-  onUpadate?: () => void;
+  onUpadate?: (communityData: UpdateCommunity) => void;
 }
 
 const CommunityForm = ({ initialData, initialImageURLs, onSave, onUpadate }: CommunityFormProps) => {
@@ -76,7 +76,7 @@ const CommunityForm = ({ initialData, initialImageURLs, onSave, onUpadate }: Com
       const blob = new Blob([jsonFormData], { type: 'application/json' });
       formData.append('communityRequestDto', blob);
 
-      !communityId ? onSave?.({ communityData: formData, }) : onUpadate?.();
+      !communityId ? onSave?.({ communityData: formData, }) : onUpadate?.({communityData:formData, communityId:communityId});
       setPostFormData({
         communityTitle: '',
         categoryType: '',
