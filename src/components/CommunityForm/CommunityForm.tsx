@@ -27,6 +27,7 @@ const CommunityForm = ({ initialData, initialImageURLs, onSave, onUpadate }: Com
   );
   const { communityTitle, communityContent, categoryType, communityMaxParticipant, communityLocation, file } =
     postFormData;
+  console.log(file)
   const isEmptyFormData =
     ![communityTitle, communityContent, categoryType, communityMaxParticipant, communityLocation].every(Boolean) ||
     file.length === 0;

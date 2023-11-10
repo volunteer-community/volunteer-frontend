@@ -13,6 +13,6 @@ export const useGetMyJoinCommunites = () => {
 }
 
 export const useGetMyActive = () => {
-	const { data, isLoading, isError } = useQuery(['mypage/community/sign'], getMyActive);
+	const { data, isLoading, isError } = useQuery(['mypage/myinfo'], getMyActive);
 	return {data, isLoading, isError}
 }

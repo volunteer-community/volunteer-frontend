@@ -3,6 +3,13 @@ import styled from 'styled-components';
 import { Community } from '@interfaces/Community';
 import { Link } from 'react-router-dom';
 
+const Li = styled.li`
+  width: 100%;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #e4e2e2;
+`;
 const StCard = styled(Link)`
   display: flex;
   width: 100%;
@@ -68,11 +75,10 @@ const Info = styled.div`
 `;
 
 interface CardProps {
-  createCommunityItemData: Community;
+  communityItemData: Community;
 }
-const Card = ({ createCommunityItemData }: CardProps) => {
+const Card = ({ communityItemData }: CardProps) => {
   const {
-    categoryId,
     categoryType,
     communityId,
     communityTitle,
@@ -82,34 +88,36 @@ const Card = ({ createCommunityItemData }: CardProps) => {
     communityContent,
     communityLocation,
     communityMainImgPath,
-  } = createCommunityItemData;
+  } = communityItemData;
   const isParticipate = communityStatus === '모집 중';
   return (
-    <StCard to={`/community/${communityId}` }>
-      <>
-        <CommunityInfo>
-          <ImgWrap>
-            <Img src={communityMainImgPath} alt="커뮤니티 썸네일" />
-          </ImgWrap>
-          <TextInfo>
-            <CategoryChip>{categoryType}</CategoryChip>
-            <Title>{communityTitle}</Title>
-            <Content>{communityContent}</Content>
-          </TextInfo>
-        </CommunityInfo>
+    <Li>
+      <StCard to={`/community/${communityId}`}>
+        <>
+          <CommunityInfo>
+            <ImgWrap>
+              <Img src={communityMainImgPath} alt="커뮤니티 썸네일" />
+            </ImgWrap>
+            <TextInfo>
+              <CategoryChip>{categoryType}</CategoryChip>
+              <Title>{communityTitle}</Title>
+              <Content>{communityContent}</Content>
+            </TextInfo>
+          </CommunityInfo>
 
-        <Info>
-          <div>
-            <Image />
-            <span>{isParticipate ? `${communityParticipant} / ${communityMaxParticipant}` : communityStatus}</span>
-          </div>
-          <div>
-            <Image />
-            <span>{communityLocation}</span>
-          </div>
-        </Info>
-      </>
-    </StCard>
+          <Info>
+            <div>
+              <Image />
+              <span>{isParticipate ? `${communityParticipant} / ${communityMaxParticipant}` : communityStatus}</span>
+            </div>
+            <div>
+              <Image />
+              <span>{communityLocation}</span>
+            </div>
+          </Info>
+        </>
+      </StCard>
+    </Li>
   );
 };
 
