@@ -1,5 +1,7 @@
+import { MemberListPage } from '.';
+
 const AdminPage = () => {
-  return <div>AdminPage</div>;
+  return <MemberListPage />;
 };
 
 export default AdminPage;
