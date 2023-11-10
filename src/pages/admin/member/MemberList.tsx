@@ -78,7 +78,7 @@ export const MemberList: React.FC = () => {
         </tbody>
       </table>
       {/* 페이지네이션 */}
-      <div className="pagination">
+      <PaginationWrap>
         {/* 이전 페이지 그룹 버튼 */}
         <TableButton onClick={() => movePageGroup('prev')} disabled={pageRangeStartIndex === 0}>
           {'<'}
@@ -95,17 +95,24 @@ export const MemberList: React.FC = () => {
         <TableButton onClick={() => movePageGroup('next')} disabled={pageRangeStartIndex >= pageCount - 5}>
           {'>'}
         </TableButton>
-      </div>
+      </PaginationWrap>
     </ProductTableStyle>
   );
 };
 
+const PaginationWrap = styled.div`
+  padding: 20px;
+  box-sizing: border-box;
+`;
+
 const ProductTableStyle = styled.div`
   display: flex;
-  align-items: center;
+  justify-content: center;
   text-align: center;
   flex-direction: column;
-
+  width: 1600px;
+  display: block;
+  margin: 0 auto;
   table {
     border-collapse: collapse;
     width: 95%;
@@ -130,6 +137,7 @@ const ProductTableStyle = styled.div`
 
 const TableButton = styled.button`
   background: #919191;
+  padding: 5px 10px;
   color: #fff;
   margin-right: 10px;
   border: none;

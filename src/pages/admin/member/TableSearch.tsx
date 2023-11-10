@@ -24,7 +24,7 @@
 // 서버에서 조회 시 검색 코드
 import { useState } from 'react';
 import { AdminButton } from '../community/CommunitySearch';
-
+import styled from 'styled-components';
 function TableSearch({ onSubmit }) {
   const [searchNickname, setSearchNickname] = useState('');
 
@@ -34,7 +34,7 @@ function TableSearch({ onSubmit }) {
   };
 
   return (
-    <div>
+    <AdminSearchWrap>
       <input
         type="text"
         placeholder="검색할 닉네임을 입력하세요."
@@ -44,8 +44,20 @@ function TableSearch({ onSubmit }) {
       <AdminButton className="admin" onClick={handleSearch}>
         검색
       </AdminButton>
-    </div>
+    </AdminSearchWrap>
   );
 }
 
 export default TableSearch;
+
+const AdminSearchWrap = styled.div`
+  display: flex;
+  justify-content: center;
+  padding: 20px 0 20px 0;
+  input[type='text'] {
+    border: solid 1px #e1e1e1;
+    padding: 0px 20px;
+    box-sizing: border-box;
+    border-radius: 5px;
+  }
+`;

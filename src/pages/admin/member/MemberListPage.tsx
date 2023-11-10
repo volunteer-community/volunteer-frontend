@@ -1,11 +1,11 @@
 import { MemberList } from './MemberList';
-import Section from '@components/ui/Section/Section';
+import { H3Title, ListWrap } from '../community/CommunitySearchPage';
 
 const MemberListPage = () => {
   return (
-    <Section>
+    <ListWrap>
       <MemberList />
-    </Section>
+    </ListWrap>
   );
 };
 
