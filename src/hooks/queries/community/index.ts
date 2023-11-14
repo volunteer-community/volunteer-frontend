@@ -12,8 +12,8 @@ export const useCreateCommunity = () => {
     },
     onMutate: async (newCommunity) => {
       await queryClient.cancelQueries('community');
-      const previousCommunities = queryClient.getQueriesData('community');
-      queryClient.setQueriesData('community', [...previousCommunities, newCommunity]);
+      const previousCommunities = queryClient.getQueryData('community');
+      queryClient.setQueryData('community', [previousCommunities, newCommunity]);
       return { previousCommunities };
     },
     onError: (error, newCommunity, context) => {
