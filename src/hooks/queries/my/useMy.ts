@@ -1,18 +1,31 @@
-import { getMyActive, getMyJoinCommunites, getMyMakeCommunites } from '@apis/my';
-import { useQuery } from 'react-query';
+import { getMyActive, getMyJoinCommunites, getMyMakeCommunites, unsubscribing } from '@apis/my';
+import { QueryClient, useMutation, useQuery, useQueryClient } from 'react-query';
+import { useNavigate } from 'react-router-dom';
 
 export const useGetMyMakeCommunites = () => {
   const { data, isLoading, isError } = useQuery(['mypage/community'], getMyMakeCommunites);
   return { data, isLoading, isError };
 };
 
-
 export const useGetMyJoinCommunites = () => {
-	const { data, isLoading, isError } = useQuery(['mypage/community/sign'], getMyJoinCommunites);
-	return {data, isLoading, isError}
-}
+  const { data, isLoading, isError } = useQuery(['mypage/community/sign'], getMyJoinCommunites);
+  return { data, isLoading, isError };
+};
 
 export const useGetMyActive = () => {
-	const { data, isLoading, isError } = useQuery(['mypage/myinfo'], getMyActive);
-	return {data, isLoading, isError}
-}
+  const { data, isLoading, isError } = useQuery(['mypage/myinfo'], getMyActive);
+  return { data, isLoading, isError };
+};
+
+export const usePostUnsubscribing = () => {
+  const navigate = useNavigate();
+
+  const { mutate } = useMutation(unsubscribing, {
+    onSuccess: () => {},
+	});
+	
+	const handleUnsubscribing = () => {
+		mutate({})
+	}
+	return {handleUnsubscribing}
+};
