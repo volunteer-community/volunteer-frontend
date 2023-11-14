@@ -1,9 +1,12 @@
-import React from 'react'
+import { MemberList } from './MemberList';
+import { H3Title, ListWrap } from '../community/CommunitySearchPage';
 
 const MemberListPage = () => {
-	return (
-		<div>MemberListPage</div>
-	)
-}
+  return (
+    <ListWrap>
+      <MemberList />
+    </ListWrap>
+  );
+};
 
-export default MemberListPage
+export default MemberListPage;
