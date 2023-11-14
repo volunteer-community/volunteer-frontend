@@ -2,6 +2,8 @@ import Image from '../Image';
 import styled from 'styled-components';
 import { Community } from '@interfaces/Community';
 import { Link } from 'react-router-dom';
+import Button from '../Button/Button';
+import { deleteCommunity } from '@apis/community/post';
 
 const Li = styled.li`
   width: 100%;
@@ -74,10 +76,21 @@ const Info = styled.div`
   margin-top: 52px;
 `;
 
+const StButton = styled(Button)`
+  margin-left: 800px;
+  background-color: #000;
+  color: #fff;
+  padding: 10px;
+`;
 interface CardProps {
   communityItemData: Community;
+  isCreate?: string
+
 }
-const Card = ({ communityItemData }: CardProps) => {
+const Card = ({ communityItemData, isCreate }: CardProps) => {
+  const handleDelete = (communityId: string) => {
+    deleteCommunity(communityId);
+  };
   const {
     categoryType,
     communityId,
@@ -117,6 +130,7 @@ const Card = ({ communityItemData }: CardProps) => {
           </Info>
         </>
       </StCard>
+      {isCreate && <StButton buttonText="삭제하기" onClick={() => handleDelete(String(communityId))} />}
     </Li>
   );
 };
