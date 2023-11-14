@@ -23,7 +23,7 @@ const LoginButton = ({ oauth, getLoading }: LoginButtonProps) => {
     if (isSignUpPage) {
       navigate('/signup/add');
       window.location.href = `${import.meta.env.VITE_SERVER_OAUTH2}oauth2/authorization/${oauthName}`;
-    } else if (loginData) {
+    } else {
       login(loginData);
       navigate('/');
     }
