@@ -29,7 +29,7 @@ const CreateInfo = ({ userCreateCommunityData }:CreateInfoProps) => {
     <StAticle articleTitle="내가 생성한 커뮤니티">
       <Ul>
         {userCreateCommunityData?.map((createCommunityItemData) => (
-          <Card communityItemData={createCommunityItemData} />
+          <Card communityItemData={createCommunityItemData} isCreate={'isCreate' } />
         ))}
       </Ul>
     </StAticle>
