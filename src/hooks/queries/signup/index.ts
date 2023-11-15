@@ -1,8 +1,8 @@
-import { createUserAddInfo } from '@apis/auth/signup';
+import { checkData, checkUserPhone, createUserAddInfo } from '@apis/auth/signup';
 import { useMutation } from 'react-query';
 import { useNavigate } from 'react-router-dom';
 
-const useCreateUserAddInfo = () => {
+export const useCreateUserAddInfo = () => {
   const navigate = useNavigate();
   const { mutate } = useMutation((userInfo: Blob) => createUserAddInfo(userInfo), {
     onSuccess: () => {
@@ -11,4 +11,13 @@ const useCreateUserAddInfo = () => {
   });
   return { mutate };
 };
-export default useCreateUserAddInfo;
+
+
+export const useCheckUserPhone = () => {
+  const { mutate } = useMutation(checkUserPhone)
+  
+  const handleUserPhone = (phoneCheck:checkData) => {
+    mutate(phoneCheck)
+  }
+  return {handleUserPhone}
+}
