@@ -16,3 +16,12 @@ export const createUserAddInfo = async (addInfoData: Blob) => {
 		console.error(error)
 	}
 }
+
+export interface checkData {
+	check: string
+}
+
+export const checkUserPhone = async (checkPhoneData:checkData) => {
+	const response = await axiosInstance.post('user/phoneCheck', checkPhoneData) 
+	return response
+}
