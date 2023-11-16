@@ -4,24 +4,37 @@ import styled from 'styled-components';
 import { memberColumns } from './memberColumns';
 import TableSearch from './TableSearch';
 import { getAllUser } from '@apis/admin';
+import { UserList } from '@apis/admin';
+
+// type UserList = {
+//   email: string;
+//   name: string;
+//   profileImg: string;
+//   nickname: string;
+//   phoneNumber: string;
+//   provider: string;
+//   deleted: boolean;
+// };
 
 export const MemberList: React.FC = () => {
-  const [data, setData] = useState([]);
+  const [data, setData] = useState<UserList[]>([]);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [loading, setLoading] = useState(true);
+  const [currentPage, setCurrentPage] = useState(0);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await getAllUser();
         if (Array.isArray(response)) {
-          setData(response); // 데이터가 배열인 경우에만 설정
+          setData(response as UserList[]); // 타입 단언을 사용하여 타입을 강제로 할당
         } else {
           console.error('Invalid data format:', response);
         }
         setLoading(false);
       } catch (error) {
         console.error('Error fetching data:', error);
-        setLoading(false); // 오류가 발생한 경우에도 로딩 상태를 업데이트
+        setLoading(false);
       }
     };
     fetchData();
@@ -31,8 +44,8 @@ export const MemberList: React.FC = () => {
     useTable(
       {
         columns: memberColumns,
-        data: data, // 데이터 상태를 사용
-        initialState: { pageIndex: 0, pageSize: 8 },
+        data: data,
+        initialState: { pageIndex: currentPage, pageSize: 5 },
       },
       useGlobalFilter,
       usePagination
@@ -45,11 +58,12 @@ export const MemberList: React.FC = () => {
   function movePageGroup(dir: 'prev' | 'next'): void {
     if (dir === 'prev' && pageRangeStartIndex >= 5) {
       setPageRangeStartIndex(pageRangeStartIndex - 5);
+      setCurrentPage(currentPage - 1); // 이전 페이지 그룹으로 이동할 경우 currentPage 값을 감소
     } else if (dir === 'next' && pageRangeStartIndex < pageCount - 5) {
       setPageRangeStartIndex(pageRangeStartIndex + 5);
+      setCurrentPage(currentPage + 1); // 다음 페이지 그룹으로 이동할 경우 currentPage 값을 증가
     }
   }
-
   return (
     <ProductTableStyle>
       <TableSearch onSubmit={setGlobalFilter} />
