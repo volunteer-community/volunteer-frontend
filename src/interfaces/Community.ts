@@ -1,9 +1,8 @@
 // community.ts
 //메인 커뮤니티 리스트
-export interface Community {
-  categoryId: number;
-  categoryType: string;
+export interface Community extends Data {
   communityId: number;
+  categoryType: string;
   communityTitle: string;
   communityParticipant: number;
   communityMaxParticipant: number;
@@ -12,6 +11,8 @@ export interface Community {
   communityContent: string;
   communityLocation: string;
   communityMainImgPath: string;
+  communityCreatedAt: Date;
+  communityUpdatedAt: Date;
 }
 
 export interface QueryData {
@@ -45,6 +46,9 @@ export interface CommunityDetail {
 }
 
 export interface Data {
+  map: any;
+  communityList: Data | undefined;
+  data: Data | undefined;
   communityDetail: CommunityDetail;
   communityImgPathList: CommunityImgPath[];
 }
