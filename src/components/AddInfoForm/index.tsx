@@ -1,6 +1,11 @@
+import Button from '@components/ui/Button/Button';
 import { Input } from '@components/ui/Input';
 import { useFormState } from '@hooks/form';
-import { useCreateUserAddInfo } from '@hooks/queries/signup';
+import {
+  useUesrInfoValidationByNickname,
+  useUesrInfoValidationByPhoneNumber,
+} from '@hooks/form/useUserInfoValidation/useUserInfoValidation';
+import { useCheckUserNickname, useCheckUserPhone, useCreateUserAddInfo } from '@hooks/queries/signup';
 import { FormEvent } from 'react';
 import styled from 'styled-components';
 
@@ -9,15 +14,40 @@ const Form = styled.form`
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  gap: 0px;
   width: 50%;
+  div {
+    width: 400px;
+  }
+  div:not(:first-child) {
+    height: 120px;
+  }
 `;
+
+const StButton = styled(Button)`
+  position: relative;
+  top: -74px;
+  left: 430px;
+  width: 90px;
+  height: 40px;
+  font-weight: 600;
+  border-radius: 10px;
+  background-color: #304647;
+  color: #fff;
+`;
+
 interface AddInfoFormProps {
   [key: string]: any;
 }
 const AddInfoForm = ({ initialData }: AddInfoFormProps) => {
   const { postFormData, setPostFormData, handleChange } = useFormState(initialData);
   const { name, provider, email, nickname, phoneNumber, picture, role } = postFormData;
+  const { validateNickname, nicknameRef, handleNicknameBlur } = useUesrInfoValidationByNickname();
+  const { validatePhoneNumber, phoneNumbereRef, handlePhoneNumberBlur } = useUesrInfoValidationByPhoneNumber();
   const { mutate } = useCreateUserAddInfo();
+  const { handleUserPhone, duplicatePhone, isClicked, setIsClicked } = useCheckUserPhone();
+  const { handleUserNickname } = useCheckUserNickname();
+
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const addInfoData = JSON.stringify({
@@ -29,6 +59,7 @@ const AddInfoForm = ({ initialData }: AddInfoFormProps) => {
       picture,
       role,
     });
+
     const signupDtoBlob = new Blob([addInfoData], { type: 'application/json' });
     setPostFormData({
       name: '',
@@ -41,12 +72,68 @@ const AddInfoForm = ({ initialData }: AddInfoFormProps) => {
     });
     mutate(signupDtoBlob);
   };
+
+  const handleUserCheckPhoneNumber = () => {
+    const isEmptyPhoneNumber = phoneNumber.trim() === '';
+    const checkPhoneData = {
+      check: phoneNumber,
+    };
+    if (isEmptyPhoneNumber) return;
+    handleUserPhone(checkPhoneData);
+  };
+
+  const handleUserCheckNickname = () => {
+    const isEmptyNickname = nickname.trim() === '';
+    const checkNicknameData = {
+      check: nickname,
+    };
+    if (isEmptyNickname) return;
+    handleUserNickname(checkNicknameData);
+  };
+
+
+  const handleFocus = () => {
+    setIsClicked(false)
+  }
   return (
     <Form onSubmit={handleSubmit}>
-      <Input labelText="이름" type="text" name="name" disabled value={name} onChange={handleChange} />
-      <Input labelText="이메일" type="text" name="email" disabled value={email} onChange={handleChange} />
-      <Input labelText="닉네임" type="text" name="nickname" value={nickname} onChange={handleChange} />
-      <Input labelText="핸드폰 번호" type="text" name="phoneNumber" value={phoneNumber} onChange={handleChange} />
+      <div>
+        <Input labelText="이름" type="text" name="name" disabled value={name} onChange={handleChange} />
+      </div>
+      <div>
+        <Input labelText="이메일" type="text" name="email" disabled value={email} onChange={handleChange} />
+      </div>
+      <div>
+        <Input
+          labelText="닉네임"
+          type="text"
+          name="nickname"
+          placeholder="닉네임을 입력해주세요"
+          value={nickname}
+          ref={nicknameRef}
+          onChange={handleChange}
+          onBlur={handleNicknameBlur}
+          validateText={validateNickname.message}
+          isValid={validateNickname.status}
+        />
+        <StButton type="button" buttonText="중복 확인" onClick={handleUserCheckNickname} />
+      </div>
+      <div>
+        <Input
+          labelText="핸드폰 번호"
+          type="text"
+          name="phoneNumber"
+          placeholder="핸드폰 번호를 입력해주세요."
+          value={phoneNumber}
+          ref={phoneNumbereRef}
+          onChange={handleChange}
+          onBlur={handlePhoneNumberBlur}
+          onFocus={handleFocus}
+          validateText={isClicked? duplicatePhone.message : validatePhoneNumber.message}
+          isValid={isClicked? !duplicatePhone.status : validatePhoneNumber.status}
+        />
+        <StButton type="button" buttonText="중복 확인" onClick={handleUserCheckPhoneNumber} />
+      </div>
       <button>정보 추가하기</button>
     </Form>
   );

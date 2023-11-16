@@ -23,5 +23,10 @@ export interface checkData {
 
 export const checkUserPhone = async (checkPhoneData:checkData) => {
 	const response = await axiosInstance.post('user/phoneCheck', checkPhoneData) 
+	return response.data
+}
+
+export const checkUserNickname = async (checkNicknameData:checkData) => {
+	const response = await axiosInstance.post('user/nicknameCheck', checkNicknameData); 
 	return response
 }
