@@ -2,21 +2,11 @@ import Image from '@components/ui/Image'
 import styled from 'styled-components'
 export const ProfileWrap = styled.div`
   display: flex;
-	position: relative;
   flex-direction: column;
   justify-content: center;
   text-align: center;
-	padding-right: 110px;
   gap: 10px;
-  &::after {
-    content: '';
-		position: absolute;
-		top: 0;
-		right: 0px;
-    height: 978px;
-    background-color: #E0E0E0;
-		width: 1px;
-  }
+
 `;
 
 export const ProfileTitle = styled.span`

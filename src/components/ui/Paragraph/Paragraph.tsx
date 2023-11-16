@@ -5,7 +5,8 @@ interface StPagragraphProps {
 }
 
 const StParagraph = styled.p<StPagragraphProps>`
-  color: ${(props) => (props.$isValid ? '': '#fb304b')};
+  color: ${(props) => (props.$isValid ? '' : '#fb304b')};
+  color: #000
 `;
 
 interface ParagraphProps {
