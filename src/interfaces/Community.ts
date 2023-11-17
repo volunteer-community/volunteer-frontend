@@ -1,7 +1,8 @@
 // community.ts
 //메인 커뮤니티 리스트
-export interface Community extends Data {
-  communityId: number;
+export interface Community {
+  [key: string]: any;
+  categoryId: number;
   categoryType: string;
   communityTitle: string;
   communityParticipant: number;
