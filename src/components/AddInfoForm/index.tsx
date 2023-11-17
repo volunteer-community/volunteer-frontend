@@ -36,6 +36,14 @@ const StButton = styled(Button)`
   color: #fff;
 `;
 
+const SubmitButton = styled.button`
+  height: 50px;
+  border-radius: 8px;
+  width: 400px;
+  color: #fff;
+  background-color: #56c9b6;
+`;
+
 interface AddInfoFormProps {
   [key: string]: any;
 }
@@ -46,7 +54,7 @@ const AddInfoForm = ({ initialData }: AddInfoFormProps) => {
   const { validatePhoneNumber, phoneNumbereRef, handlePhoneNumberBlur } = useUesrInfoValidationByPhoneNumber();
   const { mutate } = useCreateUserAddInfo();
   const { handleUserPhone, duplicatePhone, isClicked, setIsClicked } = useCheckUserPhone();
-  const { handleUserNickname } = useCheckUserNickname();
+  const { isClicked:clicked, duplicateNickname, setIsClicked:setClicked,  handleUserNickname } = useCheckUserNickname();
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -94,6 +102,7 @@ const AddInfoForm = ({ initialData }: AddInfoFormProps) => {
 
   const handleFocus = () => {
     setIsClicked(false)
+    setClicked(false)
   }
   return (
     <Form onSubmit={handleSubmit}>
@@ -112,9 +121,10 @@ const AddInfoForm = ({ initialData }: AddInfoFormProps) => {
           value={nickname}
           ref={nicknameRef}
           onChange={handleChange}
+          onFocus={handleFocus}
           onBlur={handleNicknameBlur}
-          validateText={validateNickname.message}
-          isValid={validateNickname.status}
+          validateText={clicked? duplicateNickname.message : validateNickname.message}
+          isValid={clicked? !duplicateNickname.status: validateNickname.status}
         />
         <StButton type="button" buttonText="중복 확인" onClick={handleUserCheckNickname} />
       </div>
@@ -129,12 +139,12 @@ const AddInfoForm = ({ initialData }: AddInfoFormProps) => {
           onChange={handleChange}
           onBlur={handlePhoneNumberBlur}
           onFocus={handleFocus}
-          validateText={isClicked? duplicatePhone.message : validatePhoneNumber.message}
-          isValid={isClicked? !duplicatePhone.status : validatePhoneNumber.status}
+          validateText={isClicked ? duplicatePhone.message : validatePhoneNumber.message}
+          isValid={isClicked ? !duplicatePhone.status : validatePhoneNumber.status}
         />
         <StButton type="button" buttonText="중복 확인" onClick={handleUserCheckPhoneNumber} />
       </div>
-      <button>정보 추가하기</button>
+      <SubmitButton>정보 추가하기</SubmitButton>
     </Form>
   );
 };

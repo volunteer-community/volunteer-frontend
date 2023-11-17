@@ -33,10 +33,18 @@ export const useCheckUserPhone = () => {
 }
 
 export const useCheckUserNickname = () => {
-  const { mutate } = useMutation(checkUserNickname)
-  
+    const [duplicateNickname, setDuplicateNickname] = useState({ message: '', status: true });
+    const [isClicked, setIsClicked] = useState(false);
+  const { mutate } = useMutation(checkUserNickname,
+    {
+      onSuccess: (data) => {
+        setDuplicateNickname({...duplicateNickname, message:data.message, status: data.data.exist})
+    }
+  }
+  )
   const handleUserNickname = (nicknameCheck:checkData) => {
     mutate(nicknameCheck)
+    setIsClicked(true)
   }
-  return {handleUserNickname}
+  return {duplicateNickname, isClicked, setIsClicked ,handleUserNickname}
 }
