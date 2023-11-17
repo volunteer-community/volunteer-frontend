@@ -1,10 +1,14 @@
 import { MemberList } from './MemberList';
 import { ListWrap } from '../community/CommunitySearchPage';
+import AdminSidebar from '@components/adminLayout/AdminSidebar';
 
 const MemberListPage = () => {
   return (
     <ListWrap>
-      <MemberList />
+      <AdminSidebar />
+      <div>
+        <MemberList />
+      </div>
     </ListWrap>
   );
 };

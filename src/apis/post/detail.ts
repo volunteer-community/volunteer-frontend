@@ -32,6 +32,7 @@ export interface CommentItem {
   commentUpdatedAt: string;
   profileImg: string;
 }
+
 interface CommentData {
   commentContent: string;
   postId: number;

@@ -65,52 +65,54 @@ export const MemberList: React.FC = () => {
     }
   }
   return (
-    <ProductTableStyle>
-      <TableSearch onSubmit={setGlobalFilter} />
-      {/* <TableSearch onSubmit={handleSearch} /> */}
-      <table {...getTableProps()}>
-        <thead>
-          {headerGroups.map((headerGroup) => (
-            <tr {...headerGroup.getHeaderGroupProps()}>
-              {headerGroup.headers.map((column) => (
-                <th {...column.getHeaderProps()}>{column.render('Header')}</th>
-              ))}
-            </tr>
-          ))}
-        </thead>
-        <tbody {...getTableBodyProps()}>
-          {page.map((row) => {
-            prepareRow(row);
-            return (
-              <tr {...row.getRowProps()}>
-                {row.cells.map((cell) => {
-                  return <td {...cell.getCellProps()}>{cell.render('Cell')}</td>;
-                })}
+    <>
+      <ProductTableStyle>
+        <TableSearch onSubmit={setGlobalFilter} />
+        {/* <TableSearch onSubmit={handleSearch} /> */}
+        <table {...getTableProps()}>
+          <thead>
+            {headerGroups.map((headerGroup) => (
+              <tr {...headerGroup.getHeaderGroupProps()}>
+                {headerGroup.headers.map((column) => (
+                  <th {...column.getHeaderProps()}>{column.render('Header')}</th>
+                ))}
               </tr>
-            );
-          })}
-        </tbody>
-      </table>
-      {/* 페이지네이션 */}
-      <PaginationWrap>
-        {/* 이전 페이지 그룹 버튼 */}
-        <TableButton onClick={() => movePageGroup('prev')} disabled={pageRangeStartIndex === 0}>
-          {'<'}
-        </TableButton>
-
-        {/* 페이징 숫자 목록, 최대 5개의 페이지 번호 생성, 마지막 페이지 그룹에서는 남은 페이지 수만큼만 버튼 생성 */}
-        {[...Array(Math.min(5, pageCount - pageRangeStartIndex))].map((_, i) => (
-          <TableButton key={i} onClick={() => gotoPage(pageRangeStartIndex + i)}>
-            {pageRangeStartIndex + i + 1}
+            ))}
+          </thead>
+          <tbody {...getTableBodyProps()}>
+            {page.map((row) => {
+              prepareRow(row);
+              return (
+                <tr {...row.getRowProps()}>
+                  {row.cells.map((cell) => {
+                    return <td {...cell.getCellProps()}>{cell.render('Cell')}</td>;
+                  })}
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+        {/* 페이지네이션 */}
+        <PaginationWrap>
+          {/* 이전 페이지 그룹 버튼 */}
+          <TableButton onClick={() => movePageGroup('prev')} disabled={pageRangeStartIndex === 0}>
+            {'<'}
           </TableButton>
-        ))}
 
-        {/* 다음 페이지 그룹 버튼 */}
-        <TableButton onClick={() => movePageGroup('next')} disabled={pageRangeStartIndex >= pageCount - 5}>
-          {'>'}
-        </TableButton>
-      </PaginationWrap>
-    </ProductTableStyle>
+          {/* 페이징 숫자 목록, 최대 5개의 페이지 번호 생성, 마지막 페이지 그룹에서는 남은 페이지 수만큼만 버튼 생성 */}
+          {[...Array(Math.min(5, pageCount - pageRangeStartIndex))].map((_, i) => (
+            <TableButton key={i} onClick={() => gotoPage(pageRangeStartIndex + i)}>
+              {pageRangeStartIndex + i + 1}
+            </TableButton>
+          ))}
+
+          {/* 다음 페이지 그룹 버튼 */}
+          <TableButton onClick={() => movePageGroup('next')} disabled={pageRangeStartIndex >= pageCount - 5}>
+            {'>'}
+          </TableButton>
+        </PaginationWrap>
+      </ProductTableStyle>
+    </>
   );
 };
 
@@ -124,7 +126,7 @@ const ProductTableStyle = styled.div`
   justify-content: center;
   text-align: center;
   flex-direction: column;
-  width: 1600px;
+  width: 1200px;
   display: block;
   margin: 0 auto;
   table {

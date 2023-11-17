@@ -19,6 +19,7 @@ function Comments() {
   const [editingCommentId, setEditingCommentId] = useState(null);
   const { communityId, postId } = useParams();
   const [editingComments, setEditingComments] = useState<Record<string, string>>({});
+
   // 토큰
   const token: string | null = getCookie('accessToken');
   let loggedInUserId: string | null;
