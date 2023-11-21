@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 // import MainBN from '/src/assets/images/MainBN.png';
-// import mapleTown from '@assets/images/mapleTown3.mp4';
 
 const MainBn = () => {
   return (
@@ -39,12 +38,12 @@ const MainBnBox = styled.video`
   }
 `;
 
-const Title = styled.span`
-  font-size: 25px;
-  padding-top: 200px;
-`;
+// const Title = styled.span`
+//   font-size: 25px;
+//   padding-top: 200px;
+// `;
 
-const TextContent = styled.span`
-  font-size: 40px;
-  padding-top: 20px;
-`;
+// const TextContent = styled.span`
+//   font-size: 40px;
+//   padding-top: 20px;
+// `;
