@@ -1,4 +1,3 @@
-import { Input } from '@components/ui/Input';
 import * as S from './style';
 import { useFormState } from '@hooks/form';
 interface ProfileProps {
@@ -9,7 +8,7 @@ interface ProfileProps {
 }
 
 const ProfileEditForm = ({ initialData }: ProfileProps) => {
-	const { postFormData, handleChange } = useFormState(initialData);
+  const { postFormData, handleChange } = useFormState(initialData);
 
   return (
     <S.ProfileFormWrap>
@@ -24,8 +23,8 @@ const ProfileEditForm = ({ initialData }: ProfileProps) => {
           onChange={handleChange}
           // ref={(ref) => profileFormRef('nickName', ref)}
           // isValid={validateStatus.nickName}
-					// validateText={validateMessage.nickName}
-					// onBlur={validateNickName}
+          // validateText={validateMessage.nickName}
+          // onBlur={validateNickName}
         />
         <Input
           labelText="휴대폰 번호"
@@ -36,8 +35,8 @@ const ProfileEditForm = ({ initialData }: ProfileProps) => {
           onChange={handleChange}
           // ref={(ref) => profileFormRef('phoneNum', ref)}
           // validateText={validateMessage.phoneNum}
-					// isValid={validateStatus.phoneNum}
-					// onBlur={validatePhoneNumber}
+          // isValid={validateStatus.phoneNum}
+          // onBlur={validatePhoneNumber}
         />
       </S.ProfileForm>
     </S.ProfileFormWrap>
