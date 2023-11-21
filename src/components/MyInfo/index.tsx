@@ -25,7 +25,6 @@ const MyInfo = () => {
     activeData?.data.data ?? [];
   const { communityList } = createInfo?.data.data ?? [];
   const { communityList: communtyJoinList} = joinInfo?.data.data ?? []
-  console.log('create',createInfo?.data);
   const userActiveData = activeData
     ? [
         { icon: HeartIcon, name: '좋아요 한 게시글', value: countOfPosterLike },

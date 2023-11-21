@@ -3,7 +3,7 @@
 
 export interface Community {
   [key: string]: any;
-  communityId: number;
+  categoryId: number;
   categoryType: string;
   communityTitle: string;
   communityParticipant: number;
