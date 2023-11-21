@@ -6,7 +6,7 @@ import { useCommunityId } from '@hooks/useParamsId/useCommunityId';
 import PostList from '@pages/community/[communityId]/post/postpageComponent/PostList';
 import { useQuery } from 'react-query';
 import { getPostData } from '@apis/community/community.ts';
-import { ReactElement, useCallback, useEffect, useState } from 'react';
+import { ReactElement } from 'react';
 
 // Props 타입 정의
 type Props = {

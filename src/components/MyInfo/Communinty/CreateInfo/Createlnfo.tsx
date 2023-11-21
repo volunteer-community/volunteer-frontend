@@ -1,3 +1,4 @@
+import EmptyStateCard from '@components/EmptyStateCard/EmptyStateCard';
 import Article from '@components/ui/Aticle/Aticle';
 import Card from '@components/ui/Card/Card';
 import { Community } from '@interfaces/Community';
@@ -23,13 +24,15 @@ interface CreateInfoProps {
   userCreateCommunityData: Community[];
 }
 
-const CreateInfo = ({ userCreateCommunityData }:CreateInfoProps) => {
-  console.log(userCreateCommunityData)
+const CreateInfo = ({ userCreateCommunityData }: CreateInfoProps) => {
+  if (!userCreateCommunityData) {
+    return <EmptyStateCard />;
+  }
   return (
     <StAticle articleTitle="내가 생성한 커뮤니티">
       <Ul>
         {userCreateCommunityData?.map((createCommunityItemData) => (
-          <Card communityItemData={createCommunityItemData} isCreate={'isCreate' } />
+          <Card communityItemData={createCommunityItemData} isCreate={'isCreate'} />
         ))}
       </Ul>
     </StAticle>
