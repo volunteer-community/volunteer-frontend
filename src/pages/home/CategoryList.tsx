@@ -56,11 +56,11 @@ const CategoryList = () => {
     activeIndex >= 0
       ? (filteredData ? filteredData : defaultData).filter(
           (community) =>
-            typeof searchQuery === 'string' && community[searchField].toLowerCase().includes(searchQuery.toLowerCase()) // 수정: 검색 필드 사용
+            typeof searchQuery === 'string' && community[searchField].toLowerCase().includes(searchQuery.toLowerCase())
         )
       : defaultData.filter(
           (community) =>
-            typeof searchQuery === 'string' && community[searchField].toLowerCase().includes(searchQuery.toLowerCase()) // 수정: 검색 필드 사용
+            typeof searchQuery === 'string' && community[searchField].toLowerCase().includes(searchQuery.toLowerCase())
         );
 
   // 사용할 데이터
