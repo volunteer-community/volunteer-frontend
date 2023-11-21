@@ -1,9 +1,10 @@
+import EmptyStateCard from '@components/EmptyStateCard/EmptyStateCard';
 import Article from '@components/ui/Aticle/Aticle';
 import Card from '@components/ui/Card/Card';
 import { Community } from '@interfaces/Community';
 import styled from 'styled-components';
-
-export const StAticle = styled(Article)`
+import JoinCommunity from '@assets/images/join_community_icon.svg'
+export const StArticle = styled(Article)`
   width: 100%;
   font-size: 18px;
 `;
@@ -24,15 +25,28 @@ interface JoinInfoProps {
 }
 
 const JoinInfo = ({ userJoinCommunityData }: JoinInfoProps) => {
-  console.log(userJoinCommunityData);
+  if (!userJoinCommunityData) {
+    return (
+      <StArticle articleTitle="내가 생성한 커뮤니티 가기">
+        <Ul>
+          <EmptyStateCard
+            src={JoinCommunity}
+            alt="커뮤니티 아이콘"
+            pathName="/"
+            text="커뮤니티를 가입하러 가기"
+          />
+        </Ul>
+      </StArticle>
+    );
+  }
   return (
-    <StAticle articleTitle="내가 가입한 커뮤니티">
+    <StArticle articleTitle="내가 가입한 커뮤니티">
       <Ul>
         {userJoinCommunityData?.map((communityItemData) => (
           <Card communityItemData={communityItemData} />
         ))}
       </Ul>
-    </StAticle>
+    </StArticle>
   );
 };
 
