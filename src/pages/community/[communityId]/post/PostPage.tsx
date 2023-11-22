@@ -17,11 +17,12 @@ type Props = {
   post: any;
 };
 
-const PostPage: React.FC<Props> = (): ReactElement => {
+const PostPage = () => {
   // useParams로 받아온 커뮤니티 아이디
   const communityIdNumber: any = useCommunityId();
 
   let posterList: any = null;
+  let isLoading: boolean = true;
   let error: Error | null = null;
 
   // useQuery를 사용하여 데이터를 캐싱

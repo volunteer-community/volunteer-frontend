@@ -105,7 +105,7 @@ const Card = ({ communityItemData, isCreate }: CardProps) => {
   const isParticipate = communityStatus === '모집 중';
   return (
     <Li>
-      <StCard to={`/community/${communityId}`}>
+      <StCard to={`/community/${communityId}/post`}>
         <>
           <CommunityInfo>
             <ImgWrap>
@@ -120,11 +120,11 @@ const Card = ({ communityItemData, isCreate }: CardProps) => {
 
           <Info>
             <div>
-              <Image />
+              {/* <Image /> */}
               <span>{isParticipate ? `${communityParticipant} / ${communityMaxParticipant}` : communityStatus}</span>
             </div>
             <div>
-              <Image />
+              {/* <Image /> */}
               <span>{communityLocation}</span>
             </div>
           </Info>
