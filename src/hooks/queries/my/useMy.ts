@@ -1,6 +1,6 @@
 import { getMyActive, getMyJoinCommunites, getMyMakeCommunites, unsubscribing } from '@apis/my';
-import { QueryClient, useMutation, useQuery, useQueryClient } from 'react-query';
-import { useNavigate } from 'react-router-dom';
+import { deleteCookie, getCookie } from '@utils/cookies/cookies';
+import { useMutation, useQuery } from 'react-query';
 
 export const useGetMyMakeCommunites = () => {
   const { data, isLoading, isError } = useQuery(['mypage/community'], getMyMakeCommunites);
@@ -18,14 +18,16 @@ export const useGetMyActive = () => {
 };
 
 export const usePostUnsubscribing = () => {
-  const navigate = useNavigate();
-
   const { mutate } = useMutation(unsubscribing, {
-    onSuccess: () => {},
+    onSuccess: () => {
+      deleteCookie('accessToken')
+      deleteCookie('refreshToken')
+    },
 	});
 	
-	const handleUnsubscribing = () => {
-		mutate({})
+  const handleUnsubscribing = () => {
+    const accessToken = getCookie('accessToken')
+		mutate(accessToken)
 	}
 	return {handleUnsubscribing}
 };

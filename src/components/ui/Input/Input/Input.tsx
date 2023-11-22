@@ -11,7 +11,7 @@ export interface InputProps extends React.HTMLProps<HTMLInputElement> {
   labelText: string;
   validateText?: string;
   onBlur?: () => void;
-  onChange: (event: ChangeEvent<HTMLInputElement>) => void;
+  onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
 }
 
 const Input = forwardRef(
