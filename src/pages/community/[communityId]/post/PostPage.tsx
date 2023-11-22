@@ -17,7 +17,7 @@ type Props = {
   post: any;
 };
 
-const PostPage: React.FC<Props> = (): ReactElement => {
+const PostPage = () => {
   // useParams로 받아온 커뮤니티 아이디
   const communityIdNumber: any = useCommunityId();
 
