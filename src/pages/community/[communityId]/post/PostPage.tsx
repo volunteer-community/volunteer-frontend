@@ -22,6 +22,7 @@ const PostPage: React.FC<Props> = (): ReactElement => {
   const communityIdNumber: any = useCommunityId();
 
   let posterList: any = null;
+  let isLoading: boolean = true;
   let error: Error | null = null;
 
   // useQuery를 사용하여 데이터를 캐싱
