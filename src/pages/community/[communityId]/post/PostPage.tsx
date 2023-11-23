@@ -17,7 +17,7 @@ type Props = {
   post: any;
 };
 
-const PostPage: React.FC<Props> = (): ReactElement => {
+const PostPage = () => {
   // useParams로 받아온 커뮤니티 아이디
   const communityIdNumber: any = useCommunityId();
 
@@ -52,21 +52,6 @@ const PostPage: React.FC<Props> = (): ReactElement => {
     error = queryError;
     console.error('An error has occurred:', error);
   }
-
-  // const [localPosterListData, setLocalPosterListData] = useState(posterListData);
-
-  // const fetchPosterListData = useCallback(async () => {
-  //   try {
-  //     const data = await getPostData(communityIdNumber);
-  //     setLocalPosterListData(data); // localPosterListData를 업데이트
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // }, [communityIdNumber]);
-
-  // useEffect(() => {
-  //   fetchPosterListData();
-  // }, [fetchPosterListData]);
 
   return (
     <W.PostCommonLayout>
