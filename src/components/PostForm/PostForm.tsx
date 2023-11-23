@@ -8,13 +8,12 @@ import * as S from './style';
 import useShownModal from '@hooks/modal';
 import Modal from '@components/ui/Modal';
 
-
 interface PostFormProps {
   initialData: {
     [key: string]: any;
   };
   onSave?: (postData: PostData) => void;
-  onEdit?:(postData: UpdatePostData) => void
+  onEdit?: (postData: UpdatePostData) => void;
   initialImageURLs?: (string | null)[]; // ['slkeke']  [null]
 }
 
@@ -57,7 +56,7 @@ const PostForm = ({ initialData, initialImageURLs, onSave, onEdit }: PostFormPro
       const blob = new Blob([jsonFormData], { type: 'application/json' });
       formData.append('data', blob);
       if (postId) {
-        onEdit?.({ postData: formData, communityId: communityId, postId: postId })
+        onEdit?.({ postData: formData, communityId: communityId, postId: postId });
       } else {
         onSave?.({ postData: formData, communityId: communityId });
       }
@@ -70,7 +69,7 @@ const PostForm = ({ initialData, initialImageURLs, onSave, onEdit }: PostFormPro
       file: [],
     });
     setImageURLs([]);
-    setIsShown(false)
+    setIsShown(false);
   };
   return (
     <>
