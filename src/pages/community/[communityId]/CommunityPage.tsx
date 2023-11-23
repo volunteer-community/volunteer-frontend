@@ -5,21 +5,18 @@ import IntroPostContent from './communitypagecommponent/IntroPostContent';
 import IntroInforContent from './communitypagecommponent/IntroInforContent';
 import { useQuery, useMutation } from 'react-query';
 import { getCommunityDetail, sendCommunityData } from '@apis/community/community.ts';
-import { CommunityDetail, CommunityImgPath, Data } from '@interfaces/Community.ts';
+import { CommunityDetail, CommunityImgPath, CommunityUserDetail } from '@interfaces/Community.ts';
 import { Link, useParams } from 'react-router-dom';
 
-interface Props {
-  data: Data;
-}
+type Data = {
+  communityUserDetail: CommunityUserDetail;
+  communityDetail: CommunityDetail;
+  communityImgPathList: CommunityImgPath[];
+};
 
-interface Props {
-  DetailData: {
-    data: {
-      communityDetail: CommunityDetail;
-      communityImgPathList: CommunityImgPath[];
-    };
-  };
-}
+type Props = {
+  data: Data;
+};
 
 const CommunityPage = () => {
   const { communityId } = useParams<{ communityId: string }>();
@@ -61,6 +58,11 @@ const CommunityPage = () => {
           <IntroUserContent DetailData={DetailData} />
           <IntroPostContent DetailData={DetailData} />
           <IntroInforContent DetailData={DetailData} />
+          <S.CommunityEdit>
+            <Link to={`/community/${communityId}/edit`} state={{ data: DetailData.data }}>
+              커뮤니티 수정하기
+            </Link>
+          </S.CommunityEdit>
           <S.CommunityBtnWrap>
             <S.CommunityJoinButton onClick={handleJoinClick}>
               <Link to={`/community/${communityId}/post`}>커뮤니티 참가하기</Link>

@@ -4,10 +4,10 @@ import styled from 'styled-components';
 import { communityColumns } from './communityColumns';
 import Select from '@components/ui/Select/Select';
 import { useQuery } from 'react-query';
-import { Community } from '@interfaces/Community';
+import { Community, Data } from '@interfaces/Community';
 import { getCommunityData } from '@apis/community/community';
 import CommunitySearch from './CommunitySearch';
-import { searchCommunity } from '@apis/admin'; // 여기에 searchCommunity 함수를 import 합니다.
+import { searchCommunity } from '@apis/admin';
 
 export const CommunityList: React.FC = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>('전체');
@@ -15,14 +15,15 @@ export const CommunityList: React.FC = () => {
   const [searchTitle, setSearchTitle] = useState<string>('');
   const [searchAuthor, setSearchAuthor] = useState<string>('');
 
-  const {
-    data: fetchedData,
-    isLoading,
-    error,
-  } = useQuery<Data, Error>(
+  const { data: fetchedData, error } = useQuery<Data, Error>(
     ['communityData', { searchType, searchTitle, searchAuthor }],
     ({ queryKey }) => {
-      const [_, { searchType, searchTitle, searchAuthor }] = queryKey;
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const [_, { searchType, searchTitle, searchAuthor }] = queryKey as [
+        string,
+        { searchType: string; searchTitle: string; searchAuthor: string }
+      ];
+
       if (searchType) {
         return searchCommunity(searchType, searchType === 'title' ? searchTitle : searchAuthor);
       } else {
@@ -36,7 +37,7 @@ export const CommunityList: React.FC = () => {
 
   const transformedData = React.useMemo(() => {
     if (fetchedData && fetchedData.data && fetchedData.data.communityList) {
-      return fetchedData.data.communityList.map((item) => ({
+      return fetchedData.data.communityList.map((item: any) => ({
         ...item,
         createdAt: new Date(item.communityCreatedAt),
         updatedAt: new Date(item.communityUpdatedAt),
@@ -53,7 +54,7 @@ export const CommunityList: React.FC = () => {
     return transformedData.filter((item) => item.categoryType === selectedCategory);
   }, [selectedCategory, transformedData]);
 
-  const { getTableProps, getTableBodyProps, headerGroups, page, prepareRow, pageCount, gotoPage } = useTable<Data>(
+  const { getTableProps, getTableBodyProps, headerGroups, page, prepareRow, pageCount, gotoPage } = useTable(
     {
       columns: communityColumns,
       data: filteredData,
@@ -61,6 +62,7 @@ export const CommunityList: React.FC = () => {
     },
     usePagination
   );
+
   const [pageRangeStartIndex, setPageRangeStartIndex] = useState(0);
 
   function movePageGroup(dir: 'prev' | 'next'): void {
@@ -75,7 +77,7 @@ export const CommunityList: React.FC = () => {
     setSelectedCategory(event.target.value);
   };
 
-  const handleSearch = (searchTerms) => {
+  const handleSearch = (searchTerms: any) => {
     setSearchType(searchTerms.condition);
     setSearchTitle(searchTerms.title);
     setSearchAuthor(searchTerms.author);
@@ -117,7 +119,7 @@ export const CommunityList: React.FC = () => {
             })}
           </tbody>
         </table>
-        <div className="pagination">
+        <PaginationWrap>
           <TableButton onClick={() => movePageGroup('prev')} disabled={pageRangeStartIndex === 0}>
             {'<'}
           </TableButton>
@@ -129,7 +131,7 @@ export const CommunityList: React.FC = () => {
           <TableButton onClick={() => movePageGroup('next')} disabled={pageRangeStartIndex >= pageCount - 5}>
             {'>'}
           </TableButton>
-        </div>
+        </PaginationWrap>
         {error && <div>Error: {error.message}</div>}
       </ProductTableStyle>
     </>
@@ -138,7 +140,7 @@ export const CommunityList: React.FC = () => {
 
 // 삭제 예정
 const SelectStyle = styled.div`
-  padding: 8rem 0 2rem 2.5rem;
+  padding: 1rem 0 2rem 2.5rem;
 `;
 
 const ProductTableStyle = styled.div`
@@ -146,7 +148,6 @@ const ProductTableStyle = styled.div`
   align-items: center;
   text-align: center;
   flex-direction: column;
-
   table {
     border-collapse: collapse;
     width: 95%;
@@ -169,10 +170,15 @@ const ProductTableStyle = styled.div`
   }
 `;
 
+const PaginationWrap = styled.div`
+  padding: 30px;
+`;
+
 const TableButton = styled.button`
   background: #919191;
   color: #fff;
   margin-right: 10px;
   border: none;
   border-radius: 5px;
+  padding: 5px 10px;
 `;

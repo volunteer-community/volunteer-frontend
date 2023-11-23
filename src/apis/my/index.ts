@@ -34,7 +34,7 @@ export const getMyActive= async () => {
 
 export const unsubscribing = async (token:string) => {
 	try {
-		const response = await axiosInstance.post('/mypage/withdrawal', {}, {
+		const response = await axiosInstance.post('mypage/withdrawal', {
 			headers: {
 				'Authorization': token 
 			}

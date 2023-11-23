@@ -1,12 +1,13 @@
 import ActiveInfo from './ActiveInfo';
 import ProfileInfo from './ProfileInfo/index';
 import styled from 'styled-components';
-import { useGetMyActive, useGetMyMakeCommunites } from '@hooks/queries/my/useMy';
+import { useGetMyActive, useGetMyJoinCommunites, useGetMyMakeCommunites } from '@hooks/queries/my/useMy';
 import HeartIcon from '@assets/images/heart_icon.svg';
 import CommunityIcon from '@assets/images/community_icon.svg';
 import CommentIcon from '@assets/images/comment_icon.svg';
 import GetHeart from '@assets/images/get_heart_icon.svg';
-import Createlnfo from './Communinty/CreateInfo/Createlnfo';
+import CreateInfo from './Communinty/CreateInfo/Createlnfo';
+import JoinInfo from './Communinty/JoinInfo/JoinInfo';
 
 const MyInfoWrap = styled.div`
   display: flex;
@@ -19,8 +20,11 @@ const MyInfoWrap = styled.div`
 const MyInfo = () => {
   const { data: activeData } = useGetMyActive();
   const { data: createInfo } = useGetMyMakeCommunites();
-  const { communityUserCount, countOfPosterLike, countOfLikedPoster, commentCount } = activeData?.data.data ?? [];
-  const { communityList} = createInfo?.data.data ?? []
+  const { data: joinInfo} = useGetMyJoinCommunites()
+  const { picture, nickname, email, communityUserCount, countOfPosterLike, countOfLikedPoster, commentCount } =
+    activeData?.data.data ?? [];
+  const { communityList } = createInfo?.data.data ?? [];
+  const { communityList: communtyJoinList} = joinInfo?.data.data ?? []
   const userActiveData = activeData
     ? [
         { icon: HeartIcon, name: '좋아요 한 게시글', value: countOfPosterLike },
@@ -29,11 +33,13 @@ const MyInfo = () => {
         { icon: CommentIcon, name: '내가 작성한 댓글', value: commentCount },
       ]
     : [];
+  
   return (
     <MyInfoWrap>
-      <ProfileInfo />
+      <ProfileInfo nickname={nickname} email={email} picture={picture} />
       <ActiveInfo userActiveData={userActiveData} />
-      <Createlnfo userCreateCommunityData={communityList } />
+      <CreateInfo userCreateCommunityData={communityList} />
+      <JoinInfo userJoinCommunityData={communtyJoinList} />
     </MyInfoWrap>
   );
 };
