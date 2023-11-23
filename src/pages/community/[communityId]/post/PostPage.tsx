@@ -6,23 +6,10 @@ import { useCommunityId } from '@hooks/useParamsId/useCommunityId';
 import PostList from '@pages/community/[communityId]/post/postpageComponent/PostList';
 import { useQuery } from 'react-query';
 import { getPostData } from '@apis/community/community.ts';
-import { ReactElement } from 'react';
 
-// Props 타입 정의
-type Props = {
-  posterListData: any;
-  communityIdNumber: any;
-  posterIdNumber: any;
-  index: any;
-  post: any;
-};
-
-const PostPage: React.FC<Props> = (): ReactElement => {
+const PostPage = (props: any) => {
   // useParams로 받아온 커뮤니티 아이디
   const communityIdNumber: any = useCommunityId();
-
-  let posterList: any = null;
-  let error: Error | null = null;
 
   // useQuery를 사용하여 데이터를 캐싱
   const {
@@ -32,6 +19,10 @@ const PostPage: React.FC<Props> = (): ReactElement => {
   } = useQuery<any, Error>(['post', communityIdNumber], () => getPostData(communityIdNumber), {
     enabled: communityIdNumber !== undefined,
   });
+
+  let posterList: any = props.posterListData;
+  let isLoading: boolean = queryIsLoading;
+  let error: Error | null = null;
 
   const posterListData = data;
 
@@ -50,6 +41,10 @@ const PostPage: React.FC<Props> = (): ReactElement => {
   if (queryError) {
     error = queryError;
     console.error('An error has occurred:', error);
+  }
+
+  if (isLoading) {
+    return <div>Loading...</div>;
   }
 
   return (
