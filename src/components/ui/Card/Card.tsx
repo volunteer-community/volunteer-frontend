@@ -84,8 +84,7 @@ const StButton = styled(Button)`
 `;
 interface CardProps {
   communityItemData: Community;
-  isCreate?: string
-
+  isCreate?: string;
 }
 const Card = ({ communityItemData, isCreate }: CardProps) => {
   const handleDelete = (communityId: string) => {
