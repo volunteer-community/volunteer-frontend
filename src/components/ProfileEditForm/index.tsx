@@ -1,3 +1,4 @@
+import { Input } from '@components/ui/Input';
 import * as S from './style';
 import { useFormState } from '@hooks/form';
 interface ProfileProps {

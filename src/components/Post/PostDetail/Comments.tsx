@@ -15,8 +15,7 @@ interface DecodedToken {
 
 function Comments() {
   const queryClient = useQueryClient();
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [editingCommentId, setEditingCommentId] = useState(null);
+  const [, setEditingCommentId] = useState(null);
   const { communityId, postId } = useParams();
   const [editingComments, setEditingComments] = useState<Record<string, string>>({});
 
