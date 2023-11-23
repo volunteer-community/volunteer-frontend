@@ -89,6 +89,7 @@ const PostForm = ({ initialData, initialImageURLs, onSave, onEdit }: PostFormPro
           validateText=""
           isValid
           onChange={handleChange}
+          type={'text'}
         />
         <FileInput
           labelText="이미지"
@@ -99,6 +100,12 @@ const PostForm = ({ initialData, initialImageURLs, onSave, onEdit }: PostFormPro
           onChange={handleChange}
           pageName="post"
           onClick={handleFileDelectClick}
+          isValid={false}
+          value={[]}
+          validateText={''}
+          onBlur={function (): void {
+            throw new Error('Function not implemented.');
+          }}
         />
         <TextareaLabel
           labelText="게시물 내용"
@@ -108,6 +115,10 @@ const PostForm = ({ initialData, initialImageURLs, onSave, onEdit }: PostFormPro
           validateText=""
           onChange={handleChange}
           isPage="postFormPage"
+          placeholder={''}
+          onBlur={function (): void {
+            throw new Error('Function not implemented.');
+          }}
         />
         <S.BtnWrap>
           <S.StButton buttonText="제출하기" />
