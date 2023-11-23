@@ -29,9 +29,6 @@ const Utill = () => {
     <SignupBox>
       {!isLoggedIn ? (
         <>
-          <SignupBtn>
-            <Link to="/signup">회원가입</Link>
-          </SignupBtn>
           <LoginBtn onClick={handleLogin}>
             <Link to="/login">로그인</Link>
           </LoginBtn>
@@ -74,10 +71,7 @@ const SignupBox = styled.div`
     text-align: center;
   }
 `;
-const SignupBtn = styled.span`
-  background: #304647;
-  color: #fff;
-`;
+
 const LoginBtn = styled.span`
   background: #3aedf9;
   color: #fff;
