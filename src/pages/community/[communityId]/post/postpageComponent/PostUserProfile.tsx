@@ -10,7 +10,7 @@ interface Props {
 
 const PostUserProfile: React.FC<Props> = ({ posterListData }) => {
   if (!posterListData || !posterListData.data || !posterListData.data.posterList) {
-    return <S.NoContent>유저정보가 없습니다.</S.NoContent>;
+    return;
   }
 
   console.log('posterListData:', posterListData.data.posterList[0].posterAuthor);

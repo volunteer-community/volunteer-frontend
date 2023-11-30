@@ -6,33 +6,29 @@ import { logout } from '@apis/community/community.ts';
 import { useMutation } from 'react-query';
 
 const Utill = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isSocialLoggedIn, setIsSocialLoggedIn] = useState(false);
 
   const mutation = useMutation(logout, {
     onSuccess: () => {
-      setIsLoggedIn(false);
+      setIsSocialLoggedIn(false); // 로그아웃 시 소셜 로그인 상태도 초기화
     },
   });
 
   useEffect(() => {
     const token = getCookie('accessToken');
-    setIsLoggedIn(!!token);
+    if (token) {
+      setIsSocialLoggedIn(true);
+    }
   }, []);
-
-  const handleLogin = async () => {
-    setIsLoggedIn(true);
-  };
-
-  console.log('isLoggedIn:', isLoggedIn);
 
   return (
     <SignupBox>
-      {!isLoggedIn ? (
+      {!isSocialLoggedIn ? (
         <>
           <SignupBtn>
             <Link to="/signup">회원가입</Link>
           </SignupBtn>
-          <LoginBtn onClick={handleLogin}>
+          <LoginBtn>
             <Link to="/login">로그인</Link>
           </LoginBtn>
         </>
