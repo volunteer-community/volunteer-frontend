@@ -18,6 +18,7 @@ const Utill = () => {
     const token = getCookie('accessToken');
     if (token) {
       setIsSocialLoggedIn(true);
+      window.location.reload();
     }
   }, []);
 
