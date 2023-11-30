@@ -16,16 +16,10 @@ const Utill = () => {
 
   useEffect(() => {
     const token = getCookie('accessToken');
-    if (token && !isSocialLoggedIn) {
+    if (token) {
       setIsSocialLoggedIn(true);
     }
   }, []);
-
-  useEffect(() => {
-    if (isSocialLoggedIn) {
-      window.location.reload();
-    }
-  }, [isSocialLoggedIn]);
 
   return (
     <SignupBox>
