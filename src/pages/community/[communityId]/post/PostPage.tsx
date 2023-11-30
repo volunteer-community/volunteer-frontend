@@ -44,7 +44,12 @@ const PostPage = (props: any) => {
   }
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return (
+      <S.LodaingBox>
+        <S.LoadingStyle></S.LoadingStyle>
+        <S.LodaingText>LOADING...</S.LodaingText>
+      </S.LodaingBox>
+    );
   }
 
   return (
@@ -57,7 +62,13 @@ const PostPage = (props: any) => {
               <Link to={`/community/${communityIdNumber}/post/create`}>글쓰기</Link>
             </S.PostWriteBtn>
           </S.PostWriteBtnWrap>
-          <PostList posterListData={posterListData} communityIdNumber={communityIdNumber} index={0} post={null} />
+          <PostList
+            posterListData={posterListData}
+            communityIdNumber={communityIdNumber}
+            index={0}
+            post={null}
+            isLoading={isLoading}
+          />
         </S.PostListCenterWrap>
       </S.PostListWrap>
     </W.PostCommonLayout>
