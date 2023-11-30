@@ -18,6 +18,7 @@ const Utill = () => {
     const token = getCookie('accessToken');
     if (token) {
       setIsSocialLoggedIn(true);
+      window.location.reload();
     }
   }, []);
 
@@ -25,9 +26,6 @@ const Utill = () => {
     <SignupBox>
       {!isSocialLoggedIn ? (
         <>
-          <SignupBtn>
-            <Link to="/signup">회원가입</Link>
-          </SignupBtn>
           <LoginBtn>
             <Link to="/login">로그인</Link>
           </LoginBtn>
