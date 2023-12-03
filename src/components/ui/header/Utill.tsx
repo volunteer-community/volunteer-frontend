@@ -15,10 +15,13 @@ const Utill = () => {
   });
 
   useEffect(() => {
-    const token = getCookie('accessToken');
-    if (token) {
-      setIsSocialLoggedIn(true);
-    }
+    const checkToken = async () => {
+      const token = await getCookie('accessToken');
+      if (token) {
+        setIsSocialLoggedIn(true);
+      }
+    };
+    checkToken();
   }, []);
 
   return (
