@@ -10,7 +10,6 @@ interface Props {
   index: any;
   post: any;
   communityIdNumber: any;
-  isLoading: boolean;
 }
 
 interface DecodedToken {
@@ -18,7 +17,7 @@ interface DecodedToken {
   sub: string;
 }
 
-const PostList = ({ posterListData, communityIdNumber, isLoading }: Props) => {
+const PostList = ({ posterListData, communityIdNumber }: Props) => {
   const token: string | null = getCookie('accessToken');
   let loggedInUserId: string | null;
   let decodedToken: DecodedToken | null = null;
@@ -30,10 +29,6 @@ const PostList = ({ posterListData, communityIdNumber, isLoading }: Props) => {
   }
 
   console.log('communityIdNumber:', communityIdNumber);
-
-  if (isLoading) {
-    return <S.NoContent>Loading...</S.NoContent>;
-  }
 
   if (!posterListData || !posterListData.data || !posterListData.data.posterList) {
     return <S.NoContent>게시글이 없습니다.</S.NoContent>;
@@ -68,9 +63,7 @@ const PostList = ({ posterListData, communityIdNumber, isLoading }: Props) => {
   }, [postList]);
 
   return postList.map((post: any, index: any) => {
-    console.log('Post user ID:', post.userId);
     const posterIdNumber = post.posterId;
-    console.log('posterIdNumber:', posterIdNumber);
 
     return (
       <S.PostListBox>
