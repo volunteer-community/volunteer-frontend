@@ -27,7 +27,7 @@ export const PostTitle = styled.div`
 
 export const PostTime = styled.div`
   width: 100%;
-  padding: 0px 5px 0px 0px;
+  padding: 0px 20px 0px 0px;
   font-size: 15px;
   text-align: right;
 `;
