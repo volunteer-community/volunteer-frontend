@@ -45,7 +45,7 @@ export const PostAuthorInfo = styled.div`
 export const ProfileWrap = styled.div`
   display: flex;
   font-size: 14px;
-  background-color: #f3f3f3;
+  /* background-color: #f3f3f3; */
   gap: 10px;
   padding: 12px 0px 12px 12px;
 `;
@@ -62,8 +62,8 @@ export const Comments = styled.div`
   padding: 20px;
   max-width: 920px;
   // background-color: #fffdf7;
-  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
-  border-radius: 20px;
+  box-shadow: rgba(149, 157, 165, 0.2) 5px 15px 24px;
+  border-radius: 15px;
 `;
 
 export const CommentLabel = styled.label`
@@ -73,7 +73,7 @@ export const CommentLabel = styled.label`
 `;
 
 export const CommentsList = styled.div`
-  background-color: #f3f3f3;
+  background-color: #f7f7f8;
 `;
 
 export const CommentsForm = styled.form`
