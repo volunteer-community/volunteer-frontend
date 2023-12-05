@@ -6,7 +6,7 @@ import IntroInforContent from './communitypagecommponent/IntroInforContent';
 import { useQuery } from 'react-query';
 import { getCommunityDetail } from '@apis/community/community.ts';
 import { CommunityDetail, CommunityImgPath, CommunityUserDetail } from '@interfaces/Community.ts';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { getCookie } from '@utils/cookies/cookies.ts';
 
 type Data = {

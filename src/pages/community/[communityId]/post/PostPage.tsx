@@ -10,13 +10,9 @@ import { getPostData } from '@apis/community/community.ts';
 const PostPage = (props: any) => {
   const communityIdNumber: any = useCommunityId();
 
-  const { data, isLoading, error } = useQuery<any, Error>(
-    ['post', communityIdNumber],
-    () => getPostData(communityIdNumber),
-    {
-      enabled: communityIdNumber !== undefined,
-    }
-  );
+  const { data, error } = useQuery<any, Error>(['post', communityIdNumber], () => getPostData(communityIdNumber), {
+    enabled: communityIdNumber !== undefined,
+  });
 
   const posterListData = data ? data : props.posterListData;
 
