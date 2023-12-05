@@ -140,6 +140,7 @@ const Card = ({ communityItemData, isCreate }: CardProps) => {
   const isParticipate = communityStatus === '모집 중';
 
   const communityIdNumber = communityId ? parseInt(communityId, 10) : undefined;
+  console.log('communityIdNumber:', communityIdNumber);
 
   const {
     data: DetailData,
@@ -156,6 +157,8 @@ const Card = ({ communityItemData, isCreate }: CardProps) => {
   if (isError || !DetailData) {
     return <div>Error occurred</div>;
   }
+
+  console.log('DetailData:', DetailData);
 
   return (
     <Li>
@@ -186,11 +189,13 @@ const Card = ({ communityItemData, isCreate }: CardProps) => {
       </StCard>
       {isCreate && <StButton buttonText="삭제하기" onClick={() => handleDelete(String(communityId))} />}
 
-      <EditBtnWrap>
-        <EditBtn to={`/community/${communityId}/edit`} state={{ data: DetailData.data }}>
-          커뮤니티 수정하기
-        </EditBtn>
-      </EditBtnWrap>
+      {isCreate && (
+        <EditBtnWrap>
+          <EditBtn to={`/community/${communityId}/edit`} state={{ data: DetailData.data }}>
+            커뮤니티 수정하기
+          </EditBtn>
+        </EditBtnWrap>
+      )}
     </Li>
   );
 };
