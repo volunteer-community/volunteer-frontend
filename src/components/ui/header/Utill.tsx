@@ -77,10 +77,7 @@ const SignupBox = styled.div`
     text-align: center;
   }
 `;
-const SignupBtn = styled.span`
-  background: #304647;
-  color: #fff;
-`;
+
 const LoginBtn = styled.span`
   background: #3aedf9;
   color: #fff;
