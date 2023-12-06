@@ -4,9 +4,11 @@ import { getCookie } from '@utils/cookies/cookies.ts';
 import { useEffect, useState } from 'react';
 import { logout } from '@apis/community/community.ts';
 import { useMutation } from 'react-query';
+import jwtDecode from 'jwt-decode';
 
 const Utill = () => {
   const [isSocialLoggedIn, setIsSocialLoggedIn] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
 
   const mutation = useMutation(logout, {
     onSuccess: () => {
@@ -19,6 +21,10 @@ const Utill = () => {
       const token = await getCookie('accessToken');
       if (token) {
         setIsSocialLoggedIn(true);
+        const decodedToken = jwtDecode(token);
+        if (decodedToken.role && decodedToken.role === 'ROLE_ADMIN') {
+          setIsAdmin(true);
+        }
       }
     };
     checkToken();
@@ -26,6 +32,7 @@ const Utill = () => {
 
   return (
     <SignupBox>
+      {isAdmin && <Link to="/admin">관리자</Link>}
       {!isSocialLoggedIn ? (
         <>
           <LoginBtn>
