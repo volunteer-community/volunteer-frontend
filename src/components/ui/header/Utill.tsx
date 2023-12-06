@@ -31,34 +31,36 @@ const Utill = () => {
   }, []);
 
   return (
-    <SignupBox>
-      {isAdmin && <Link to="/admin">관리자</Link>}
-      {!isSocialLoggedIn ? (
-        <>
-          <LoginBtn>
-            <Link to="/login">로그인</Link>
-          </LoginBtn>
-        </>
-      ) : (
-        <LogoutFlexBox>
-          <LogoutBtn
-            onClick={(event) => {
-              event.preventDefault();
-              mutation.mutate();
-            }}
-          >
-            로그아웃
-          </LogoutBtn>
+    <>
+      <SignupBox>
+        {/* {isAdmin && <Link to="/admin">관리자</Link>} */}
+        {!isSocialLoggedIn ? (
+          <>
+            <LoginBtn>
+              <Link to="/login">로그인</Link>
+            </LoginBtn>
+          </>
+        ) : (
+          <LogoutFlexBox>
+            <LogoutBtn
+              onClick={(event) => {
+                event.preventDefault();
+                mutation.mutate();
+              }}
+            >
+              로그아웃
+            </LogoutBtn>
 
-          <CommunityCrateBtn>
-            <Link to="community/create">커뮤니티 만들기</Link>
-          </CommunityCrateBtn>
-          <MypageBtn>
-            <Link to="my">마이페이지</Link>
-          </MypageBtn>
-        </LogoutFlexBox>
-      )}
-    </SignupBox>
+            <CommunityCrateBtn>
+              <Link to="community/create">커뮤니티 만들기</Link>
+            </CommunityCrateBtn>
+            <MypageBtn>
+              <Link to="my">마이페이지</Link>
+            </MypageBtn>
+          </LogoutFlexBox>
+        )}
+      </SignupBox>
+    </>
   );
 };
 

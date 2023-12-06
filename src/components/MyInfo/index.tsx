@@ -28,7 +28,7 @@ const MyInfo = () => {
   const userActiveData = activeData
     ? [
         { icon: HeartIcon, name: '좋아요 한 게시글', value: countOfPosterLike },
-        { icon: GetHeart, name: '좋아요 받은 게시글', value: countOfLikedPoster },
+        { icon: GetHeart, name: '받은 좋아요 총 개수', value: countOfLikedPoster },
         { icon: CommunityIcon, name: '내가 활동한 커뮤니티', value: communityUserCount },
         { icon: CommentIcon, name: '내가 작성한 댓글', value: commentCount },
       ]
