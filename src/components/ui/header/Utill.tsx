@@ -33,7 +33,8 @@ const Utill = () => {
   return (
     <>
       <SignupBox>
-        {/* {isAdmin && <Link to="/admin">관리자</Link>} */}
+        {isAdmin && <Link to="/admin">관리자</Link>}
+
         {!isSocialLoggedIn ? (
           <>
             <LoginBtn>

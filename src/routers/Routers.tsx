@@ -8,6 +8,7 @@ import { CommunityPage, CommunityCreatePage, CommunityEditPage } from '@pages/co
 import { PostPage, PostCreatePage, PostDetailPage, PostEditPage } from '@pages/community/[communityId]/post';
 import { AdminPage, CommunitySearchPage, MemberListPage } from '@pages/admin';
 import LoadingPage from '@pages/login/LoadingPage';
+import PrivateRoute from './PrivateRoute';
 
 const Routers = createBrowserRouter([
   {
@@ -68,15 +69,29 @@ const Routers = createBrowserRouter([
       },
       {
         path: 'admin',
-        element: <AdminPage />,
-      },
-      {
-        path: 'admin/member',
-        element: <MemberListPage />,
-      },
-      {
-        path: 'admin/community',
-        element: <CommunitySearchPage />,
+        element: (
+          <PrivateRoute>
+            <AdminPage />
+          </PrivateRoute>
+        ),
+        children: [
+          {
+            path: 'member',
+            element: (
+              <PrivateRoute>
+                <MemberListPage />
+              </PrivateRoute>
+            ),
+          },
+          {
+            path: 'community',
+            element: (
+              <PrivateRoute>
+                <CommunitySearchPage />
+              </PrivateRoute>
+            ),
+          },
+        ],
       },
     ],
   },
