@@ -15,13 +15,13 @@ interface PostFormProps {
   onEdit?: (postData: UpdatePostData) => void;
   initialImageURLs?: (string | null)[]; // ['slkeke']  [null]
 }
-
 const PostForm = ({ initialData, initialImageURLs, onSave, onEdit }: PostFormProps) => {
   const pathName = useLocation().pathname;
   const { communityId, postId } = useParams();
   const isPostCreatePage = pathName === `/community/${communityId}/post/create`;
   // 게시물 생성 시 해당 게시물로 이동
   const navigate = useNavigate();
+  // const [forceUpdate, setForceUpdate] = useState(false);
 
   const { imageURLs, postFormData, setImageURLs, setPostFormData, handleChange, handleFileDelectClick } = useFormState(
     initialData,
@@ -58,8 +58,8 @@ const PostForm = ({ initialData, initialImageURLs, onSave, onEdit }: PostFormPro
       formData.append('data', blob);
       if (postId) {
         await onEdit?.({ postData: formData, communityId: communityId, postId: postId });
-        // 수정 완료 후, 해당 게시물로 리다이렉트
-        navigate(`/community/${communityId}/post/${postId}`);
+        // 수정 완료 후, 게시물 리스트로 리다이렉트
+        navigate(`/community/${communityId}/post/`);
       } else {
         await onSave?.({ postData: formData, communityId: communityId });
         // 생성 완료 후, 게시물 리스트로 리다이렉트
@@ -68,6 +68,7 @@ const PostForm = ({ initialData, initialImageURLs, onSave, onEdit }: PostFormPro
     } catch (error) {
       console.error(error);
     }
+
     setPostFormData({
       posterTitle: '',
       posterContent: '',
