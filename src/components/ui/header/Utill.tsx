@@ -11,18 +11,17 @@ const Utill = () => {
   const mutation = useMutation(logout, {
     onSuccess: () => {
       setIsSocialLoggedIn(false); // 로그아웃 시 소셜 로그인 상태도 초기화
+      mutation.reset();
     },
   });
 
   useEffect(() => {
     const checkToken = async () => {
       const token = await getCookie('accessToken');
-      if (token) {
-        setIsSocialLoggedIn(true);
-      }
+      setIsSocialLoggedIn(!!token);
     };
     checkToken();
-  }, []);
+  }, [getCookie, mutation.isSuccess]);
 
   return (
     <SignupBox>
@@ -59,7 +58,7 @@ export default Utill;
 
 const SignupBox = styled.div`
   width: 26%;
-  padding: 30px 0 0 0;
+  padding: 35px 0 0 0;
   span {
     width: 100px;
     display: inline-block;
@@ -70,10 +69,7 @@ const SignupBox = styled.div`
     text-align: center;
   }
 `;
-const SignupBtn = styled.span`
-  background: #304647;
-  color: #fff;
-`;
+
 const LoginBtn = styled.span`
   background: #3aedf9;
   color: #fff;

@@ -1,7 +1,7 @@
 import Image from '../Image';
 import styled from 'styled-components';
 import { Community } from '@interfaces/Community';
-import { Link, useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Button from '../Button/Button';
 import { deleteCommunity } from '@apis/community/post';
 import { getCommunityDetail } from '@apis/community/community.ts';
@@ -44,14 +44,6 @@ const TextInfo = styled.div`
   width: 60%;
   justify-content: space-evenly;
   flex-direction: column;
-`;
-
-const MyCommunityEdit = styled.span`
-  background-color: #29715a;
-  padding: 15px 20px;
-  box-sizing: border-box;
-  border-radius: 5px;
-  color: #fff;
 `;
 
 const CategoryChip = styled.div`
@@ -162,7 +154,7 @@ const Card = ({ communityItemData, isCreate }: CardProps) => {
 
   return (
     <Li>
-      <StCard to={`/community/${communityId}`}>
+      <StCard to={`/community/${communityId}/post`}>
         <>
           <CommunityInfo>
             <ImgWrap>
@@ -177,11 +169,11 @@ const Card = ({ communityItemData, isCreate }: CardProps) => {
 
           <Info>
             <div>
-              <Image src={''} alt={''} />
+              {/* <Image /> */}
               <span>{isParticipate ? `${communityParticipant} / ${communityMaxParticipant}` : communityStatus}</span>
             </div>
             <div>
-              <Image src={''} alt={''} />
+              {/* <Image /> */}
               <span>{communityLocation}</span>
             </div>
           </Info>
