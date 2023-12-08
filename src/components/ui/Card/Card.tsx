@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import Button from '../Button/Button';
 import { deleteCommunity } from '@apis/community/post';
 import { getCommunityDetail } from '@apis/community/community.ts';
-import { useQuery } from 'react-query';
+import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { CommunityDetail } from '@interfaces/Community.ts';
 
 const Li = styled.li`
@@ -114,9 +114,17 @@ interface CardProps {
   communityItemData: Community;
   isCreate?: string;
 }
+
 const Card = ({ communityItemData, isCreate }: CardProps) => {
+  const queryClient = useQueryClient();
+  const mutation = useMutation(deleteCommunity, {
+    onSettled: () => {
+      queryClient.invalidateQueries(['mypage/community']);
+    },
+  });
+
   const handleDelete = (communityId: string) => {
-    deleteCommunity(communityId);
+    mutation.mutate(communityId);
   };
   const {
     categoryType,

@@ -73,5 +73,6 @@ const CreateInfo = ({ userCreateCommunityData }: CreateInfoProps) => {
     </StArticle>
   );
 };
+console.log('userCreateCommunityData');
 
 export default CreateInfo;
