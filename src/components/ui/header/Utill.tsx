@@ -11,18 +11,17 @@ const Utill = () => {
   const mutation = useMutation(logout, {
     onSuccess: () => {
       setIsSocialLoggedIn(false); // 로그아웃 시 소셜 로그인 상태도 초기화
+      mutation.reset();
     },
   });
 
   useEffect(() => {
     const checkToken = async () => {
       const token = await getCookie('accessToken');
-      if (token) {
-        setIsSocialLoggedIn(true);
-      }
+      setIsSocialLoggedIn(!!token);
     };
     checkToken();
-  }, []);
+  }, [getCookie, mutation.isSuccess]);
 
   return (
     <SignupBox>
