@@ -2,7 +2,6 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import GlobalStyle from '../globalStyle/GlobalStyle';
 import mainLogo from '@assets/images/Logo.png';
-import adminIco from '@assets/images/adminIco.png';
 import Nav from './Nav';
 import Utill from './Utill';
 import ScrollToTop from '@hooks/location/scrolltop';
@@ -14,10 +13,6 @@ const Header = () => {
       <ScrollToTop />
       <HeaderLayout>
         <HeaderWrap>
-          <AdminBox>
-            <LinkAdmin to="/">관리자</LinkAdmin>
-          </AdminBox>
-
           <Link to="/">
             <Logo>메인로고</Logo>
           </Link>
@@ -55,30 +50,4 @@ const Logo = styled.h1`
   width: 105px;
   height: 105px;
   cursor: pointer;
-`;
-
-const AdminBox = styled.div`
-  position: absolute;
-  top: 0;
-  right: 0;
-`;
-
-const LinkAdmin = styled(Link)`
-  position: relative;
-  padding: 6px 15px 6px 35px;
-  box-sizing: border-box;
-  border-radius: 0 0 5px 5px;
-  background: #669eed;
-  font-size: 14px;
-  color: #fff;
-  &&:before {
-    content: '';
-    position: absolute;
-    top: 6px;
-    left: 10px;
-    width: 20px;
-    height: 20px;
-    background: url(${adminIco}) no-repeat;
-    background-size: 20px;
-  }
 `;
