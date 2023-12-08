@@ -10,9 +10,13 @@ import { getPostData } from '@apis/community/community.ts';
 const PostPage = (props: any) => {
   const communityIdNumber: any = useCommunityId();
 
-  const { data, error } = useQuery<any, Error>(['post', communityIdNumber], () => getPostData(communityIdNumber), {
-    enabled: communityIdNumber !== undefined,
-  });
+  const { data, error, isLoading } = useQuery<any, Error>(
+    ['post', communityIdNumber],
+    () => getPostData(communityIdNumber),
+    {
+      enabled: communityIdNumber !== undefined,
+    }
+  );
 
   const posterListData = data ? data : props.posterListData;
 
@@ -41,7 +45,13 @@ const PostPage = (props: any) => {
               <Link to={`/community/${communityIdNumber}/post/create`}>글쓰기</Link>
             </S.PostWriteBtn>
           </S.PostWriteBtnWrap>
-          <PostList posterListData={posterListData} communityIdNumber={communityIdNumber} index={0} post={null} />
+          <PostList
+            posterListData={posterListData}
+            communityIdNumber={communityIdNumber}
+            index={0}
+            post={null}
+            isLoading={isLoading}
+          />
         </S.PostListCenterWrap>
       </S.PostListWrap>
     </W.PostCommonLayout>

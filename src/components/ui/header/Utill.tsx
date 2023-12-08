@@ -58,7 +58,7 @@ export default Utill;
 
 const SignupBox = styled.div`
   width: 26%;
-  padding: 30px 0 0 0;
+  padding: 35px 0 0 0;
   span {
     width: 100px;
     display: inline-block;
