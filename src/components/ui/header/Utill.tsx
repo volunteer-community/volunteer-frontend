@@ -4,13 +4,34 @@ import { getCookie } from '@utils/cookies/cookies.ts';
 import { useEffect, useState } from 'react';
 import { logout } from '@apis/community/community.ts';
 import { useMutation } from 'react-query';
+import adminIco from '@assets/images/adminIco.png';
+import jwtDecode from 'jwt-decode';
+
+interface DecodedToken {
+  role?: string;
+}
 
 const Utill = () => {
   const [isSocialLoggedIn, setIsSocialLoggedIn] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
+
+  useEffect(() => {
+    const checkToken = async () => {
+      const token = await getCookie('accessToken');
+      if (token) {
+        const decodedToken: DecodedToken = jwtDecode(token);
+        if (decodedToken.role && decodedToken.role === 'ROLE_ADMIN') {
+          setIsAdmin(true);
+        }
+      }
+    };
+    checkToken();
+  }, []);
 
   const mutation = useMutation(logout, {
     onSuccess: () => {
-      setIsSocialLoggedIn(false); // 로그아웃 시 소셜 로그인 상태도 초기화
+      setIsSocialLoggedIn(false);
+      setIsAdmin(false);
       mutation.reset();
     },
   });
@@ -25,6 +46,11 @@ const Utill = () => {
 
   return (
     <SignupBox>
+      {isAdmin && (
+        <AdminBox>
+          <LinkAdmin to="/admin">관리자</LinkAdmin>
+        </AdminBox>
+      )}
       {!isSocialLoggedIn ? (
         <>
           <LoginBtn>
@@ -53,7 +79,6 @@ const Utill = () => {
     </SignupBox>
   );
 };
-
 export default Utill;
 
 const SignupBox = styled.div`
@@ -102,4 +127,30 @@ const MypageBtn = styled.span`
   background: #ffffff;
   color: #333;
   margin-left: 10px;
+`;
+
+const AdminBox = styled.div`
+  position: absolute;
+  top: 0;
+  right: 0;
+`;
+
+const LinkAdmin = styled(Link)`
+  position: relative;
+  padding: 6px 15px 6px 35px;
+  box-sizing: border-box;
+  border-radius: 0 0 5px 5px;
+  background: #669eed;
+  font-size: 14px;
+  color: #fff;
+  &&:before {
+    content: '';
+    position: absolute;
+    top: 6px;
+    left: 10px;
+    width: 20px;
+    height: 20px;
+    background: url(${adminIco}) no-repeat;
+    background-size: 20px;
+  }
 `;
