@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { getCookie } from '@utils/cookies/cookies.ts';
 import { useEffect, useState } from 'react';
 import { logout } from '@apis/community/community.ts';
@@ -14,6 +14,7 @@ interface DecodedToken {
 const Utill = () => {
   const [isSocialLoggedIn, setIsSocialLoggedIn] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const checkToken = async () => {
@@ -33,6 +34,7 @@ const Utill = () => {
       setIsSocialLoggedIn(false);
       setIsAdmin(false);
       mutation.reset();
+      navigate('/');
     },
   });
 

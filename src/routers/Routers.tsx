@@ -74,24 +74,22 @@ const Routers = createBrowserRouter([
             <AdminPage />
           </PrivateRoute>
         ),
-        children: [
-          {
-            path: 'member',
-            element: (
-              <PrivateRoute>
-                <MemberListPage />
-              </PrivateRoute>
-            ),
-          },
-          {
-            path: 'community',
-            element: (
-              <PrivateRoute>
-                <CommunitySearchPage />
-              </PrivateRoute>
-            ),
-          },
-        ],
+      },
+      {
+        path: 'admin/member',
+        element: (
+          <PrivateRoute>
+            <MemberListPage />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: 'admin/community',
+        element: (
+          <PrivateRoute>
+            <CommunitySearchPage />
+          </PrivateRoute>
+        ),
       },
     ],
   },
