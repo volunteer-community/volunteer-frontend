@@ -27,13 +27,13 @@ const CommunityForm = ({ initialData, initialImageURLs, onSave, onUpadate }: Com
   );
   const { communityTitle, communityContent, categoryType, communityMaxParticipant, communityLocation, file } =
     postFormData;
-  console.log(file)
+  console.log(file);
   const isEmptyFormData =
     ![communityTitle, communityContent, categoryType, communityMaxParticipant, communityLocation].every(Boolean) ||
     file.length === 0;
-    
+
   const { isShown, setIsShown, handleCloseClick } = useShownModal();
-  
+
   const {
     validateStatus,
     validateMessage,
@@ -51,7 +51,7 @@ const CommunityForm = ({ initialData, initialImageURLs, onSave, onUpadate }: Com
     if (isEmptyFormData) return alert('모든 값은 입력이 필수 입니다.');
     if (!isEmptyFormData) setIsShown(true);
   };
-  
+
   const handleConfirmClick = () => {
     const formData = new FormData();
     const isExistFile = file;
@@ -76,7 +76,9 @@ const CommunityForm = ({ initialData, initialImageURLs, onSave, onUpadate }: Com
       const blob = new Blob([jsonFormData], { type: 'application/json' });
       formData.append('communityRequestDto', blob);
 
-      !communityId ? onSave?.({ communityData: formData, }) : onUpadate?.({communityData:formData, communityId:communityId});
+      !communityId
+        ? onSave?.({ communityData: formData })
+        : onUpadate?.({ communityData: formData, communityId: communityId });
       setPostFormData({
         communityTitle: '',
         categoryType: '',
@@ -105,7 +107,7 @@ const CommunityForm = ({ initialData, initialImageURLs, onSave, onUpadate }: Com
           type="text"
           name="communityTitle"
           labelText="커뮤니티 이름"
-          placeholder="커뮤니티 이름을 작성해주세요"
+          placeholder="커뮤니티 이름을 작성해주세요."
           onBlur={validateTitle}
           onChange={handleChange}
           value={postFormData.communityTitle}
@@ -159,7 +161,7 @@ const CommunityForm = ({ initialData, initialImageURLs, onSave, onUpadate }: Com
           value={postFormData.communityLocation}
           validateText={validateMessage.communityLocation}
           isValid={validateStatus.communityLocation}
-          ref={(ref) => communityFormRef('location', ref)}
+          ref={(ref) => communityFormRef('communityLocation', ref)}
         />
         <TextareaLabel
           name="communityContent"
@@ -171,7 +173,7 @@ const CommunityForm = ({ initialData, initialImageURLs, onSave, onUpadate }: Com
           onChange={handleChange}
           ref={(ref) => communityFormRef('communityContent', ref)}
           isValid={validateStatus.communityContent}
-          isPage='communityFormPage'
+          isPage="communityFormPage"
         />
         <S.BtnWrap>
           <S.StButton buttonText="제출하기" />
